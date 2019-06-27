@@ -15,7 +15,7 @@ public class CalculatorTest {
      * Testing addition
      */
     @Test
-    public void whenOnePlusOneThenTwo () {
+    public void whenOnePlusOneThenTwo() {
         Calculator calc = new Calculator();
         double expected = 2D;
         double result = calc.add(1D, 1D);
@@ -25,7 +25,7 @@ public class CalculatorTest {
      * Testing subtraction
      */
     @Test
-    public void whenTenMinSevenThenThree () {
+    public void whenTenMinSevenThenThree() {
         Calculator calc = new Calculator();
         double expected = 3D;
         double result = calc.subtract(10D, 7D);
@@ -35,7 +35,7 @@ public class CalculatorTest {
      * Testing division
      */
     @Test
-    public void whenTenDivFiveThenTwo () {
+    public void whenTenDivFiveThenTwo() {
         Calculator calc = new Calculator();
         double expected = 2D;
         double result = calc.div(10D, 5D);
@@ -45,7 +45,7 @@ public class CalculatorTest {
      * Testing multiplication
      */
     @Test
-    public void whenThreeMulTwoThenSix () {
+    public void whenThreeMulTwoThenSix() {
         Calculator calc = new Calculator();
         double expected = 6D;
         double result = calc.multiply(3D, 2D);
