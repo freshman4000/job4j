@@ -8,8 +8,8 @@ package ru.job4j.calculate;
 */
 public class Calculate {
 	/**
-	 *Method - main. Entrance point of class and application
-	 *@param - args. String array of incoming argument values
+	 *Method main entrance point of class and application
+	 *@param args string array of incoming argument values
 	*/
 	public static void main (String[] args) {
 		System.out.println("Hello World");
