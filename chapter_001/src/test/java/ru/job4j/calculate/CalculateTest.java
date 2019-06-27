@@ -15,13 +15,13 @@ public class CalculateTest {
 	/**
 	 *Test echo.
 	 */
-	 
-	 @Test
-	  public void ehenTakeNameThenThreeEchosPlusName() {
-	String input = "Vit Efremov";
-	String expect = "Echo, echo, echo : Vit Efremov";
-	Calculate calc = new Calculate();
-	String result = calc.echo(input);
-	assertThat(result, is(expect));
- }
+
+	@Test
+	public void whenTakeNameThenThreeEchosPlusName() {
+		String input = "Vit Efremov";
+		String expect = "Echo, echo, echo : Vit Efremov";
+		Calculate calc = new Calculate();
+		String result = calc.echo(input);
+		assertThat(result, is(expect));
+	}
 }
