@@ -26,7 +26,7 @@ public class Converter {
         return value * EURO;
     }
     /**
-     * Euro to Rub conversion
+     * Usd to Rub conversion
      */
     public int usdToRub(int value) {
         return value * USD;

@@ -28,7 +28,7 @@ public class ConverterTest {
         assertThat(result, is(expect));
     }
     /**
-     * Testing Rub to Eur
+     * Testing Euro to Rub
      */
     @Test
     public void whenTenEuroThenSevenHunRub() {
@@ -38,7 +38,7 @@ public class ConverterTest {
         assertThat(result, is(expect));
     }
     /**
-     * Testing Rub to Usd
+     * Testing Usd to Rub
      */
     @Test
     public void whenTenUsdThenSixHunRub() {
