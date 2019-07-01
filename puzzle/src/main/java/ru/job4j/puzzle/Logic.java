@@ -83,11 +83,11 @@ public class Logic {
 //        boolean result = false;
         int rowsum = 0;
         int colsum = 0;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < table.length; i++) {
             rowsum += table[row][i];//summing all "1"s in row
             colsum += table[i][col];//summing all "1"s in column
         }
-        //if row or column have sum of 5 then white cells are in row
+        //if row or column have sum of 5 then white cells are in a row
         return rowsum == 5 || colsum == 5;
     }
 
