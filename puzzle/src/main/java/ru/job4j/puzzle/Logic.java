@@ -88,7 +88,7 @@ public class Logic {
             colsum += table[i][col];//summing all "1"s in column
         }
         //if row or column have sum of 5 then white cells are in a row
-        return rowsum == 5 || colsum == 5;
+        return rowsum == table.length || colsum == table.length;
     }
 
     public int[][] convert() {
