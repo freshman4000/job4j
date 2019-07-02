@@ -5,5 +5,4 @@
 *@since 29.06.2019
 *@version 1
 */
-
 package ru.job4j.loop;

@@ -30,7 +30,7 @@ public class Calculator {
      * @param second number type double
      * @return quotient of first param (dividend) by second param(divisor) type double
      */
-    public double div(double first, double second) {
+    public double divide(double first, double second) {
         return first / second;
     }
     /**

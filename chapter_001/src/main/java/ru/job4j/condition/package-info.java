@@ -5,5 +5,4 @@
 *@since 28.06.2019
 *@version 1
 */
-
 package ru.job4j.condition;

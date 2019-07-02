@@ -38,7 +38,7 @@ public class CalculatorTest {
     public void whenTenDivFiveThenTwo() {
         Calculator calc = new Calculator();
         double expected = 2D;
-        double result = calc.div(10D, 5D);
+        double result = calc.divide(10D, 5D);
         assertThat(expected, is(result));
     }
     /**
