@@ -16,13 +16,28 @@ public class Point {
      */
     private int y;
     /**
+     * z coordinate.
+     */
+    private int z;
+    /**
      * Constructor
-     * @param first x coordinate
-     * @param second y coordinate
+     * @param first x coordinate.
+     * @param second y coordinate.
      */
     public Point(int first, int second) {
         this.x = first;
         this.y = second;
+    }
+    /**
+     * Overloaded Constructor
+     * @param first x coordinate.
+     * @param second y coordinate.
+     * @param third z coordinate.
+     */
+    public Point(int first, int second, int third) {
+        this.x = first;
+        this.y = second;
+        this.z = third;
     }
         /**
      * Method distance.
@@ -35,9 +50,26 @@ public class Point {
         return Math.sqrt(first + second);
     }
     /**
-     * Method info shows coordinates of the point.
+     * Method distance in 3d.
+     * @param that class Point object to which distance is calculated.
+     * @return distance between this point and that point.
+     */
+    public double distance3d(Point that) {
+        double first = Math.pow(this.x - that.x, 2);
+        double second = Math.pow(this.y - that.y, 2);
+        double third = Math.pow(this.z - that.z, 2);
+        return Math.sqrt(first + second + third);
+    }
+    /**
+     * Method info shows coordinates of the point in 2d.
      */
     public void info() {
         System.out.println(String.format("Point[%s, %s]", this.x, this.y));
+    }
+    /**
+     * Method info shows coordinates of the point in 3d.
+     */
+    public void info3d() {
+        System.out.println(String.format("Point[%s, %s, %s]", this.x, this.y, this.z));
     }
 }
