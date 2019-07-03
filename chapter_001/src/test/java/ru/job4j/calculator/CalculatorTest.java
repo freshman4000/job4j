@@ -18,8 +18,14 @@ public class CalculatorTest {
     public void whenOnePlusOneThenTwo() {
         Calculator calc = new Calculator();
         double expected = 2D;
+        double expected2 = 3D;
+        double expected3 = 4D;
         double result = calc.add(1D, 1D);
+        double result2 = calc.add(1D, 1D, 1D);
+        double result3 = calc.add(1D, 1D, 1D, 1D);
         assertThat(expected, is(result));
+        assertThat(expected2, is(result2));
+        assertThat(expected3, is(result3));
     }
     /**
      * Testing subtraction

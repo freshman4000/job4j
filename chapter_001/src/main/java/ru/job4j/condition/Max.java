@@ -14,7 +14,12 @@ public class Max {
      * @return biggest value
      */
     public int max(int left, int right) {
-        int result = left > right ? left : right;
-        return result;
+        return left > right ? left : right;
+    }
+    public int max(int left, int right, int up) {
+        return max(left, right) > up ? max(left, right) : right;
+    }
+    public int max(int left, int right, int up, int down) {
+        return max(left, right, up) > down ? max(left, right, up) : down;
     }
 }

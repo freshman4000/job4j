@@ -20,6 +20,24 @@ public class MaxTest {
      * Testing.
      */
     @Test
+    public void whenLeft10Right5Up3Then10() {
+        Max max = new Max();
+        int result = max.max(10, 5, 3);
+        assertThat(result, is(10));
+    }
+    /**
+     * Testing.
+     */
+    @Test
+    public void whenLeft10Right5Up3Down100Then100() {
+        Max max = new Max();
+        int result = max.max(10, 5, 3, 100);
+        assertThat(result, is(100));
+    }
+    /**
+     * Testing.
+     */
+    @Test
     public void whenLeft10Right10Then10() {
         Max max = new Max();
         int result = max.max(10, 10);
@@ -29,9 +47,18 @@ public class MaxTest {
      * Testing.
      */
     @Test
-    public void whenLeft5Right10Then10() {
+    public void whenLeft10Right10Up10Then10() {
         Max max = new Max();
-        int result = max.max(5, 10);
+        int result = max.max(10, 10, 10);
+        assertThat(result, is(10));
+    }
+    /**
+     * Testing.
+     */
+    @Test
+    public void whenLeft10Right10Up10Down10Then10() {
+        Max max = new Max();
+        int result = max.max(10, 10, 10, 10);
         assertThat(result, is(10));
     }
 }
