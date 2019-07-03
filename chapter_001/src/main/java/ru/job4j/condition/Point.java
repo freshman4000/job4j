@@ -4,20 +4,40 @@ package ru.job4j.condition;
  * class Point calculates distance between two points.
  * @author Vit Efremov.
  * @since 28.06.2019.
- * @version 1.0.
+ * @version 1.2.
  */
 public class Point {
     /**
-     *
-     * @param x1 coordinate x1 type int.
-     * @param y1 coordinate y1 type int.
-     * @param x2 coordinate x2 type int.
-     * @param y2 coordinate y2 type int.
-     * @return distance between (x2,y2) and (x1,y1).
+     * x coordinate.
      */
-    public double distance(int x1, int y1, int x2, int y2) {
-        double first = Math.pow(x2 - x1, 2);
-        double second = Math.pow(y2 - y1, 2);
+    private int x;
+    /**
+     * y coordinate.
+     */
+    private int y;
+    /**
+     * Constructor
+     * @param first x coordinate
+     * @param second y coordinate
+     */
+    public Point(int first, int second) {
+        this.x = first;
+        this.y = second;
+    }
+        /**
+     * Method distance.
+     * @param that class Point object to which distance is calculated.
+     * @return distance between this point and that point.
+     */
+        public double distance(Point that) {
+        double first = Math.pow(this.x - that.x, 2);
+        double second = Math.pow(this.y - that.y, 2);
         return Math.sqrt(first + second);
+    }
+    /**
+     * Method info shows coordinates of the point.
+     */
+    public void info() {
+        System.out.println(String.format("Point[%s, %s]", this.x, this.y));
     }
 }
