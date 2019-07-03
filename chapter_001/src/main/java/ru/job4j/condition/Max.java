@@ -20,6 +20,6 @@ public class Max {
         return max(left, right) > up ? max(left, right) : right;
     }
     public int max(int left, int right, int up, int down) {
-        return max(left, right, up) > down ? max(left, right, up) : down;
+        return max(max(left, right), max(up, down));
     }
 }
