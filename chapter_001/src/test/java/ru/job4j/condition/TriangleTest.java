@@ -1,6 +1,5 @@
 package ru.job4j.condition;
 
-import org.hamcrest.core.Is;
 import org.junit.Test;
 import static org.hamcrest.Matchers.closeTo;
 import static org.junit.Assert.*;
@@ -13,15 +12,15 @@ public class TriangleTest {
      */
     @Test
     public void whenOneTwoThreeThenThree() {
-        Triangle triangle = new Triangle();
-        assertThat(triangle.period(1.0, 2.0, 3.0), Is.is(3.0));
+        Triangle triangle = new Triangle(new Point(0, 0), new Point(0, 1), new Point(2, 0));
+        assertThat(triangle.period(), closeTo(2.61, 0.1));
     }
     /**
      * Testing area of triangle.
      */
     @Test
     public void whenAreaSetThreePointsThenTriangleArea() {
-        Triangle triangle = new Triangle();
-        assertThat(triangle.area(0, 0, 3, 0, 3, 3), closeTo(4.5, 0.1));
+        Triangle triangle = new Triangle(new Point(0, 0), new Point(3, 0), new Point(3, 3));
+        assertThat(triangle.area(), closeTo(4.5, 0.1));
     }
 }
