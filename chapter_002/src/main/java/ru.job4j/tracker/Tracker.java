@@ -76,29 +76,19 @@ public class Tracker {
      * @return array.
      */
     public Item[] findAll(){
-        Item[] result = this.items;
-        int count = 0;
-        for (int index = 0; index < this.items.length; index++) {
-            if (this.items[index] == null && index != items.length - 1 - count) {
-                count++;
-                System.arraycopy(items, index + 1, items, index, items.length - 1 - index);
-                items[items.length - 1 - count] = null;
+        return Arrays.copyOf(this.items, this.position);
             }
-        }
-        result = Arrays.copyOf(result, 100 - count - 1);
-        return result;
-    }
     /**
      * Finds Items by name and puts it to array.
      * @param key - searched items name.
      * @return array of found objects type Item.
      */
     public Item[] findByName(String key) {
-    Item[] result = new Item[100];
-    int position = 0;
-        for (Item item : this.items) {
-        if (item != null && item.getName().equals(key)) {
-            result[position++] = item;
+    Item[] result = new Item[this.position];
+    int count = 0;
+        for (int index = 0; index != this.position; index++) {
+        if (this.items[index].getName().equals(key)) {
+            result[count++] = this.items[index];
         }
     }
         return result;
@@ -110,10 +100,12 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        for (Item item : this.items) {
-            if (item != null && item.getId().equals(id)) {
-                result = item;
-                break;
+        if (this.items.length != 0) {
+            for (Item item : this.items) {
+                if (item != null && item.getId().equals(id)) {
+                    result = item;
+                    break;
+                }
             }
         }
         return result;

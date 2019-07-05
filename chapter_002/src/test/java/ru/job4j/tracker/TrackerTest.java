@@ -61,7 +61,7 @@ public class TrackerTest {
         Assert.assertThat(tracker.findById(third.getId()).getId(), Is.is(thirdId));
     }
     /**
-     * Testing search by name.
+     * Testing search by not nulls.
      */
     @Test
     public void whenFindAllThenReturnArrayNoNulls() {
@@ -95,7 +95,7 @@ public class TrackerTest {
         Assert.assertThat(tracker.findByName(searchName)[1], IsEqual.equalTo(third));
     }
     /**
-     * Testing search by id.
+     * Testing search by id not null array.
      */
     @Test
     public void whenFindByIdThenReturnItem() {
@@ -116,6 +116,14 @@ public class TrackerTest {
         Assert.assertThat(tracker.findById(secondId), IsEqual.equalTo(second));
         Assert.assertThat(tracker.findById(thirdId).getName(), Is.is(thirdName));
         Assert.assertThat(tracker.findById(firstId).getDesc(), Is.is(firstDesc));
+        Assert.assertThat(tracker.findById("xxx"), IsEqual.equalTo(null));
+    }
+    /**
+     * Testing search by id in empty array.
+     */
+    @Test
+    public void whenFindByIdInEmptyArrayThenReturnNull() {
+        Tracker tracker = new Tracker();
         Assert.assertThat(tracker.findById("xxx"), IsEqual.equalTo(null));
     }
 }
