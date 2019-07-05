@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -51,19 +52,70 @@ public class Tracker {
         }
         return result;
     }
-//    public boolean delete(String id, Item item) {}
-//    public Item[] findAll(){}
-//    public Item[] findByName(String key) {}
-    public Item findById(String id) {
-        Item item = null;
+    /**
+     * Deletes item with given id from items[].
+     * @param id of the item that needs to be deleted.
+     * @return if replacement took place.
+     */
+    public boolean delete(String id) {
+        boolean result = false;
         for (int index = 0; index < this.items.length; index++) {
             if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                item = this.items[index];
+                System.arraycopy(items, index + 1, items, index, items.length - 1 - index);
+                items[items.length - 1] = null;
+                position--;
+                result = true;
                 break;
             }
         }
-        return item;
+        return result;
     }
 
-
+    /**
+     * Creates new array with all not null elements.
+     * @return array.
+     */
+    public Item[] findAll(){
+        Item[] result = this.items;
+        int count = 0;
+        for (int index = 0; index < this.items.length; index++) {
+            if (this.items[index] == null && index != items.length - 1 - count) {
+                count++;
+                System.arraycopy(items, index + 1, items, index, items.length - 1 - index);
+                items[items.length - 1 - count] = null;
+            }
+        }
+        result = Arrays.copyOf(result, 100 - count - 1);
+        return result;
+    }
+    /**
+     * Finds Items by name and puts it to array.
+     * @param key - searched items name.
+     * @return array of found objects type Item.
+     */
+    public Item[] findByName(String key) {
+    Item[] result = new Item[100];
+    int position = 0;
+        for (Item item : this.items) {
+        if (item != null && item.getName().equals(key)) {
+            result[position++] = item;
+        }
+    }
+        return result;
+}
+    /**
+     * Finds Item by id.
+     * @param id of searched item.
+     * @return object type Item.
+     */
+    public Item findById(String id) {
+        Item result = null;
+        for (Item item : this.items) {
+            if (item != null && item.getId().equals(id)) {
+                result = item;
+                break;
+            }
+        }
+        return result;
+    }
 }
