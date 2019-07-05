@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.text.SimpleDateFormat;
 import java.util.Objects;
 /**
  * Class Item represents the instance of order - the main data cell in database - items[].
@@ -25,7 +26,17 @@ public class Item {
      */
     private long time;
     /**
-     * Constructor.
+     * Constructor auto time.
+     * @param name of order.
+     * @param desc - description of order.
+     */
+    public Item(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+        this.time = System.currentTimeMillis();
+    }
+    /**
+     * Constructor manual time.
      * @param name of order.
      * @param desc - description of order.
      * @param time - time of order compilation.
@@ -35,7 +46,6 @@ public class Item {
         this.desc = desc;
         this.time = time;
     }
-
     /**
      * Getter.
      * @return name of order.
@@ -103,5 +113,15 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, desc, time);
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss");
+        return String.format(
+                "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n",
+                "ID заявки:", this.getId(), "Имя заявки:", this.getName(),
+                "Описание заявки:", this.getDesc(),
+                "Время заявки:", sdf.format(this.getTime()));
     }
 }

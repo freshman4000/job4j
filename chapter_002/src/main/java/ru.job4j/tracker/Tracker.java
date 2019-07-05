@@ -91,7 +91,7 @@ public class Tracker {
             result[count++] = this.items[index];
         }
     }
-        return result;
+        return count > 0 ? result : new Item[0];
 }
     /**
      * Finds Item by id.

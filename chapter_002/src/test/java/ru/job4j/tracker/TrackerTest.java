@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-
 import org.junit.Test;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsEqual;
