@@ -26,21 +26,21 @@ public class StartUI {
      * Shows user menu in cycle.
      */
     private void showMenu() {
-        System.out.println("0. Add new Item\r\n" +
-                "1. Show all items\r\n"+
-                "2. Edit item\r\n"+
-                "3. Delete item\r\n"+
-                "4. Find item by Id\r\n"+
-                "5. Find items by name\r\n"+
-                "6. Exit Program\r\n"+
-                "Select:\r\n");
+        System.out.println("0. Add new Item\r\n"
+                + "1. Show all items\r\n"
+                + "2. Edit item\r\n"
+                + "3. Delete item\r\n"
+                + "4. Find item by Id\r\n"
+                + "5. Find items by name\r\n"
+                + "6. Exit Program\r\n"
+                + "Select:\r\n");
     }
     /**
      *Method init initialises UI and keeps track on users input.
      */
     public void init() {
         boolean exit = false;
-        while(!exit) {
+        while (!exit) {
             this.showMenu();
             String answer = input.ask("Choose menu number: ");
             switch (answer) {
@@ -57,6 +57,8 @@ public class StartUI {
                 case FINDN : this.findByName();
                             break;
                 case EXIT : exit = true;
+                            break;
+                            default:
             }
         }
     }
@@ -64,84 +66,83 @@ public class StartUI {
      * Adds item to database.
      */
     private void createItem() {
-        System.out.println("------------ Добавление новой заявки --------------");
-        String name = this.input.ask("Введите имя заявки :");
-        String desc = this.input.ask("Введите описание заявки :");
+        System.out.println("------------ New item addition --------------");
+        String name = this.input.ask("Type name :");
+        String desc = this.input.ask("Type description :");
         Item item = new Item(name, desc);
         this.tracker.add(item);
-        System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
+        System.out.println("------------ New item with Id : " + item.getId() + "-----------");
     }
     /**
      * Removes item from database.
      */
     private void deleteItem() {
-        System.out.println("------------ Удаление заявки --------------");
-        String id = input.ask("Введите id заявки :");
-        if (this.tracker.findById(id)!= null) {
-            System.out.println("Следующая завка была удалена:");
+        System.out.println("------------ Item removal --------------");
+        String id = input.ask("Type item id :");
+        if (this.tracker.findById(id) != null) {
+            System.out.println("The following item was deleted :");
             System.out.println(this.tracker.findById(id));
             this.tracker.delete(id);
         } else {
-            System.out.println("--- Заявка с Id : " + id + " не найдена. Попробуйте указать другой id ---");
+            System.out.println("--- Item Id : " + id + " not found. Try different id ---");
         }
     }
     /**
      * Shows not null items from database.
      */
     private void showItems() {
-        System.out.println("------------ Показ всех заявок --------------");
+        System.out.println("------------ Showing all items --------------");
         if (this.tracker.findAll().length != 0) {
             for (Item items : this.tracker.findAll()) {
                 System.out.println(items.toString());
             }
-        }
-        else {
-            System.out.println("--- Список заявок пуст. Пробуйте добавить заявку. ---");
+        } else {
+            System.out.println("--- List is empty. Try to add item. ---");
         }
     }
     /**
      * Edits and changes item data in database.
      */
     private void editItem() {
-            System.out.println("------------ Изменение заявки --------------");
-            String id = this.input.ask("Введите id заявки :");
-            String name = this.input.ask("Внесите изменения в имя заявки :");
-            String desc = this.input.ask("Внесите изменения в описание заявки :");
+            System.out.println("------------ Item update --------------");
+            String id = this.input.ask("Type item id :");
+            String name = this.input.ask("Update name :");
+            String desc = this.input.ask("Update description :");
             Item item = new Item(name, desc);
             if (this.tracker.replace(id, item)) {
                 item.setId(id);
-                System.out.println("------------ Заявка с Id : " + item.getId() + "изменена -----------");
-            }
-            else {
-                System.out.println("--- Заявка с Id : " + id + " не найдена. Попробуйте указать другой id ---");
+                System.out.println("------------ Item Id : " + item.getId() + "was updated -----------");
+            } else {
+                System.out.println("--- Item Id : " + id + " not found. Try different id ---");
             }
         }
     /**
      * Finds item in database by id.
      */
     private void findById() {
-        System.out.println("------------ Поиск заявок --------------");
-        String id = input.ask("Введите id заявки :");
-        if (this.tracker.findById(id)!= null) {
+        System.out.println("------------ Items search --------------");
+        String id = input.ask("Type item id :");
+        if (this.tracker.findById(id) != null) {
             Item item = this.tracker.findById(id);
             System.out.println(item.toString());
             } else {
-            System.out.println("--- Заявка с Id : " + id + " не найдена. Попробуйте указать другой id ---");
+            System.out.println("--- Item Id : " + id + " not found. Specify different id ---");
         }
     }
     /**
      * Finds items in database by name.
      */
     private void findByName() {
-        System.out.println("------------ Показ всех заявок с указанным именем --------------");
-        String name = input.ask("Введите имя заявки :");
+        System.out.println("------------ Show all items with given name --------------");
+        String name = input.ask("Type item name :");
         if (this.tracker.findByName(name).length != 0) {
             for (Item items : this.tracker.findByName(name)) {
-               if(items != null) {
+               if (items != null) {
                    System.out.println(items.toString());
                }
             }
-        } else { System.out.println("--- Список заявок пуст. Пробуйте добавить заявку ---");
+        } else {
+            System.out.println("--- List is empty. Try to add new item ---");
         }
     }
     /**

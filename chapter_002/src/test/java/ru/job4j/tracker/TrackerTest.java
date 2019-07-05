@@ -15,7 +15,7 @@ public class TrackerTest {
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
         long created = System.currentTimeMillis();
-        Item item = new Item("test1","testDescription",created);
+        Item item = new Item("test1", "testDescription", created);
         tracker.add(item);
         Item result = tracker.findById(item.getId());
         Assert.assertThat(result.getName(), Is.is(item.getName()));
@@ -26,11 +26,11 @@ public class TrackerTest {
     @Test
     public void whenReplaceNameThenReturnNewName() {
         Tracker tracker = new Tracker();
-        Item previous = new Item("test1","testDescription",123L);
+        Item previous = new Item("test1", "testDescription", 123L);
         // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
         tracker.add(previous);
         // Создаем новую заявку.
-        Item next = new Item("test2","testDescription2",1234L);
+        Item next = new Item("test2", "testDescription2", 1234L);
         // Проставляем старый id из previous, который был сгенерирован выше.
         next.setId(previous.getId());
         // Обновляем заявку в трекере.
@@ -44,9 +44,9 @@ public class TrackerTest {
     @Test
     public void whenDeleteNameThenReturnItemNull() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1","testDescription",123L);
-        Item second = new Item("test2","testDescription2",1234L);
-        Item third = new Item("test3","testDescription3",12345L);
+        Item first = new Item("test1", "testDescription", 123L);
+        Item second = new Item("test2", "testDescription2", 1234L);
+        Item third = new Item("test3", "testDescription3", 12345L);
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
@@ -65,9 +65,9 @@ public class TrackerTest {
     @Test
     public void whenFindAllThenReturnArrayNoNulls() {
         Tracker tracker = new Tracker();
-        Item first = new Item("sameName","testDescription",123L);
-        Item second = new Item("noTsameName","testDescription2",1234L);
-        Item third = new Item("sameName","testDescription3",12345L);
+        Item first = new Item("sameName", "testDescription", 123L);
+        Item second = new Item("noTsameName", "testDescription2", 1234L);
+        Item third = new Item("sameName", "testDescription3", 12345L);
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
@@ -83,9 +83,9 @@ public class TrackerTest {
     @Test
     public void whenFindByNameThenReturnArrayItem() {
         Tracker tracker = new Tracker();
-        Item first = new Item("sameName","testDescription",123L);
-        Item second = new Item("noTsameName","testDescription2",1234L);
-        Item third = new Item("sameName","testDescription3",12345L);
+        Item first = new Item("sameName", "testDescription", 123L);
+        Item second = new Item("noTsameName", "testDescription2", 1234L);
+        Item third = new Item("sameName", "testDescription3", 12345L);
         tracker.add(first);
         tracker.add(second);
         tracker.add(third);
@@ -99,10 +99,10 @@ public class TrackerTest {
     @Test
     public void whenFindByIdThenReturnItem() {
         Tracker tracker = new Tracker();
-        Item first = new Item("test1","testDescription",123L);
-        Item second = new Item("test2","testDescription2",1234L);
-        Item third = new Item("test3","testDescription3",12345L);
-        Item forth = new Item("notInStackName","notInStackDescription",10L);
+        Item first = new Item("test1", "testDescription", 123L);
+        Item second = new Item("test2", "testDescription2", 1234L);
+        Item third = new Item("test3", "testDescription3", 12345L);
+        Item forth = new Item("notInStackName", "notInStackDescription", 10L);
         forth.setId("xxx");
         tracker.add(first);
         tracker.add(second);

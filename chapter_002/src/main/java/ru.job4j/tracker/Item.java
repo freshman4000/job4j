@@ -98,13 +98,17 @@ public class Item {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Item item = (Item) o;
-        return time == item.time &&
-                Objects.equals(id, item.id) &&
-                Objects.equals(name, item.name) &&
-                Objects.equals(desc, item.desc);
+        return time == item.time
+                && Objects.equals(id, item.id)
+                && Objects.equals(name, item.name)
+                && Objects.equals(desc, item.desc);
     }
     /**
      * Method that returns the unique hash of the object
@@ -120,8 +124,8 @@ public class Item {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss");
         return String.format(
                 "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n",
-                "ID заявки:", this.getId(), "Имя заявки:", this.getName(),
-                "Описание заявки:", this.getDesc(),
-                "Время заявки:", sdf.format(this.getTime()));
+                "Item ID :", this.getId(), "Item name :", this.getName(),
+                "Item description :", this.getDesc(),
+                "Time item added :", sdf.format(this.getTime()));
     }
 }

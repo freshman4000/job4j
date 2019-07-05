@@ -9,16 +9,16 @@ import java.util.Random;
  */
 public class Tracker {
     /**
-     * массив для хранения заявок.
+     * Items array.
      */
     private Item[] items = new Item[100];
     /**
-    * Указатель ячейки для новой заявки.
+    * Order number of new item.
     */
     private int position = 0;
     /**
-     * Метод реализаущий добавление заявки в хранилище
-     * @param item новая заявка
+     * Method adds new item to database.
+     * @param item new item.
      */
     public Item add(Item item) {
         item.setId(this.generateId());
@@ -26,9 +26,9 @@ public class Tracker {
         return item;
     }
     /**
-     * Метод генерирует уникальный ключ для заявки.
-     * Так как у заявки нет уникальности полей, имени и описание. Для идентификации нам нужен уникальный ключ.
-     * @return Уникальный ключ.
+     * Method that generates unique id for item..
+     * As well as item doesn't have unique fields, name and description, we need unique key for identification.
+     * @return Unique key.
      */
     private String generateId() {
         Random random = new Random();
@@ -75,7 +75,7 @@ public class Tracker {
      * Creates new array with all not null elements.
      * @return array.
      */
-    public Item[] findAll(){
+    public Item[] findAll() {
         return Arrays.copyOf(this.items, this.position);
             }
     /**
