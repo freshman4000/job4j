@@ -79,11 +79,9 @@ public class StartUI {
     private void deleteItem() {
         System.out.println("------------ Item removal --------------");
         String id = input.ask("Type item id :");
-        if (this.tracker.findById(id) != null) {
-            System.out.println("The following item was deleted :");
-            System.out.println(this.tracker.findById(id));
-            this.tracker.delete(id);
-        } else {
+        if (this.tracker.delete(id)) {
+            System.out.println("Item was deleted :");
+            } else {
             System.out.println("--- Item Id : " + id + " not found. Try different id ---");
         }
     }
