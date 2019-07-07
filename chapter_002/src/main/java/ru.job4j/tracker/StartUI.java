@@ -26,14 +26,14 @@ public class StartUI {
      * Shows user menu in cycle.
      */
     private void showMenu() {
-        System.out.println("0. Add new Item\r\n"
-                + "1. Show all items\r\n"
-                + "2. Edit item\r\n"
-                + "3. Delete item\r\n"
-                + "4. Find item by Id\r\n"
-                + "5. Find items by name\r\n"
-                + "6. Exit Program\r\n"
-                + "Select:\r\n");
+        System.out.println("0. Add new Item" + System.lineSeparator()
+                + "1. Show all items" + System.lineSeparator()
+                + "2. Edit item" + System.lineSeparator()
+                + "3. Delete item" + System.lineSeparator()
+                + "4. Find item by Id" + System.lineSeparator()
+                + "5. Find items by name" + System.lineSeparator()
+                + "6. Exit Program" + System.lineSeparator()
+                + "Select:");
     }
     /**
      *Method init initialises UI and keeps track on users input.

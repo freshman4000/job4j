@@ -1,9 +1,213 @@
 package ru.job4j.tracker;
+import java.text.SimpleDateFormat;
+
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
 import org.hamcrest.core.Is;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class StartUITest {
+    private final PrintStream stdout = System.out;
+    private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    @Before
+    public void loadOutput() {
+        System.setOut(new PrintStream(out));
+    }
+    @After
+    public void loadDefaultOutput() {
+        System.setOut(stdout);
+    }
+    /**
+     * Show items testing when stack is not empty.
+     */
+    @Test
+    public void whenShowAllThenShowItems() {
+        String[] answers = new String[]{"1", "6"};
+        Tracker tracker = new Tracker();
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        Item item = tracker.add(new Item("n1", "d1"));
+        startUI.init();
+        String itemShowUp = item.toString();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                          "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Showing all items --------------" + System.lineSeparator()
+                        + itemShowUp + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
+    /**
+     * Show items testing when stack is empty.
+     */
+    @Test
+    public void whenShowAllInEmptyThenShowMessage() {
+        String[] answers = new String[]{"1", "6"};
+        Tracker tracker = new Tracker();
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        startUI.init();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Showing all items --------------" + System.lineSeparator()
+                        + "--- List is empty. Try to add item. ---" + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
+    /**
+     * FindById() testing when id in list.
+     */
+    @Test
+    public void whenFindIdThenShowItemsWithId() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("n1", "d1"));
+        String id = item.getId();
+        String[] answers = new String[]{"4", id, "6"};
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        startUI.init();
+        String itemShowUp = item.toString();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Items search --------------" + System.lineSeparator()
+                        + itemShowUp + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
+    /**
+     * FindById() testing when id NOT in list.
+     */
+    @Test
+    public void whenFindIdThenShowMess() {
+        Tracker tracker = new Tracker();
+        String[] answers = new String[]{"4", "xxx", "6"};
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        startUI.init();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Items search --------------" + System.lineSeparator()
+                        + "--- Item Id : " + "xxx" + " not found. Specify different id ---" + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
+    /**
+     * Testing search by name with names present.
+     */
+    @Test
+    public void whenFindNameThenShowItemsWithName() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("n1", "d1"));
+        Item item2 = tracker.add(new Item("n1", "d2"));
+        String name = item.getName();
+        String[] answers = new String[]{"5", name, "6"};
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        startUI.init();
+        String itemShowUp = item.toString();
+        String item2ShowUp = item2.toString();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Show all items with given name --------------" + System.lineSeparator()
+                        + itemShowUp + System.lineSeparator()
+                        + item2ShowUp + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
+    /**
+     * Testing search by name with NO names present.
+     */
+    @Test
+    public void whenFindNoNameThenShowMess() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("n1", "d1"));
+        Item item2 = tracker.add(new Item("n1", "d2"));
+        String[] answers = new String[]{"5", "xxx", "6"};
+        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        startUI.init();
+        Assert.assertThat(new String(out.toByteArray()), Is.is(
+                "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()
+                        + "------------ Show all items with given name --------------" + System.lineSeparator()
+                        + "--- List is empty. Try to add new item ---" + System.lineSeparator()
+                        + "0. Add new Item" + System.lineSeparator()
+                        + "1. Show all items" + System.lineSeparator()
+                        + "2. Edit item" + System.lineSeparator()
+                        + "3. Delete item" + System.lineSeparator()
+                        + "4. Find item by Id" + System.lineSeparator()
+                        + "5. Find items by name" + System.lineSeparator()
+                        + "6. Exit Program" + System.lineSeparator()
+                        + "Select:" + System.lineSeparator()));
+    }
     /**
      * createItem() testing.
      */

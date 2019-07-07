@@ -123,7 +123,8 @@ public class Item {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd 'at' HH:mm:ss");
         return String.format(
-                "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n" + "--- %s %s ---\r\n",
+                "--- %s %s ---" + System.lineSeparator() + "--- %s %s ---" + System.lineSeparator()
+                        + "--- %s %s ---" + System.lineSeparator() + "--- %s %s ---" + System.lineSeparator(),
                 "Item ID :", this.getId(), "Item name :", this.getName(),
                 "Item description :", this.getDesc(),
                 "Time item added :", sdf.format(this.getTime()));
