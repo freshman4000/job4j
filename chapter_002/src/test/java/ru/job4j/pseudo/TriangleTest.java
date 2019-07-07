@@ -15,9 +15,9 @@ public class TriangleTest {
     public void whenTrThenTr() {
         Triangle triangle = new Triangle();
         String result = triangle.draw();
-        Assert.assertThat(result, Is.is(new StringBuilder().append("   +\n\r")
-                                                           .append("  + +\n\r")
-                                                           .append(" +   +\n\r")
-                                                           .append("+++++++\n\r").toString()));
+        Assert.assertThat(result, Is.is(new StringBuilder().append("   +").append(System.lineSeparator())
+                                                           .append("  + +").append(System.lineSeparator())
+                                                           .append(" +   +").append(System.lineSeparator())
+                                                           .append("+++++++").toString()));
     }
 }

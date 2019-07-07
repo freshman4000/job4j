@@ -10,10 +10,10 @@ public class Triangle implements Shape{
      */
     public String draw() {
         StringBuilder sb = new StringBuilder();
-        sb.append("   +\n\r");
-        sb.append("  + +\n\r");
-        sb.append(" +   +\n\r");
-        sb.append("+++++++\n\r");
+        sb.append("   +").append(System.lineSeparator());
+        sb.append("  + +").append(System.lineSeparator());
+        sb.append(" +   +").append(System.lineSeparator());
+        sb.append("+++++++");
         return sb.toString();
     }
 }
