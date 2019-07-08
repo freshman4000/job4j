@@ -13,6 +13,14 @@ import java.io.PrintStream;
 public class StartUITest {
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private final String menu =
+            "0. Add new Item" + System.lineSeparator()
+                    + "1. Show all items" + System.lineSeparator()
+                    + "2. Edit item" + System.lineSeparator()
+                    + "3. Delete item" + System.lineSeparator()
+                    + "4. Find item by Id" + System.lineSeparator()
+                    + "5. Find items by name" + System.lineSeparator()
+                    + "6. Exit Program" + System.lineSeparator();
     @Before
     public void loadOutput() {
         System.setOut(new PrintStream(out));
@@ -32,23 +40,10 @@ public class StartUITest {
         Item item = tracker.add(new Item("n1", "d1"));
         startUI.init();
         String itemShowUp = item.toString();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
-                          "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+        Assert.assertThat(new String(out.toByteArray()), Is.is(menu
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
@@ -61,22 +56,10 @@ public class StartUITest {
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
-                "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                menu
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add item. ---" + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
@@ -92,22 +75,10 @@ public class StartUITest {
         startUI.init();
         String itemShowUp = item.toString();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
-                "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                menu
                         + "------------ Items search --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
@@ -120,22 +91,10 @@ public class StartUITest {
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
-                "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                menu
                         + "------------ Items search --------------" + System.lineSeparator()
                         + "--- Item Id : " + "xxx" + " not found. Specify different id ---" + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
@@ -153,23 +112,11 @@ public class StartUITest {
         String itemShowUp = item.toString();
         String item2ShowUp = item2.toString();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
-                "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                menu
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
                         + item2ShowUp + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
@@ -184,22 +131,10 @@ public class StartUITest {
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
-                "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                menu
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add new item ---" + System.lineSeparator()
-                        + "0. Add new Item" + System.lineSeparator()
-                        + "1. Show all items" + System.lineSeparator()
-                        + "2. Edit item" + System.lineSeparator()
-                        + "3. Delete item" + System.lineSeparator()
-                        + "4. Find item by Id" + System.lineSeparator()
-                        + "5. Find items by name" + System.lineSeparator()
-                        + "6. Exit Program" + System.lineSeparator()
+                        + menu
                         + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
