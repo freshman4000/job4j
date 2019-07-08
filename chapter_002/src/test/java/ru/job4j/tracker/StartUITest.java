@@ -26,7 +26,7 @@ public class StartUITest {
      */
     @Test
     public void whenShowAllThenShowItems() {
-        String[] answers = new String[]{"1", "6"};
+        String[] answers = new String[]{"1", "n", "6", "y"};
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         Item item = tracker.add(new Item("n1", "d1"));
@@ -40,7 +40,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
                         + "0. Add new Item" + System.lineSeparator()
@@ -50,14 +49,14 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * Show items testing when stack is empty.
      */
     @Test
     public void whenShowAllInEmptyThenShowMessage() {
-        String[] answers = new String[]{"1", "6"};
+        String[] answers = new String[]{"1", "n", "6", "y"};
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
@@ -69,7 +68,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add item. ---" + System.lineSeparator()
                         + "0. Add new Item" + System.lineSeparator()
@@ -79,7 +77,7 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * FindById() testing when id in list.
@@ -89,7 +87,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("n1", "d1"));
         String id = item.getId();
-        String[] answers = new String[]{"4", id, "6"};
+        String[] answers = new String[]{"4", id, "n", "6", "y"};
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         String itemShowUp = item.toString();
@@ -101,7 +99,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Items search --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
                         + "0. Add new Item" + System.lineSeparator()
@@ -111,7 +108,7 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * FindById() testing when id NOT in list.
@@ -119,7 +116,7 @@ public class StartUITest {
     @Test
     public void whenFindIdThenShowMess() {
         Tracker tracker = new Tracker();
-        String[] answers = new String[]{"4", "xxx", "6"};
+        String[] answers = new String[]{"4", "xxx", "n", "6", "y"};
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
@@ -130,7 +127,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Items search --------------" + System.lineSeparator()
                         + "--- Item Id : " + "xxx" + " not found. Specify different id ---" + System.lineSeparator()
                         + "0. Add new Item" + System.lineSeparator()
@@ -140,7 +136,7 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * Testing search by name with names present.
@@ -151,7 +147,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("n1", "d1"));
         Item item2 = tracker.add(new Item("n1", "d2"));
         String name = item.getName();
-        String[] answers = new String[]{"5", name, "6"};
+        String[] answers = new String[]{"5", name, "n", "6", "y"};
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         String itemShowUp = item.toString();
@@ -164,7 +160,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
                         + item2ShowUp + System.lineSeparator()
@@ -175,7 +170,7 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * Testing search by name with NO names present.
@@ -185,7 +180,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("n1", "d1"));
         Item item2 = tracker.add(new Item("n1", "d2"));
-        String[] answers = new String[]{"5", "xxx", "6"};
+        String[] answers = new String[]{"5", "xxx", "n", "6", "y"};
         StartUI startUI = new StartUI(tracker, new StubInput(answers));
         startUI.init();
         Assert.assertThat(new String(out.toByteArray()), Is.is(
@@ -196,7 +191,6 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add new item ---" + System.lineSeparator()
                         + "0. Add new Item" + System.lineSeparator()
@@ -206,14 +200,14 @@ public class StartUITest {
                         + "4. Find item by Id" + System.lineSeparator()
                         + "5. Find items by name" + System.lineSeparator()
                         + "6. Exit Program" + System.lineSeparator()
-                        + "Select:" + System.lineSeparator()));
+                        + "------------ Exiting program. Are you sure? --------------" + System.lineSeparator()));
     }
     /**
      * createItem() testing.
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
-        String[] answers = new String[]{"0", "name1", "desc1", "0", "name2", "desc2", "6"};
+        String[] answers = new String[]{"0", "name1", "desc1", "n", "0", "name2", "desc2", "n", "6", "y"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI(tracker, input);
@@ -232,7 +226,7 @@ public class StartUITest {
     public void whenUserDeleteItemThenTrackerHasNextItem() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("name1", "desc1"));
-        String[] answers = new String[]{"0", "name2", "desc2", "3", item.getId(), "6"};
+        String[] answers = new String[]{"0", "name2", "desc2", "n", "3", item.getId(), "n", "6", "y"};
         Input input = new StubInput(answers);
         StartUI startUI = new StartUI(tracker, input);
         startUI.init();
@@ -251,7 +245,7 @@ public class StartUITest {
         //Напрямую добавляем заявку
         Item item = tracker.add(new Item("test name", "desc"));
         //создаём StubInput с последовательностью действий(производим замену заявки)
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
+        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "n", "6", "y"});
         // создаём StartUI и вызываем метод init()
         new StartUI(tracker, input).init();
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
