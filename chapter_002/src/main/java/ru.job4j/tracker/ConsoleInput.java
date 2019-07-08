@@ -12,20 +12,23 @@ public class ConsoleInput implements Input {
     @Override
     public String ask(String question) {
         System.out.println(question);
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
     public int ask(String question, List range) {
         int key = Integer.valueOf(this.ask(question));
         boolean exist = false;
         for (Object value : range) {
-            if ((Integer)value == key) {
+            if ((Integer) value == key) {
                 exist = true;
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else throw new MenuOutOfBoundsException("Input number is out of menu range. Type number from 0 to " + (range.size() - 1));
+        if (!exist) {
+            throw new MenuOutOfBoundsException("Input number is out of menu range. Type number from 0 to " + (range.size() - 1));
+        }
+        return key;
     }
 }
+
