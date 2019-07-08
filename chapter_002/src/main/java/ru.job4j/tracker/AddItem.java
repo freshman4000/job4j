@@ -23,7 +23,7 @@ public class AddItem implements UserAction {
      */
     public AddItem(int key, String message) {
         this.key = key;
-        this.message = key +". "+ message;
+        this.message = key + ". " + message;
     }
     /**
      * Method that returns actions key.

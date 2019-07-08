@@ -19,7 +19,6 @@ public class MenuTracker {
      * List of saved actions.
      */
     private List<UserAction> actions = new ArrayList<>();
-
     /**
      * Constructor.
      */

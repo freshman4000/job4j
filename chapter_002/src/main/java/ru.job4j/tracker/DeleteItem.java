@@ -21,7 +21,7 @@ public class DeleteItem implements UserAction {
      */
     public DeleteItem(int key, String message) {
         this.key = key;
-        this.message = key +". "+ message;
+        this.message = key + ". " + message;
     }
     /**
      * Method that returns actions key.

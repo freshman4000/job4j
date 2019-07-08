@@ -22,7 +22,7 @@ public class UpdateItem implements UserAction {
      */
     public UpdateItem(int key, String message) {
         this.key = key;
-        this.message = key +". "+ message;
+        this.message = key + ". " + message;
     }
     /**
      * Method that returns actions key.

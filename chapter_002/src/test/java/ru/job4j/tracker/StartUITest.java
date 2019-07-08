@@ -1,5 +1,4 @@
 package ru.job4j.tracker;
-import java.text.SimpleDateFormat;
 
 import org.junit.Before;
 import org.junit.After;

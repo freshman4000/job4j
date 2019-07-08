@@ -22,7 +22,7 @@ public class FindItemByName implements UserAction {
      */
     public FindItemByName(int key, String message) {
         this.key = key;
-        this.message = key +". "+ message;
+        this.message = key + ". " + message;
     }
     /**
      * Method that returns actions key.
