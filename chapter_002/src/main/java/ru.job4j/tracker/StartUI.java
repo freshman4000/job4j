@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class StartUI Tracker app. entrance point which starts up user interface.
  */
@@ -19,21 +22,23 @@ public class StartUI {
      *Method init initialises UI and keeps track on users input.
      */
     public void init() {
-        MenuTracker menuTracker = new MenuTracker(this.input, this.tracker);
-        menuTracker.fillActions();
-        int range = menuTracker.getActionsLength();
-        do {
-            menuTracker.show();
-            menuTracker.select(this.input.ask("Select:", range));
+        MenuTracker menu = new MenuTracker(this.input, this.tracker);
+        List<Integer> range = new ArrayList<>();
+        menu.fillActions();
+        for (int i = 0; i < menu.getActionsLength(); i++) {
+            range.add(i);
         }
-        while (!"y".equals(this.input.ask("Exit?(y)")));
+        do {
+            menu.show();
+            menu.select(input.ask("select:", range));
+        } while (!"y".equals(this.input.ask("Exit?(y): ")));
     }
     /**
      * Method main.
      * @param args - incoming array of args.
      */
     public static void main(String[] args) {
-        new StartUI(new Tracker(), new ValidateInput()).init();
+        new StartUI(new Tracker(), new ValidateInput(new ConsoleInput())).init();
     }
 }
 
