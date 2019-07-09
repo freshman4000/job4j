@@ -32,16 +32,30 @@ public class ValidateInputTest {
         System.setOut(this.out);
     }
     @Test
-    public void whenInvalidInput() {
+    public void whenInvalidInputText() {
         ValidateInput input = new ValidateInput(
                 new StubInput(new String[] {"invalid", "1", "y"})
         );
-        ArrayList list1 = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
+        ArrayList <Integer> list1 = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
         input.ask("Enter", list1);
         assertThat(
                 this.mem.toString(),
                 is(
                         "Input should be a number, not a text" + System.lineSeparator()
+                )
+        );
+    }
+    @Test
+    public void whenInvalidInputRange() {
+        ValidateInput input = new ValidateInput(
+                new StubInput(new String[] {"100", "1", "y"})
+        );
+        ArrayList <Integer> list1 = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
+        input.ask("Enter", list1);
+        assertThat(
+                this.mem.toString(),
+                is(
+                        "Input should be a number between 0 and "+(list1.size()-1) + System.lineSeparator()
                 )
         );
     }

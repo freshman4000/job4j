@@ -10,8 +10,8 @@ public class ValidateInput extends ConsoleInput {
     }
 
     public int ask(String question, List range) {
-    int result = -1;
-    boolean normalInput = false;
+        int result = -1;
+        boolean normalInput = false;
         do {
             try {
                 result = input.ask(question, range);
@@ -21,7 +21,7 @@ public class ValidateInput extends ConsoleInput {
             } catch (MenuOutOfBoundsException mobe) {
                 System.out.println("Input should be a number between 0 and " + (range.size() - 1));
             }
-           } while (!normalInput);
+        } while (!normalInput);
         return result;
     }
 }
