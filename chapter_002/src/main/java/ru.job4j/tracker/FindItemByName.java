@@ -5,32 +5,14 @@ package ru.job4j.tracker;
  * @version 1.0.
  * @since 08.07.2019.
  */
-public class FindItemByName implements UserAction {
-    /**
-     * Key of action assigned to this class.
-     */
-    private int key;
-    /**
-     * Message of action assigned to this class that is shown in menu.
-     */
-    private String message;
-
+public class FindItemByName extends BaseAction {
     /**
      * Constructor.
      * @param key of an action.
      * @param message of an action.
      */
     public FindItemByName(int key, String message) {
-        this.key = key;
-        this.message = key + ". " + message;
-    }
-    /**
-     * Method that returns actions key.
-     * @return
-     */
-    @Override
-    public int key() {
-        return key;
+        super(key, message);
     }
     /**
      * Method that executes action.
@@ -50,13 +32,5 @@ public class FindItemByName implements UserAction {
         } else {
             System.out.println("--- List is empty. Try to add new item ---");
         }
-    }
-    /**
-     * Method that shows info about action.
-     * @return action message.
-     */
-    @Override
-    public String info() {
-        return message;
     }
 }

@@ -5,31 +5,9 @@ package ru.job4j.tracker;
  * @version 1.0.
  * @since 08.07.2019.
  */
-public class DeleteItem implements UserAction {
-    /**
-     * Key of action assigned to this class.
-     */
-    private int key;
-    /**
-     * Message of action assigned to this class that is shown in menu.
-     */
-    private String message;
-    /**
-     * Constructor.
-     * @param key of an action.
-     * @param message of an action.
-     */
+public class DeleteItem extends BaseAction {
     public DeleteItem(int key, String message) {
-        this.key = key;
-        this.message = key + ". " + message;
-    }
-    /**
-     * Method that returns actions key.
-     * @return
-     */
-    @Override
-    public int key() {
-        return key;
+        super(key, message);
     }
     /**
      * Method that executes action.
@@ -45,13 +23,5 @@ public class DeleteItem implements UserAction {
         } else {
             System.out.println("--- Item Id : " + id + " not found. Try different id ---");
         }
-    }
-    /**
-     * Method that shows info about action.
-     * @return action message.
-     */
-    @Override
-    public String info() {
-        return message;
     }
 }
