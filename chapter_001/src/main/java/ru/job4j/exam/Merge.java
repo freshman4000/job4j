@@ -4,7 +4,7 @@ package ru.job4j.exam;
  * Class Merge merges two arrays
  * @author Vit Efremov
  * @since 01.07.2019.
- * @version 1.0.
+ * @version 1.1.
  */
 public class Merge {
     /**
@@ -19,13 +19,13 @@ public class Merge {
         int countRight = 0;
         for (int i = 0; i < result.length; i++) {
             if (countLeft == left.length) {
-            result[i] = right[countRight++];
-        }
-        if (countRight == right.length) {
-            result[i] = left[countLeft++];
-        } else {
-            result[i] = left[countLeft] < right[countRight] ? left[countLeft++] : right[countRight++];
-        }
+                result[i] = right[countRight++];
+            }
+            if (countRight == right.length) {
+                result[i] = left[countLeft++];
+            } else {
+                result[i] = left[countLeft] < right[countRight] ? left[countLeft++] : right[countRight++];
+            }
         }
         return result;
     }
