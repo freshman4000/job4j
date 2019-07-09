@@ -2,6 +2,8 @@ package ru.job4j.tracker;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;
+
+
 /**
  * Class Item represents the instance of order - the main data cell in database - items[].
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -130,3 +132,4 @@ public class Item {
                 "Time item added :", sdf.format(this.getTime()));
     }
 }
+
