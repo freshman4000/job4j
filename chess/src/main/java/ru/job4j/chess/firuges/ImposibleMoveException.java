@@ -1,8 +1,9 @@
 package ru.job4j.chess.firuges;
 
-public class ImposibleMoveException extends RuntimeException {
-//    String message;
-//    public ImposibleMoveException(String message) {
-//        this.message = message;
-//    }
+public class ImposibleMoveException extends Exception {
+    public String getMessage() {
+        String message = "Can't move like this";
+        return message;
+    }
 }
+

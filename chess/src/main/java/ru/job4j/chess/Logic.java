@@ -1,6 +1,7 @@
 package ru.job4j.chess;
 
 import ru.job4j.chess.firuges.*;
+import ru.job4j.chess.firuges.black.KingBlack;
 
 import java.util.Optional;
 
@@ -19,32 +20,17 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
-        boolean rst = true;
-        Cell[] steps = new Cell[0];
-        int index = this.findBy(source);
-        try {
-            if (index == -1) {
-                rst = false;
-                throw new FigureNotFoundException();
+    public boolean move(Cell source, Cell dest) throws ImposibleMoveException, OcupiedWayException, FigureNotFoundException {
+        boolean rst = false;
+
+            int index = findBy(source);
+            if (index == -1) throw new FigureNotFoundException();
+            try {
+                rst = validateCopy(this.figures[index].way(source, dest), dest);
+            } catch (ImposibleMoveException | OcupiedWayException e1) {
+                System.out.println(e1.getMessage());
             }
-            steps = this.figures[index].way(source, dest);
-            for (Cell cell : steps) {
-                if (findBy(cell) != -1) {
-                    rst = false;
-                    throw new OcupiedWayException();
-                }
-            }
-        } catch (ImposibleMoveException e) {
-            System.out.println("Can't move like this");
-        } catch (FigureNotFoundException fne) {
-            System.out.println("Figure not found!");
-        } catch (OcupiedWayException ocw) {
-            System.out.println("Occupied way!");
-        }
-        if (steps.length > 0 && steps[steps.length - 1].equals(dest) && rst) {
-            this.figures[index] = this.figures[index].copy(dest);
-        }
+            this.figures[index] = rst ? this.figures[index].copy(dest) : this.figures[index];
         return rst;
     }
 
@@ -64,5 +50,21 @@ public class Logic {
             }
         }
         return rst;
+    }
+
+    private boolean validateCopy(Cell[] dest, Cell destCell) throws OcupiedWayException {
+        boolean result = true;
+        if (dest.length > 0 ) {
+            for (Figure figure : this.figures) {
+                for (Cell cell : dest) {
+                    if (!cell.equals(figure.position)){}
+                    else throw new OcupiedWayException();
+                }
+            }
+            if (!dest[dest.length - 1].equals(destCell)) {
+                result = false;
+            }
+        }
+        return result;
     }
 }

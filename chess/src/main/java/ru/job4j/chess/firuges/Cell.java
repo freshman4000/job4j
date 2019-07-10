@@ -19,8 +19,4 @@ public enum Cell {
         this.x = x;
         this.y = y;
     }
-
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(Cell.values()));
-    }
 }

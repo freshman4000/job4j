@@ -32,11 +32,7 @@ public class BishopBlack extends Figure {
         int incrX = dest.x < source.x ?  -1 : 1;
         int incrY = dest.y < source.y ?  -1 : 1;
         for (int i = 1; i != length + 1; i++) {
-            for(Cell cell : Cell.values()) {
-                if (cell.x == source.x + incrX * i && cell.y == source.y + incrY * i) {
-                    steps[i - 1] = cell;
-                }
-            }
+            steps [i - 1] = findCell(source.x + incrX * i, source.y + incrY * i);
         }
         return steps;
     }

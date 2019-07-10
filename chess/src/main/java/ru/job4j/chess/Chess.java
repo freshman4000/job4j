@@ -12,9 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import ru.job4j.chess.firuges.Board;
-import ru.job4j.chess.firuges.Cell;
-import ru.job4j.chess.firuges.Figure;
+import ru.job4j.chess.firuges.*;
 import ru.job4j.chess.firuges.black.*;
 import ru.job4j.chess.firuges.white.*;
 
@@ -61,12 +59,20 @@ public class Chess extends Application {
         );
         rect.setOnMouseReleased(
                 event -> {
-                    if (logic.move(this.findBy(momento.getX(), momento.getY()), this.findBy(event.getX(), event.getY()))) {
-                        rect.setX(((int) event.getX() / 40) * 40 + 5);
-                        rect.setY(((int) event.getY() / 40) * 40 + 5);
-                    } else {
-                        rect.setX(((int) momento.getX() / 40) * 40 + 5);
-                        rect.setY(((int) momento.getY() / 40) * 40 + 5);
+                    try {
+                        if (logic.move(this.findBy(momento.getX(), momento.getY()), this.findBy(event.getX(), event.getY()))) {
+                            rect.setX(((int) event.getX() / 40) * 40 + 5);
+                            rect.setY(((int) event.getY() / 40) * 40 + 5);
+                        } else {
+                            rect.setX(((int) momento.getX() / 40) * 40 + 5);
+                            rect.setY(((int) momento.getY() / 40) * 40 + 5);
+                        }
+                    } catch (ImposibleMoveException e) {
+                        System.out.println(e.getMessage());
+                    } catch (OcupiedWayException e) {
+                        System.out.println(e.getMessage());
+                    } catch (FigureNotFoundException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
         );
