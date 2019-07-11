@@ -36,5 +36,7 @@ public class QueenWhite extends Figure {
     }
 
     @Override
-    public Figure copy(Cell dest) { return new QueenWhite(dest); }
+    public Figure copy(Cell dest) {
+        return new QueenWhite(dest);
+    }
 }

@@ -67,10 +67,6 @@ public class Chess extends Application {
                             rect.setX(((int) momento.getX() / 40) * 40 + 5);
                             rect.setY(((int) momento.getY() / 40) * 40 + 5);
                         }
-                    } catch (ImposibleMoveException e) {
-                        System.out.println(e.getMessage());
-                    } catch (OcupiedWayException e) {
-                        System.out.println(e.getMessage());
                     } catch (FigureNotFoundException e) {
                         System.out.println(e.getMessage());
                     }

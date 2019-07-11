@@ -9,7 +9,7 @@ public class Board extends Logic {
     public void add(Figure figure) {
         super.add(figure);
     }
-    public boolean move(Cell source, Cell dest) throws ImposibleMoveException, OcupiedWayException, FigureNotFoundException {
+    public boolean move(Cell source, Cell dest) throws FigureNotFoundException {
     return super.move(source, dest);
     }
 }

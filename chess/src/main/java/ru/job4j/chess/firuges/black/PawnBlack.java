@@ -25,7 +25,7 @@ public class PawnBlack extends Figure {
         if (dest.x != source.x || dest.y - source.y != -1) {
             throw new ImposibleMoveException();
         }
-        return new Cell[] { dest };
+        return new Cell[] {dest};
     }
 
     @Override

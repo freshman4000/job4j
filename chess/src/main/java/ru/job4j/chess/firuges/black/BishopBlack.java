@@ -23,7 +23,7 @@ public class BishopBlack extends Figure {
     }
 
     @Override
-    public Cell[] way(Cell source, Cell dest) throws ImposibleMoveException{
+    public Cell[] way(Cell source, Cell dest) throws ImposibleMoveException {
         if ((Math.abs(source.x - dest.x) != Math.abs(source.y - dest.y))) {
             throw new ImposibleMoveException();
         }
