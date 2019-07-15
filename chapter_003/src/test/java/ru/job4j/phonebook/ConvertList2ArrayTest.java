@@ -30,4 +30,16 @@ public class ConvertList2ArrayTest {
         };
         assertThat(result, is(expect));
     }
+
+    /**
+     * Testing list of arrays -> list conversion.
+     */
+    @Test
+    public void when3ArraysThenOneList() {
+        ConvertList2Array list = new ConvertList2Array();
+        List<int[]> incoming = new ArrayList<>(Arrays.asList(new int[]{1, 2}, new int[]{3, 4, 5, 6}));
+        List<Integer> result = list.convert(incoming);
+        List<Integer> expected = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        assertThat(result, is(expected));
+    }
 }

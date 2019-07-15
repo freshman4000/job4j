@@ -1,5 +1,6 @@
 package ru.job4j.phonebook;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,5 +27,21 @@ public class ConvertList2Array {
             }
         }
         return array;
+    }
+
+    /**
+     * Method that converts list of arrays to whole list.
+     *
+     * @param list incoming list of arrays.
+     * @return whole flat list of all elements that were inside of all arrays in the incoming list.
+     */
+    public List<Integer> convert(List<int[]> list) {
+        List<Integer> result = new ArrayList<>();
+        for (int[] arr : list) {
+            for (int i : arr) {
+                result.add(i);
+            }
+        }
+        return result;
     }
 }
