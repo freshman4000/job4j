@@ -41,7 +41,7 @@ public class Tracker {
     public boolean replace(String id, Item item) {
         boolean result = false;
         for (Item item1 : this.items) {
-            if (item1 != null && item1.getId().equals(id)) {
+            if (item1.getId().equals(id)) {
                 items.set(items.indexOf(item1), item);
                 result = true;
                 break;
@@ -57,7 +57,7 @@ public class Tracker {
     public boolean delete(String id) {
         boolean result = false;
         for (Item item : this.items) {
-            if (item != null && item.getId().equals(id)) {
+            if (item.getId().equals(id)) {
                 this.items.remove(item);
                 result = true;
                 break;
