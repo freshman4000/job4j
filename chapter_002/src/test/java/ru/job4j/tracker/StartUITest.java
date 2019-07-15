@@ -8,6 +8,7 @@ import org.hamcrest.core.Is;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 public class StartUITest {
     private final PrintStream stdout = System.out;
@@ -146,12 +147,12 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         StartUI startUI = new StartUI(tracker, input);
         startUI.init();
-        Item[] result = tracker.findAll();
-        Assert.assertThat(result.length, Is.is(2));
-        Assert.assertThat(result[0].getName(), Is.is("name1"));
-        Assert.assertThat(result[0].getDesc(), Is.is("desc1"));
-        Assert.assertThat(result[1].getName(), Is.is("name2"));
-        Assert.assertThat(result[1].getDesc(), Is.is("desc2"));
+        ArrayList<Item> result = tracker.findAll();
+        Assert.assertThat(result.size(), Is.is(2));
+        Assert.assertThat(result.get(0).getName(), Is.is("name1"));
+        Assert.assertThat(result.get(0).getDesc(), Is.is("desc1"));
+        Assert.assertThat(result.get(1).getName(), Is.is("name2"));
+        Assert.assertThat(result.get(1).getDesc(), Is.is("desc2"));
     }
     /**
      * deleteItem() testing.
@@ -164,10 +165,10 @@ public class StartUITest {
         Input input = new StubInput(answers);
         StartUI startUI = new StartUI(tracker, input);
         startUI.init();
-        Item[] result = tracker.findAll();
-        Assert.assertThat(result.length, Is.is(1));
-        Assert.assertThat(result[0].getName(), Is.is("name2"));
-        Assert.assertThat(result[0].getDesc(), Is.is("desc2"));
+        ArrayList<Item> result = tracker.findAll();
+        Assert.assertThat(result.size(), Is.is(1));
+        Assert.assertThat(result.get(0).getName(), Is.is("name2"));
+        Assert.assertThat(result.get(0).getDesc(), Is.is("desc2"));
     }
     /**
      * editItem() testing.
