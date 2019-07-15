@@ -2,7 +2,8 @@ package exam;
 
 import org.junit.Test;
 import org.junit.Assert;
-import  org.hamcrest.core.Is;
+import org.hamcrest.core.Is;
+
 /**
  * Test.
  */
@@ -17,6 +18,7 @@ public class CoffeeMachineV2Test {
         int[] expected = new int[]{10, 5};
         Assert.assertThat(result, Is.is(expected));
     }
+
     /**
      * Testing CoffeeMachine 50-12
      */
