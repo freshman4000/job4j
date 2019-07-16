@@ -40,9 +40,9 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (Item item1 : this.items) {
-            if (item1.getId().equals(id)) {
-                items.set(items.indexOf(item1), item);
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
+                items.set(i, item);
                 result = true;
                 break;
             }
