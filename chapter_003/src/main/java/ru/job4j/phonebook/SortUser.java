@@ -44,16 +44,11 @@ public class SortUser {
         Comparator<User1> c1 = new Comparator<User1>() {
             @Override
             public int compare(User1 o1, User1 o2) {
-                return o1.getName().compareTo(o2.getName());
+                int result = o1.getName().compareTo(o2.getName());
+                return result == 0 ? o1.getAge() - o2.getAge() : result;
             }
         };
-        Comparator<User1> c2 = new Comparator<User1>() {
-            @Override
-            public int compare(User1 o1, User1 o2) {
-                return o1.getAge() - o2.getAge();
-            }
-        };
-        list.sort(c1.thenComparing(c2));
+        list.sort(c1);
         return list;
     }
 }
