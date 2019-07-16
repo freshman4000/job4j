@@ -5,7 +5,7 @@ package ru.job4j.profession;
  * @since 03.07.2019.
  * @version 1.0.
  */
-public class Builder extends Engineer{
+public class Builder extends Engineer {
     /**
      * Level of mastery from 1 to 5.
      */
@@ -20,5 +20,5 @@ public class Builder extends Engineer{
     /**
      * Builds roof.
      */
-    public void buildRoof() {}
+    public void buildRoof() { }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class TrackerSingleEager {
     private static final TrackerSingleEager INSTANCE = new TrackerSingleEager();
-    private TrackerSingleEager(){}
+    private TrackerSingleEager() { }
     public static TrackerSingleEager getInstance() {
         return INSTANCE;
     }

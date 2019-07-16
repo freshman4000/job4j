@@ -20,5 +20,5 @@ public class Programmer extends Engineer {
     /**
      * Write code.
      */
-    public void code() {}
+    public void code() { }
 }

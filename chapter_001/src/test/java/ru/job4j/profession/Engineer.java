@@ -5,7 +5,7 @@ package ru.job4j.profession;
  * @since 03.07.2019.
  * @version 1.0.
  */
-public class Engineer extends Profession{
+public class Engineer extends Profession {
     /**
      * TeamLead experience from 1 to 10.
      */
@@ -21,5 +21,5 @@ public class Engineer extends Profession{
      * Read technical documentation.
      * @param project to work with.
      */
-    public void readDocs(Project project) {}
+    public void readDocs(Project project) { }
 }

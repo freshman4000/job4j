@@ -12,7 +12,7 @@ public class CoffeeMachine {
     /**
      * Array of available face values.
      */
-    private static final int [] NUMS = new int[] {1, 2, 5, 10};
+    private static final int[] NUMS = new int[] {1, 2, 5, 10};
     /**
      * Calculates the min number of bills with estimated face values to give change.
      * @param value incoming amount.
@@ -36,7 +36,7 @@ public class CoffeeMachine {
      */
     public static int maxCurrent(int ammount, int[] noms) {
         int result = 0;
-        for(int i = 0; i < noms.length; i++) {
+        for (int i = 0; i < noms.length; i++) {
             if (noms[i] <= ammount && noms[i] > result) {
                 result = noms[i];
             }
