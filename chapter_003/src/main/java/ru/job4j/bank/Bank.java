@@ -102,7 +102,7 @@ public class Bank {
      * @param account needed account.
      * @return account.
      */
-    private Account getActualAccount(User user, Account account) {
+    public Account getActualAccount(User user, Account account) {
         Account result = null;
         List<Account> list = clients.get(user);
         if (list.size() > 0) {
