@@ -36,9 +36,9 @@ public class User {
         if (!(obj instanceof User)) {
             return false;
         }
-        User user = (User)obj;
+        User user = (User) obj;
 
-        return this.name.equals(user.name) &&
-                this.passport.equals(user.passport);
+        return this.name.equals(user.name)
+                && this.passport.equals(user.passport);
     }
 }

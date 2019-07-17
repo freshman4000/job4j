@@ -56,7 +56,7 @@ public class Account {
     @Override
     public int hashCode() {
         int result = 11;
-        result = 23 * result * (int)values;
+        result = 23 * result * (int) values;
         result = 23 * result * requisites.hashCode();
         return result;
     }
@@ -76,7 +76,7 @@ public class Account {
         }
         Account account = (Account) obj;
 
-        return this.values == account.values &&
-                this.requisites.equals(account.requisites);
+        return this.values == account.values
+                && this.requisites.equals(account.requisites);
     }
 }

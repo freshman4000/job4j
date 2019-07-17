@@ -17,7 +17,7 @@ public class Bank {
     /**
      * Inner static class - Bank singleton initializer.
      */
-    private static final class Inner{
+    private static final class Inner {
         private static final Bank INSTANCE = new Bank();
     }
 
