@@ -103,8 +103,12 @@ public class Bank {
      * @return account.
      */
     private Account getActualAccount(User user, Account account) {
+        Account result = null;
         List<Account> list = clients.get(user);
-        return list.get(list.indexOf(account));
+        if (list.size() > 0) {
+            result = list.get(list.indexOf(account));
+        }
+        return result;
     }
 
     /**
@@ -120,7 +124,7 @@ public class Bank {
     public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         Account from = checker(srcPassport, srcRequisite);
         Account to = checker(destPassport, dstRequisite);
-        return from.transfer(to, amount);
+        return from != null && to != null && from.transfer(to, amount);
     }
 
     /**
