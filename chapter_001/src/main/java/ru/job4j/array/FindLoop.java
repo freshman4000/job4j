@@ -32,12 +32,13 @@ public class FindLoop {
      * @param finish upper inclusive range.
      * @return index of array element.
      */
-    public int indexOf(int[] data, int el, int start, int finish){
+    public int indexOf(int[] data, int el, int start, int finish) {
         int rst = -1; // если элемента нет в массиве, то возвращаем -1.
         for (int i = start; i <= finish; i++) {
             if (data[i] == el) {
                 rst = i;
-                break;}
+                break;
+            }
         }
         return rst;
     }
