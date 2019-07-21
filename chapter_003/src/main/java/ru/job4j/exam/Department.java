@@ -29,7 +29,6 @@ public class Department {
      */
     public static List<String> sortNat() {
         List<String> depList = checkerForOccurrences(codes);
-        System.out.println(depList);
         Collections.sort(depList);
         return depList;
     }
@@ -59,17 +58,6 @@ public class Department {
         };
         Collections.sort(result, cN);
         return result;
-    }
-
-    /**
-     * Forms code list of created departments.
-     *
-     * @return list of formed codes.
-     */
-    public static List<String> formDepsCodeDataBase() {
-        List<String> depCodes = new ArrayList<>();
-
-        return depCodes;
     }
 
     /**
