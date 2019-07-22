@@ -13,17 +13,19 @@ import java.util.List;
  */
 public class ProfilesTest {
     /**
-     * Testing creation of address list from profiles list.
+     * Testing creation of sorted distinct address list from profiles list.
      */
     @Test
     public void when3profilesThen3Addresses() {
         List<Profile> profiles = new ArrayList<>();
         Address a1 = new Address("Moscow", "Tverskaya", 18, 228);
         Address a2 = new Address("St.Petersburg", "Lenina", 234, 23);
-        Address a3 = new Address("Kazan", "Krasnaya", 1, 1);
+        Address a3 = new Address("St.Petersburg", "Lenina", 234, 23);
+        Address a4 = new Address("Kazan", "Krasnaya", 1, 1);
         profiles.add(new Profile(a1));
         profiles.add(new Profile(a2));
         profiles.add(new Profile(a3));
-        Assert.assertThat(Profiles.collect(profiles), Is.is(Arrays.asList(a1, a2, a3)));
+        profiles.add(new Profile(a4));
+        Assert.assertThat(Profiles.collect(profiles), Is.is(Arrays.asList(a4, a2, a1)));
     }
 }
