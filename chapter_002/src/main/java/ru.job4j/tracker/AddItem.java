@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Class that creates Item and adds it to database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -21,15 +23,15 @@ public class AddItem extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Adding new item --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Adding new item --------------");
         String name = input.ask("Please, provide item name :");
         String desc = input.ask("Please, provide item description :");
         Item item = new Item(name, desc);
         tracker.add(item);
-        System.out.println("------------ New item with Id : " + item.getId() + "-----------");
-        System.out.println("------------ New item with name : " + item.getName() + "-----------");
-        System.out.println("------------ New item with description : " + item.getDesc() + "-----------");
+        output.accept("------------ New item with Id : " + item.getId() + "-----------");
+        output.accept("------------ New item with name : " + item.getName() + "-----------");
+        output.accept("------------ New item with description : " + item.getDesc() + "-----------");
     }
 }
 

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.function.Consumer;
+
 /**
  * Class that creates Item and adds it to database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -21,7 +23,7 @@ public class ExitProgram extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Exiting program. Are you sure? --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Exiting program. Are you sure? --------------");
     }
 }

@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ValidateInput extends ConsoleInput {
     private final Input input;
@@ -9,7 +10,7 @@ public class ValidateInput extends ConsoleInput {
         this.input = input;
     }
 
-    public int ask(String question, List range) {
+    public int ask(String question, List range, Consumer<String> output) {
         int result = -1;
         boolean normalInput = false;
         do {
@@ -17,9 +18,9 @@ public class ValidateInput extends ConsoleInput {
                 result = input.ask(question, range);
                 normalInput = true;
             } catch (NumberFormatException nfe) {
-                System.out.println("Input should be a number, not a text");
+                output.accept("Input should be a number, not a text");
             } catch (MenuOutOfBoundsException mobe) {
-                System.out.println("Input should be a number between 0 and " + (range.size() - 1));
+                output.accept("Input should be a number between 0 and " + (range.size() - 1));
             }
         } while (!normalInput);
         return result;

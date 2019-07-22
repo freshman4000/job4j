@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class that creates Item and adds it to database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -20,14 +23,14 @@ public class FindItemById extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Items search --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Items search --------------");
         String id = input.ask("Type item id :");
         if (tracker.findById(id) != null) {
             Item item = tracker.findById(id);
-            System.out.println(item.toString());
+            output.accept(item.toString());
         } else {
-            System.out.println("--- Item Id : " + id + " not found. Specify different id ---");
+            output.accept("--- Item Id : " + id + " not found. Specify different id ---");
         }
     }
 }

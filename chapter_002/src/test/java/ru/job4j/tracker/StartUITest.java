@@ -9,10 +9,27 @@ import org.hamcrest.core.Is;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class StartUITest {
     private final PrintStream stdout = System.out;
+
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+    private final Consumer<String> output = new Consumer<String>() {
+
+        private final PrintStream stdout = new PrintStream(out);
+
+        @Override
+        public void accept(String s) {
+            stdout.println(s);
+        }
+        @Override
+        public String toString() {
+            return out.toString();
+        }
+    };
+
     private final String menu =
             "0. Add new Item" + System.lineSeparator()
                     + "1. Show all items" + System.lineSeparator()
@@ -36,11 +53,11 @@ public class StartUITest {
     public void whenShowAllThenShowItems() {
         String[] answers = new String[]{"1", "n", "6", "y"};
         Tracker tracker = new Tracker();
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         Item item = tracker.add(new Item("n1", "d1"));
         startUI.init();
         String itemShowUp = item.toString();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(menu
+        Assert.assertThat(this.output.toString(), Is.is(menu
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
                         + menu
@@ -53,9 +70,9 @@ public class StartUITest {
     public void whenShowAllInEmptyThenShowMessage() {
         String[] answers = new String[]{"1", "n", "6", "y"};
         Tracker tracker = new Tracker();
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         startUI.init();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
+        Assert.assertThat(this.output.toString(), Is.is(
                 menu
                         + "------------ Showing all items --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add item. ---" + System.lineSeparator()
@@ -71,10 +88,10 @@ public class StartUITest {
         Item item = tracker.add(new Item("n1", "d1"));
         String id = item.getId();
         String[] answers = new String[]{"4", id, "n", "6", "y"};
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         startUI.init();
         String itemShowUp = item.toString();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
+        Assert.assertThat(this.output.toString(), Is.is(
                 menu
                         + "------------ Items search --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
@@ -88,9 +105,9 @@ public class StartUITest {
     public void whenFindIdThenShowMess() {
         Tracker tracker = new Tracker();
         String[] answers = new String[]{"4", "xxx", "n", "6", "y"};
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         startUI.init();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
+        Assert.assertThat(this.output.toString(), Is.is(
                 menu
                         + "------------ Items search --------------" + System.lineSeparator()
                         + "--- Item Id : " + "xxx" + " not found. Specify different id ---" + System.lineSeparator()
@@ -107,11 +124,11 @@ public class StartUITest {
         Item item2 = tracker.add(new Item("n1", "d2"));
         String name = item.getName();
         String[] answers = new String[]{"5", name, "n", "6", "y"};
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         startUI.init();
         String itemShowUp = item.toString();
         String item2ShowUp = item2.toString();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
+        Assert.assertThat(this.output.toString(), Is.is(
                 menu
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + itemShowUp + System.lineSeparator()
@@ -128,9 +145,9 @@ public class StartUITest {
         Item item = tracker.add(new Item("n1", "d1"));
         Item item2 = tracker.add(new Item("n1", "d2"));
         String[] answers = new String[]{"5", "xxx", "n", "6", "y"};
-        StartUI startUI = new StartUI(tracker, new StubInput(answers));
+        StartUI startUI = new StartUI(tracker, new StubInput(answers), output);
         startUI.init();
-        Assert.assertThat(new String(out.toByteArray()), Is.is(
+        Assert.assertThat(this.output.toString(), Is.is(
                 menu
                         + "------------ Show all items with given name --------------" + System.lineSeparator()
                         + "--- List is empty. Try to add new item ---" + System.lineSeparator()
@@ -145,7 +162,7 @@ public class StartUITest {
         String[] answers = new String[]{"0", "name1", "desc1", "n", "0", "name2", "desc2", "n", "6", "y"};
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
-        StartUI startUI = new StartUI(tracker, input);
+        StartUI startUI = new StartUI(tracker, input, output);
         startUI.init();
         ArrayList<Item> result = tracker.findAll();
         Assert.assertThat(result.size(), Is.is(2));
@@ -163,7 +180,7 @@ public class StartUITest {
         Item item = tracker.add(new Item("name1", "desc1"));
         String[] answers = new String[]{"0", "name2", "desc2", "n", "3", item.getId(), "n", "6", "y"};
         Input input = new StubInput(answers);
-        StartUI startUI = new StartUI(tracker, input);
+        StartUI startUI = new StartUI(tracker, input, output);
         startUI.init();
         ArrayList<Item> result = tracker.findAll();
         Assert.assertThat(result.size(), Is.is(1));
@@ -182,7 +199,7 @@ public class StartUITest {
         //создаём StubInput с последовательностью действий(производим замену заявки)
         Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "n", "6", "y"});
         // создаём StartUI и вызываем метод init()
-        new StartUI(tracker, input).init();
+        new StartUI(tracker, input, output).init();
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
         Assert.assertThat(tracker.findById(item.getId()).getName(), Is.is("test replace"));
     }
