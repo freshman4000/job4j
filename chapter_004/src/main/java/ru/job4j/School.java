@@ -15,7 +15,6 @@ public class School {
 
     public static Map<String, Student> formMap(List<Student> students) {
         return students.stream()
-                .distinct()
                 .collect(Collectors.toMap(Student::getLastName, student -> student));
     }
 }
