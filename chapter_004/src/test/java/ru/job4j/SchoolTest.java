@@ -10,7 +10,9 @@ import java.util.*;
  * Test.
  */
 public class SchoolTest {
-
+    Student n1 = null;
+    Student n2 = null;
+    Student n3 = null;
     Student s1 = new Student(99, "Vit", "Efr");
     Student s2 = new Student(23, "Aj", "Barret");
     Student s3 = new Student(76, "Cj", "Money");
@@ -70,4 +72,15 @@ public class SchoolTest {
         }
         Assert.assertThat(result, Is.is(expected));
     }
+
+    /**
+     * Testing removing null elements from stream.
+     */
+    @Test
+    public void whenNullStudThenNoNullStudentsInList() {
+        List<Student> testList = Arrays.asList(n1, s1, n2, s2, n3, s3);
+        List<Student> result = School.levelOf(testList, 10);
+        Assert.assertThat(result, Is.is(Arrays.asList(s2, s3, s1)));
+    }
+
 }

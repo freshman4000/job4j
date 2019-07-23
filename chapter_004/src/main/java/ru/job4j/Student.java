@@ -1,8 +1,9 @@
 package ru.job4j;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class Student {
+public class Student implements Comparable<Student> {
     private int score;
     private String name;
     private String lastName;
@@ -40,5 +41,10 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(getScore());
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.getScore() - o.getScore();
     }
 }
