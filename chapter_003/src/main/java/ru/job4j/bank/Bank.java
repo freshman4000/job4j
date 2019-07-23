@@ -1,9 +1,7 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class that manages clients db and processes transfers.
@@ -59,11 +57,10 @@ public class Bank {
      * @param account  of user.
      */
     public void addAccountToUser(String passport, Account account) {
-        for (User us : clients.keySet()) {
-            if (us.getPassport().equals(passport)) {
-                clients.get(us).add(account);
-            }
-        }
+        User user = clients.keySet().stream()
+                .filter(x -> x.getPassport().equals(passport))
+                .findFirst().get();
+        clients.get(user).add(account);
     }
 
     /**
@@ -73,11 +70,10 @@ public class Bank {
      * @param account  of user.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        for (User us : clients.keySet()) {
-            if (us.getPassport().equals(passport)) {
-                clients.get(us).remove(account);
-            }
-        }
+        User user = clients.keySet().stream()
+                .filter(x -> x.getPassport().equals(passport))
+                .findFirst().get();
+        clients.get(user).remove(account);
     }
 
     /**
@@ -87,28 +83,26 @@ public class Bank {
      * @return list of users accounts.
      */
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = new ArrayList<>();
-        for (User us : clients.keySet()) {
-            if (us.getPassport().equals(passport)) {
-                result.addAll(clients.get(us));
-            }
-        }
-        return result;
+        return clients.entrySet().stream()
+                .filter(x -> x.getKey().getPassport().equals(passport))
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     /**
      * Method that gets actual account by user and account.
-     * @param user user.
+     *
+     * @param user    user.
      * @param account needed account.
      * @return account.
      */
     public Account getActualAccount(User user, Account account) {
-        Account result = null;
-        List<Account> list = clients.get(user);
-        if (list.size() > 0) {
-            result = list.get(list.indexOf(account));
-        }
-        return result;
+        return clients.entrySet().stream()
+                .filter(x -> x.getKey().equals(user))
+                .flatMap(x -> x.getValue().stream())
+                .filter(x -> x.equals(account))
+                .findFirst().get();
     }
 
     /**
@@ -129,22 +123,20 @@ public class Bank {
 
     /**
      * Gets account by not null pass and requisites.
-     * @param passport passport.
+     *
+     * @param passport   passport.
      * @param requisites requisites.
      * @return account.
      */
     private Account checker(String passport, String requisites) {
         Account result = null;
         if (passport != null && requisites != null) {
-            for (User us : clients.keySet()) {
-                if (us.getPassport().equals(passport)) {
-                    for (Account acc : clients.get(us)) {
-                        if (acc.getRequisites().equals(requisites)) {
-                            result = acc;
-                        }
-                    }
-                }
-            }
+            result = clients.entrySet().stream()
+                    .filter(x -> x.getKey().getPassport().equals(passport))
+                    .map(x -> x.getValue())
+                    .flatMap(x -> x.stream())
+                    .filter(x -> x.getRequisites().equals(requisites))
+                    .findFirst().get();
         }
         return result;
     }
