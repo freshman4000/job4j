@@ -1,7 +1,6 @@
 package job4j.tictactoe;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Logic3T {
@@ -33,11 +32,11 @@ public class Logic3T {
             {this.table.length - 1, this.table.length -1, -1, 0},
             {1, 0, 0, 1},
             {0, 1, 1, 0}};
-    boolean result = Arrays.stream(matrix).anyMatch(subArray -> fillBy(Figure3T::hasMarkO, subArray[0], subArray[1], subArray[2], subArray[3]));
-
-    return mark.equals("X") ? Arrays.stream(matrix).anyMatch(subArray -> fillBy(Figure3T::hasMarkX, subArray[0], subArray[1], subArray[2], subArray[3]))
-                            : result;
+    return Arrays.stream(matrix)
+            .anyMatch(subArray -> fillBy(c -> mark.equals("X") ? c.hasMarkX() : c.hasMarkO(),
+                    subArray[0], subArray[1], subArray[2], subArray[3]));
     }
+
     public boolean isWinnerX() {
         return checker("X");
     }
