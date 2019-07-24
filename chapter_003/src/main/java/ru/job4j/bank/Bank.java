@@ -57,10 +57,10 @@ public class Bank {
      * @param account  of user.
      */
     public void addAccountToUser(String passport, Account account) {
-        User user = clients.keySet().stream()
-                .filter(x -> x.getPassport().equals(passport))
-                .findFirst().get();
-        clients.get(user).add(account);
+        Optional<User> us = clients.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst();
+        us.ifPresent(user -> clients.get(user).add(account));
     }
 
     /**
@@ -70,10 +70,10 @@ public class Bank {
      * @param account  of user.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        User user = clients.keySet().stream()
-                .filter(x -> x.getPassport().equals(passport))
-                .findFirst().get();
-        clients.get(user).remove(account);
+       Optional<User> us = clients.keySet().stream()
+                .filter(user -> user.getPassport().equals(passport))
+                .findFirst();
+        us.ifPresent(user -> clients.get(user).remove(account));
     }
 
     /**
@@ -98,11 +98,12 @@ public class Bank {
      * @return account.
      */
     public Account getActualAccount(User user, Account account) {
-        return clients.entrySet().stream()
+        Optional <Account> acc = clients.entrySet().stream()
                 .filter(x -> x.getKey().equals(user))
                 .flatMap(x -> x.getValue().stream())
                 .filter(x -> x.equals(account))
-                .findFirst().get();
+                .findFirst();
+        return acc.orElse(null);
     }
 
     /**
@@ -129,16 +130,14 @@ public class Bank {
      * @return account.
      */
     private Account checker(String passport, String requisites) {
-        Account result = null;
-        if (passport != null && requisites != null) {
-            result = clients.entrySet().stream()
+        Optional<Account> acc = clients.entrySet().stream()
                     .filter(x -> x.getKey().getPassport().equals(passport))
-                    .map(x -> x.getValue())
-                    .flatMap(x -> x.stream())
+                    .map(Map.Entry::getValue)
+                    .flatMap(Collection::stream)
                     .filter(x -> x.getRequisites().equals(requisites))
-                    .findFirst().get();
-        }
-        return result;
+                    .findFirst();
+
+        return passport != null && requisites != null && acc.isPresent() ? acc.get() : null;
     }
 }
 
