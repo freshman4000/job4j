@@ -1,5 +1,7 @@
 package job4j.tictactoe;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Logic3T {
@@ -22,30 +24,29 @@ public class Logic3T {
         }
         return result;
     }
+    public boolean checker(String mark) {
+    int[][] matrix = {{0, 0, 1, 0},
+            {0, 0, 0, 1},
+            {0, 0, 1, 1},
+            {this.table.length - 1, 0, -1, 1},
+            {this.table.length - 1, 0, 0, 1},
+            {this.table.length - 1, this.table.length -1, -1, 0},
+            {1, 0, 0, 1},
+            {0, 1, 1, 0}};
+    boolean result = Arrays.stream(matrix).anyMatch(subArray -> fillBy(Figure3T::hasMarkO, subArray[0], subArray[1], subArray[2], subArray[3]));
 
+    return mark.equals("X") ? Arrays.stream(matrix).anyMatch(subArray -> fillBy(Figure3T::hasMarkX, subArray[0], subArray[1], subArray[2], subArray[3]))
+                            : result;
+    }
     public boolean isWinnerX() {
-        return this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 0)
-                || this.fillBy(Figure3T::hasMarkX, 0, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkX, 0, 0, 1, 1)
-                || this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, -1, 1)
-                || this.fillBy(Figure3T::hasMarkX, this.table.length - 1, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkX, this.table.length - 1, this.table.length - 1, -1, 0)
-                || this.fillBy(Figure3T::hasMarkX, 1, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkX, 0, 1, 1, 0);
+        return checker("X");
     }
 
     public boolean isWinnerO() {
-        return this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 0)
-                || this.fillBy(Figure3T::hasMarkO, 0, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkO, 0, 0, 1, 1)
-                || this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, -1, 1)
-                || this.fillBy(Figure3T::hasMarkO, this.table.length - 1, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkO, this.table.length - 1, this.table.length - 1, -1, 0)
-                || this.fillBy(Figure3T::hasMarkO, 1, 0, 0, 1)
-                || this.fillBy(Figure3T::hasMarkO, 0, 1, 1, 0);
+        return checker("O");
     }
 
     public boolean hasGap() {
-        return true;
+       return Arrays.stream(table).flatMap(Arrays::stream).anyMatch(x -> !x.hasMarkX() && !x.hasMarkO());
     }
 }
