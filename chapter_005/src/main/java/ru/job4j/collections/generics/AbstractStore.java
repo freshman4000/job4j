@@ -18,19 +18,31 @@ public class AbstractStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        array.set(getIndexById(id), model);
-        return true;
+        boolean result = false;
+        int index = getIndexById(id);
+        if (index != -1) {
+            array.set(index, model);
+            result = true;
+        }
+        return result;
     }
 
     @Override
     public boolean delete(String id) {
-        array.remove(getIndexById(id));
-        return true;
+        boolean result = false;
+        int index = getIndexById(id);
+        if (index != -1) {
+            array.remove(index);
+            result = true;
+        }
+        return result;
     }
 
     @Override
     public T findById(String id) {
-        return array.get(getIndexById(id));
+        int index = getIndexById(id);
+        if (index == -1) throw new NoSuchElementException();
+        return array.get(index);
     }
 
     /**
@@ -46,9 +58,6 @@ public class AbstractStore<T extends Base> implements Store<T> {
                 result = i;
                 break;
             }
-        }
-        if (result == -1) {
-            throw new NoSuchElementException();
         }
         return result;
     }

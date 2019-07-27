@@ -29,8 +29,8 @@ public class UserStoreTest {
     /**
      * Testing deletion.
      */
-    @Test(expected = NoSuchElementException.class)
-    public void whenDeleteThenGetNext() {
+    @Test
+    public void whenDeleteThenGetTrue() {
         User u1 = new User("Sat");
         User u2 = new User("Vit");
         User u3 = new User("Art");
@@ -38,15 +38,15 @@ public class UserStoreTest {
         us.add(u2);
         us.add(u3);
         Assert.assertThat(us.findById("Vit"), Is.is(u2));
-        us.delete("Vit");
-        us.findById("Vit");
+        Assert.assertThat(us.delete("Vit"), Is.is(true));
+
     }
 
     /**
      * Testing replacement.
      */
-    @Test(expected = NoSuchElementException.class)
-    public void whenReplaceThenGetNext() {
+    @Test
+    public void whenReplaceThenGetTrue() {
         User u1 = new User("Sat");
         User u2 = new User("Vit");
         User u3 = new User("Art");
@@ -54,9 +54,7 @@ public class UserStoreTest {
         us.add(u2);
         us.add(u3);
         User u4 = new User("Jin");
-        us.replace("Vit", u4);
-        Assert.assertThat(us.findById("Jin"), Is.is(u4));
-        us.findById("Vit");
+        Assert.assertThat(us.replace("Vit", u4), Is.is(true));
     }
 
     /**
@@ -74,31 +72,31 @@ public class UserStoreTest {
     }
 
     /**
-     * Testing NSE exception while deleting.
+     * Testing boolean while deleting.
      */
-    @Test(expected = NoSuchElementException.class)
-    public void whenNoIdWhenDeleteThenException() {
+    @Test
+    public void whenNoIdWhenDeleteThenFalse() {
         User u1 = new User("Sat");
         User u2 = new User("Vit");
         User u3 = new User("Art");
         us.add(u1);
         us.add(u2);
         us.add(u3);
-        us.delete("XXX");
+        Assert.assertThat(us.delete("XXX"), Is.is(false));
     }
 
     /**
-     * Testing NSE exception while replacing.
+     * Testing boolean value while replacing.
      */
-    @Test(expected = NoSuchElementException.class)
-    public void whenNoIdWhenReplaceThenException() {
+    @Test
+    public void whenNoIdWhenReplaceThenFalse() {
         User u1 = new User("Sat");
         User u2 = new User("Vit");
         User u3 = new User("Art");
         us.add(u1);
         us.add(u2);
         us.add(u3);
-        us.replace("XXX", new User("LoL"));
+       Assert.assertThat(us.replace("XXX", new User("LoL")), Is.is(false));
     }
 
     /**
