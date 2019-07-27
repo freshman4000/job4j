@@ -14,7 +14,7 @@ public class EvenIterator implements Iterator {
     /**
      * Index of even number.
      */
-    int index;
+   private int index;
 
     /**
      * Constructor.
@@ -50,8 +50,6 @@ public class EvenIterator implements Iterator {
     @Override
     public Object next() {
         if (!hasNext()) throw new NoSuchElementException();
-        int result = array[index];
-        index++;
-        return result;
+        return array[index++];
     }
 }
