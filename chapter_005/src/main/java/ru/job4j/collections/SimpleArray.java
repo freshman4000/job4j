@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArray<T> implements Iterable<T> {
-    Object[] array;
-    int index;
+    private Object[] array;
+    private int index;
 
     public SimpleArray(int size) {
         this.array = new Object[size];
@@ -59,7 +59,8 @@ public class SimpleArray<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return position < array.length;
+
+                return position < array.length && array[position] != null;
             }
 
             @Override

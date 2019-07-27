@@ -69,4 +69,13 @@ public class SimpleArrayTest {
         Assert.assertThat(it.next(), Is.is(6));
         it.next();
     }
+    /**
+     * Testing hasnext() on empty array.
+     */
+    @Test
+    public void whenEmptyArrayThenHasNextFalse() {
+        SimpleArray saE = new SimpleArray(10);
+        Iterator it = saE.iterator();
+        Assert.assertThat(it.hasNext(), Is.is(false));
+    }
 }
