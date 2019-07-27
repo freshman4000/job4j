@@ -55,12 +55,12 @@ public class SimpleArray<T> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            int position = 0;
+            int position = -1;
 
             @Override
             public boolean hasNext() {
 
-                return position < array.length && array[position] != null;
+                return position < index;
             }
 
             @Override
@@ -68,7 +68,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (T) array[position++];
+                return (T) array[++position];
             }
         };
     }
