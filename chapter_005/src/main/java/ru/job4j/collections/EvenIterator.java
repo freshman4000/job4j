@@ -15,14 +15,6 @@ public class EvenIterator implements Iterator {
      * Index of even number.
      */
     int index;
-    /**
-     * The amount of even numbers in array.
-     */
-    int length;
-    /**
-     * Array current index - refers from global iteration.
-     */
-    int overAll;
 
     /**
      * Constructor.
@@ -31,14 +23,7 @@ public class EvenIterator implements Iterator {
      */
     public EvenIterator(int[] array) {
         this.array = array;
-        this.index = -1;
-        this.length = 0;
-        this.overAll = 0;
-        for (int i = 0; i != this.array.length; i++) {
-            if (array[i] % 2 == 0) {
-                length++;
-            }
-        }
+        this.index = 0;
     }
 
     /**
@@ -48,9 +33,14 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return this.index < this.length - 1;
+        boolean result = false;
+        for (int i = index; i < array.length; i++)
+            if (array[i] % 2 == 0) {
+                result = true;
+                break;
+            }
+        return result;
     }
-
     /**
      * Method that return next even number in array.
      *
@@ -60,10 +50,9 @@ public class EvenIterator implements Iterator {
     public Object next() {
         if (!hasNext()) throw new NoSuchElementException();
         int result = 0;
-        for (int i = overAll; i != array.length; i++) {
-            overAll++;
+        for (int i = index; i != array.length; i++) {
             if (array[i] % 2 == 0) {
-                index++;
+                index = i + 1;
                 result = array[i];
                 break;
             }
