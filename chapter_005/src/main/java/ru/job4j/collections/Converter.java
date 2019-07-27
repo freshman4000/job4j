@@ -19,15 +19,20 @@ public class Converter {
 
             /**
              * Method, that sets current iterator and if current iterator doesn't have next() value,
-             * makes recursive call of the method till it returns Iterator which has next value or null.
+             * consequentially checks other iterators until it returns Iterator which has next value
+             * or null.
              * @return new current iterator or null.
              */
             private Iterator setCurIt() {
                 Iterator result = null;
-                if (its.hasNext()) {
+                while(its.hasNext()) {
                     result = its.next();
+                    if (result.hasNext()) {
+                        break;
+                    }
+                    result = null;
                 }
-                return result != null ? result.hasNext() ? result : setCurIt() : null;
+                return result;
             }
 
             /**
