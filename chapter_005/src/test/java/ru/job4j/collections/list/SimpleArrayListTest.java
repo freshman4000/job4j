@@ -1,6 +1,5 @@
 package ru.job4j.collections.list;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 import org.hamcrest.core.Is;

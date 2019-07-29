@@ -5,29 +5,28 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleArrayList<E> implements Iterable<E>{
-    private int length;
     private int index;
     private int modCount;
     private E[] array;
 
     public SimpleArrayList() {
-        this.length = 10;
         this.index = -1;
         this.modCount = 0;
-        this.array = (E[])new Object[this.length];
+        this.array = (E[])new Object[10];
     }
     public SimpleArrayList(int size) {
-        this.length = size;
         this.index = -1;
-        this.array = (E[])new Object[this.length];
+        this.array = (E[])new Object[size];
     }
-
+    private void increaseCap() {
+        E[] buffer =(E[])new Object[array.length * 2];
+        System.arraycopy(array, 0, buffer, 0, this.index);
+        array = buffer;
+    }
     public void add(E value) {
         modCount++;
-        if (++index > length - 1) {
-            E[] buffer =(E[])new Object[length * 2];
-            System.arraycopy(array, 0, buffer, 0, this.index);
-            array = buffer;
+        if (++index > array.length - 1) {
+            increaseCap();
         }
         array[index] = value;
     }
