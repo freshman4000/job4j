@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
  * @param <E> parameter type.
  */
 public class SimpleLinkedList<E> {
-    int size;
-    Node<E> first;
+    private int size;
+    private Node<E> first;
 
     /**
      * Adds node to list on first position.
