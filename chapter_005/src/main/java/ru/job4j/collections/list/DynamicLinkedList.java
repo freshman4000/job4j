@@ -3,7 +3,8 @@ package ru.job4j.collections.list;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
+import java.util.Objects;
+import java.util.LinkedList;
 /**
  * Class that uses Nodes to store data.
  *
@@ -13,6 +14,7 @@ public class DynamicLinkedList<E> implements Iterable {
     private int size;
     private int modCount;
     private Node<E> first;
+    private Node<E> last;
 
     /**
      * Adds data to linked list.
@@ -22,7 +24,11 @@ public class DynamicLinkedList<E> implements Iterable {
     public void add(E data) {
         Node<E> newNode = new Node<>(data);
         newNode.next = this.first;
+        if (size == 0) {
+        last = newNode;
+        }
         this.first = newNode;
+
         size++;
         modCount++;
     }
@@ -43,6 +49,16 @@ public class DynamicLinkedList<E> implements Iterable {
         }
         return result.data;
     }
+    public E removeFirst() {
+        if (this.size < 1) {
+            throw new NoSuchElementException();
+        }
+        Node<E> buffer = this.getFirst();
+        this.setFirst(this.getFirst().getNext());
+        this.size--;
+        return buffer.getData();
+    }
+
     public int size() {
         return this.size;
     }
@@ -120,6 +136,20 @@ public class DynamicLinkedList<E> implements Iterable {
 
         public void setNext(Node<E> next) {
             this.next = next;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Node)) return false;
+            Node<?> node = (Node<?>) o;
+            return Objects.equals(getData(), node.getData()) &&
+                    Objects.equals(getNext(), node.getNext());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(getData(), getNext());
         }
     }
 }

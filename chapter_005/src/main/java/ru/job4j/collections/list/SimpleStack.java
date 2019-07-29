@@ -17,9 +17,7 @@ public class SimpleStack<E> {
         if (list.size() < 1) {
             result = null;
         } else {
-            result = this.list.getFirst().getData();
-            this.list.setFirst(this.list.getFirst().getNext());
-            list.setSize(list.size() - 1);
+            result = this.list.removeFirst();
         }
         return result;
     }
