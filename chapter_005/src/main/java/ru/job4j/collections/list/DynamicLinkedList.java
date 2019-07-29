@@ -43,7 +43,20 @@ public class DynamicLinkedList<E> implements Iterable {
         }
         return result.data;
     }
+    public int size() {
+        return this.size;
+    }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public Node<E> getFirst() {
+        return this.first;
+    }
+    public void setFirst(Node<E> node) {
+        this.first = node;
+    }
     /**
      * Creates iterator over the list.
      *
@@ -52,8 +65,10 @@ public class DynamicLinkedList<E> implements Iterable {
     @Override
     public Iterator iterator() {
         return new Iterator() {
-            int expectedModCount = modCount;
-            int position = 0;
+            private int expectedModCount = modCount;
+            private int position = 0;
+            private Node<E> current = first;
+
 
             /**
              * Checks if iterator has more elements to iterate.
@@ -76,7 +91,8 @@ public class DynamicLinkedList<E> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return get(position++);
+                current = position++ == 0 ? current : current.getNext();
+                return current.getData();
             }
         };
     }
@@ -87,11 +103,23 @@ public class DynamicLinkedList<E> implements Iterable {
      * @param <E> type parameter.
      */
     static class Node<E> {
-        E data;
-        Node<E> next;
+        private E data;
+        private Node<E> next;
 
         public Node(E data) {
             this.data = data;
+        }
+
+        public E getData() {
+            return data;
+        }
+
+        public Node<E> getNext() {
+            return next;
+        }
+
+        public void setNext(Node<E> next) {
+            this.next = next;
         }
     }
 }
