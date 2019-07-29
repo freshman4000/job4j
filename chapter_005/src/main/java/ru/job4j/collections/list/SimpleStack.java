@@ -29,4 +29,7 @@ public class SimpleStack<E> {
     public void push(E data) {
        list.add(data);
     }
+    public boolean isEmpty() {
+    return list.size() < 1;
+    }
 }

@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.LinkedList;
+
 /**
  * Class that uses Nodes to store data.
  *
