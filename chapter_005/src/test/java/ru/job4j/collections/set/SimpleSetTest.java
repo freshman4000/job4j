@@ -12,13 +12,14 @@ import java.util.NoSuchElementException;
  */
 public class SimpleSetTest {
     /**
-     * Testing addition, no duplication, iteration.
+     * Testing addition, null value addition, no duplicates and iteration.
      */
     @Test(expected = NoSuchElementException.class)
     public void whenDupsAddedThenNoDupsInSet() {
         SimpleSet<Integer> ss = new SimpleSet<>(10);
         ss.add(3);
         ss.add(4);
+        ss.add(null);
         ss.add(3);
         ss.add(4);
         ss.add(8);

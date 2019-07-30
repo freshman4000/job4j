@@ -4,19 +4,22 @@ import ru.job4j.collections.SimpleArray;
 
 import java.util.Iterator;
 
-public class SimpleSet<E> implements Iterable<E>{
-   private SimpleArray<E> sa;
+public class SimpleSet<E> implements Iterable<E> {
+    private SimpleArray<E> sa;
 
     public SimpleSet(int size) {
         this.sa = new SimpleArray<>(size);
     }
 
-    public boolean add (E data) {
-        boolean result = true;
-        for (int i = 0; i <= sa.size(); i++) {
-            if (sa.get(i).equals(data)) {
-                result = false;
-                break;
+    public boolean add(E data) {
+        boolean result = false;
+        if (data != null) {
+            result = true;
+            for (int i = 0; i <= sa.size(); i++) {
+                if (sa.get(i).equals(data)) {
+                    result = false;
+                    break;
+                }
             }
         }
         if (result) {
@@ -28,7 +31,8 @@ public class SimpleSet<E> implements Iterable<E>{
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-        Iterator<E> it = sa.iterator();
+            Iterator<E> it = sa.iterator();
+
             @Override
             public boolean hasNext() {
                 return it.hasNext();
