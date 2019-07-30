@@ -1,5 +1,6 @@
 package ru.job4j.collections.set;
 
+import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.Assert;
 import org.hamcrest.core.Is;
@@ -22,10 +23,12 @@ public class SimpleSetTest {
         ss.add(null);
         ss.add(3);
         ss.add(4);
+        ss.add(null);
         ss.add(8);
         Iterator it = ss.iterator();
         Assert.assertThat(it.next(), Is.is(3));
         Assert.assertThat(it.next(), Is.is(4));
+        Assert.assertThat(it.next(), IsNull.nullValue());
         Assert.assertThat(it.next(), Is.is(8));
         Assert.assertThat(it.hasNext(), Is.is(false));
         it.next();

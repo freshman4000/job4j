@@ -30,7 +30,7 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public T get(int index) {
         if (this.index >= index) {
-            return (T) this.array[index];
+            return this.array[index] != null ? (T) this.array[index] : null;
         } else {
             throw new NoSuchElementException();
         }
