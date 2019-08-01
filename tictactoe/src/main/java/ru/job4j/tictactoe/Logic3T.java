@@ -1,4 +1,4 @@
-package job4j.tictactoe;
+package ru.job4j.tictactoe;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -29,7 +29,7 @@ public class Logic3T {
             {0, 0, 1, 1},
             {this.table.length - 1, 0, -1, 1},
             {this.table.length - 1, 0, 0, 1},
-            {this.table.length - 1, this.table.length -1, -1, 0},
+            {this.table.length - 1, this.table.length - 1, -1, 0},
             {1, 0, 0, 1},
             {0, 1, 1, 0}};
     return Arrays.stream(matrix)

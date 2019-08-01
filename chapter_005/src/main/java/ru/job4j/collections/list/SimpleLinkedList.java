@@ -38,9 +38,11 @@ public class SimpleLinkedList<E> {
      * @return data.
      */
     public E get(int index) {
-        if (index > this.size) throw new NoSuchElementException();
+        if (index > this.size) {
+            throw new NoSuchElementException();
+        }
         Node<E> result = this.first;
-        for (int i =0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             result = result.next;
         }
         return result.data;

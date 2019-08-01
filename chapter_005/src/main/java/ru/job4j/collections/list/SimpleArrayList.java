@@ -4,7 +4,7 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SimpleArrayList<E> implements Iterable<E>{
+public class SimpleArrayList<E> implements Iterable<E> {
     private int index;
     private int modCount;
     private E[] array;
@@ -12,14 +12,14 @@ public class SimpleArrayList<E> implements Iterable<E>{
     public SimpleArrayList() {
         this.index = -1;
         this.modCount = 0;
-        this.array = (E[])new Object[10];
+        this.array = (E[]) new Object[10];
     }
     public SimpleArrayList(int size) {
         this.index = -1;
-        this.array = (E[])new Object[size];
+        this.array = (E[]) new Object[size];
     }
     private void increaseCap() {
-        E[] buffer =(E[])new Object[array.length * 2];
+        E[] buffer = (E[]) new Object[array.length * 2];
         System.arraycopy(array, 0, buffer, 0, this.index);
         array = buffer;
     }

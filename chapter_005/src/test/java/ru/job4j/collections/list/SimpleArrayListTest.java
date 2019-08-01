@@ -67,7 +67,7 @@ public class SimpleArrayListTest {
         sl.add(48);
         sl.add(248);
         Iterator it = sl.iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             it.next();
             sl.add(888);
         }

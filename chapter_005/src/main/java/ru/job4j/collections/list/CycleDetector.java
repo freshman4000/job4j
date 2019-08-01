@@ -9,14 +9,17 @@ public class CycleDetector {
     static boolean hasCycle(Node<?> first) {
         boolean result = false;
         if (first != null) {
-            Node<?> fast = first;
-            Node<?> slow = first;
+            Node<?> fast = first.getNext().getNext();
+            Node<?> slow = first.getNext();
 
-            while ((fast = fast.getNext().getNext()) != null && ((slow = slow.getNext()) != null)) {
+            while (fast != null && slow != null) {
+
                 if (fast.equals(slow)) {
                     result = true;
                     break;
                 }
+                fast = fast.getNext().getNext();
+                slow = slow.getNext();
             }
         }
         return result;

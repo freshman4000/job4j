@@ -43,7 +43,9 @@ public class Converter {
              */
             @Override
             public Integer next() {
-                if (!hasNext()) throw new NoSuchElementException();
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return (Integer) current.next();
             }
         };

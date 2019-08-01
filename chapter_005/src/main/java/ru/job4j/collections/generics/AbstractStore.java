@@ -41,7 +41,9 @@ public class AbstractStore<T extends Base> implements Store<T> {
     @Override
     public T findById(String id) {
         int index = getIndexById(id);
-        if (index == -1) throw new NoSuchElementException();
+        if (index == -1) {
+            throw new NoSuchElementException();
+        }
         return array.get(index);
     }
 

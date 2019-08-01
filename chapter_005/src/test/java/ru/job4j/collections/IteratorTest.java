@@ -10,7 +10,7 @@ import org.junit.Assert;
 public class IteratorTest {
     @Test
     public void whenNext9TimesThen100() {
-        int[][] agrArr = {{1,43, 6, 267},
+        int[][] agrArr = {{1, 43, 6, 267},
                           {4, 23, 18},
                           {67, 100, 145}};
         MyIterator it = new MyIterator(agrArr);

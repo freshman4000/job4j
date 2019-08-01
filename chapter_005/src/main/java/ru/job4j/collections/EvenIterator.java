@@ -34,12 +34,13 @@ public class EvenIterator implements Iterator {
     @Override
     public boolean hasNext() {
         boolean result = false;
-        for (int i = index; i < array.length; i++)
+        for (int i = index; i < array.length; i++) {
             if (array[i] % 2 == 0) {
                 index = i;
                 result = true;
                 break;
             }
+        }
         return result;
     }
     /**
@@ -49,7 +50,9 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        if (!hasNext()) throw new NoSuchElementException();
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         return array[index++];
     }
 }

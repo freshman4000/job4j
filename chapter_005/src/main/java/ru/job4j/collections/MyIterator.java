@@ -21,7 +21,9 @@ public class MyIterator implements Iterator {
 
     @Override
     public Object next() {
-        if (!this.hasNext()) throw new NoSuchElementException();
+        if (!this.hasNext()) {
+            throw new NoSuchElementException();
+        }
         int result = array[indexR][indexC++];
         if (indexC == array[indexR].length && indexR < array.length - 1) {
             indexR++;

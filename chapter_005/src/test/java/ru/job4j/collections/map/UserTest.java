@@ -14,14 +14,15 @@ public class UserTest {
      * Testing map with not overriden hashcode and equals().
      */
     @Test
-    public void whenTwoObjHashAndEqualsNotOverridenThenTwoObj(){
+    public void whenTwoObjHashAndEqualsNotOverridenThenTwoObj() {
 
-        User us1 = new User("John", 0, new GregorianCalendar(2001, Calendar.APRIL,11));
-        User us2 = new User("John", 0, new GregorianCalendar(2001, Calendar.APRIL,11));
+        User us1 = new User("John", 0, new GregorianCalendar(2001, Calendar.APRIL, 11));
+        User us2 = new User("John", 0, new GregorianCalendar(2001, Calendar.APRIL, 11));
 
         Map<User, Object> map = new HashMap<>();
         map.put(us1, "first");
         map.put(us2, "second");
         System.out.println(map);
+
     }
 }
