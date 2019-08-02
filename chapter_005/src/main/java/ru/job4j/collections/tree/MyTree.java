@@ -18,35 +18,15 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     @Override
     public Iterator<E> iterator() {
+        Queue<Node<E>> cur = new LinkedList<>();
+        cur.offer(root);
         return new Iterator<E>() {
-            private int position = -1;
             private int conModItr = conMod;
-            /**
-             * Prepared list for iteration.
-             */
-            private List<Node<E>> iterList = getArray();
 
-            /**
-             * Method that creates list for iteration by using BFS.
-             * @return list of all nodes in order of levels.
-             */
-            private List<Node<E>> getArray() {
-                List<Node<E>> result = new ArrayList<>();
-                Queue<Node<E>> qu = new LinkedList<>();
-                qu.offer(root);
-                while (!qu.isEmpty()) {
-                    Node<E> el = qu.poll();
-                    result.add(el);
-                    for (Node<E> child : el.leaves()) {
-                        qu.offer(child);
-                    }
-                }
-                return result;
-            }
 
             @Override
             public boolean hasNext() {
-                return position < iterList.size() - 1;
+                return !cur.isEmpty();
             }
 
             @Override
@@ -57,7 +37,15 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return iterList.get(++position).getValue();
+                Node<E> node = cur.poll();
+                if (cur.isEmpty()) {
+                    if (!node.leaves().isEmpty()) {
+                        for (Node<E> n : node.leaves()) {
+                            cur.offer(n);
+                        }
+                    }
+                }
+                return node.getValue();
             }
         };
     }
@@ -94,10 +82,9 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
-        Node<E> par = findBy(parent).orElse(null);
-        Node<E> ch = new Node<E>(child);
-        if (par != null && !par.leaves().contains(ch)) {
-            par.add(new Node<E>(child));
+        if (findBy(child).isEmpty()) {
+            Optional<Node<E>> neededParent = findBy(parent);
+            neededParent.ifPresent(eNode -> eNode.add(new Node<E>(child)));
             result = true;
         }
         conMod = result ? conMod + 1 : conMod;

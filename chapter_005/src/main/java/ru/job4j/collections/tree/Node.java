@@ -9,6 +9,7 @@ public class Node<E extends Comparable<E>> {
     private List<Node<E>> children = new ArrayList<>();
 
     public Node(final E value) {
+
         this.value = value;
     }
 
