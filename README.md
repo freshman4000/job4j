@@ -6,6 +6,7 @@
  - 002 OOP.
  - 003 Collections lite.
  - 004 Lambda, Stream API.
+ 
 **Java Junior course. Started 07.26.2019 - Finished ?**
  - 005 Collections Pro
 
