@@ -63,6 +63,26 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     /**
+     * Method checks if all nodes in tree have less then 3 children.
+     *
+     * @return boolean result of inspection.
+     */
+    public boolean isBinary() {
+        Iterator<E> it = this.iterator();
+        boolean result = true;
+        while (it.hasNext()) {
+            Optional<Node<E>> current = this.findBy(it.next());
+            if (current.isPresent()) {
+                if (current.get().leaves().size() > 2) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
      * Method checks if parent Node exists. If so, checks if this nodes leaves don't
      * have Nodes with same value. If true - adds new Node to the parent's node List
      * of children.

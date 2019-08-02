@@ -89,4 +89,19 @@ public class MyTreeTest {
         tree.add(6, 34);
         it.next();
     }
+
+    /**
+     * Testing Binary tree detection.
+     */
+    @Test
+    public void whenLeavesSizeMoreThenTwoThenFalseIfNotThenTrue() {
+        MyTree<Integer> tree = new MyTree<Integer>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        Assert.assertThat(tree.isBinary(), Is.is(true));
+        tree.add(1, 4);
+        Assert.assertThat(tree.isBinary(), Is.is(false));
+    }
 }
