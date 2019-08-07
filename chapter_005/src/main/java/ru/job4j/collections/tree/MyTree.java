@@ -10,6 +10,10 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
         this.root = new Node<E>(value);
     }
 
+    public Node<E> getRoot() {
+        return root;
+    }
+
     /**
      * Creates new Iterator based on list of all elements in tree created by
      * by Breadth First Search.
@@ -38,13 +42,12 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
                     throw new NoSuchElementException();
                 }
                 Node<E> node = cur.poll();
-                if (cur.isEmpty()) {
-                    if (!node.leaves().isEmpty()) {
-                        for (Node<E> n : node.leaves()) {
-                            cur.offer(n);
-                        }
+                if (!node.leaves().isEmpty()) {
+                    for (Node<E> n : node.leaves()) {
+                        cur.offer(n);
                     }
                 }
+
                 return node.getValue();
             }
         };
@@ -55,17 +58,16 @@ public class MyTree<E extends Comparable<E>> implements SimpleTree<E> {
      *
      * @return boolean result of inspection.
      */
-    public boolean isBinary() {
-        Iterator<E> it = this.iterator();
+    public boolean isBinary(Node<E> root) {
         boolean result = true;
-        while (it.hasNext()) {
-            Optional<Node<E>> current = this.findBy(it.next());
-            if (current.isPresent()) {
-                if (current.get().leaves().size() > 2) {
-                    result = false;
-                    break;
-                }
-            }
+        if (root.leaves().size() > 2) {
+            return false;
+        }
+        if (root.leaves().size() == 1) {
+            result = isBinary(root.leaves().get(0));
+        }
+        if (root.leaves().size() == 2) {
+            result = isBinary(root.leaves().get(1)) && isBinary(root.leaves().get(0));
         }
         return result;
     }

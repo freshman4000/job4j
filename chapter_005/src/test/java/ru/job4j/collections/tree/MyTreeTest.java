@@ -100,8 +100,8 @@ public class MyTreeTest {
         tree.add(1, 3);
         tree.add(4, 5);
         tree.add(5, 6);
-        Assert.assertThat(tree.isBinary(), Is.is(true));
+        Assert.assertThat(tree.isBinary(tree.getRoot()), Is.is(true));
         tree.add(1, 4);
-        Assert.assertThat(tree.isBinary(), Is.is(false));
+        Assert.assertThat(tree.isBinary(tree.getRoot()), Is.is(false));
     }
 }
