@@ -3,6 +3,7 @@ package ru.job4j.collections.map;
 import java.util.*;
 
 public class SimpleMap<K, V> implements Iterable {
+    private int indexWhole;
     private int defCapas;
     private Node<K, V>[] array;
     private boolean hasNull = false;
@@ -12,6 +13,7 @@ public class SimpleMap<K, V> implements Iterable {
     public SimpleMap() {
         this.defCapas = 16;
         this.array = (Node<K, V>[]) new Node[defCapas];
+        this.indexWhole = 0;
     }
 
     public SimpleMap(int size) {
@@ -20,16 +22,12 @@ public class SimpleMap<K, V> implements Iterable {
     }
 
     private void controlCapacity() {
-        int notNull = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
-                notNull++;
+        if ((float) indexWhole / (float) array.length > load) {
+            Node<K, V>[] buffer = array;
+            array = (Node<K, V>[]) new Node[defCapas * 2];
+            for (int i = 0; i != buffer.length; i++) {
+                this.insert(buffer[i].key, buffer[i].value);
             }
-        }
-        if ((float) notNull / (float) defCapas > load) {
-            Node<K, V>[] buffer = (Node<K, V>[]) new Node[defCapas * 2];
-            System.arraycopy(array, 0, buffer, 0, array.length - 1);
-            array = buffer;
         }
     }
 
@@ -44,15 +42,9 @@ public class SimpleMap<K, V> implements Iterable {
     private boolean checkNodesInBucket(int bucketKey, Node<K, V> pretender) {
         boolean result;
 
-        if (array[bucketKey] == null && pretender.key != null) {
-            result = true;
-        } else if (array[bucketKey] == null && pretender.key == null) {
-            if (hasNull) {
-                result = false;
-            } else {
-                result = true;
-                hasNull = true;
-            }
+        if (array[bucketKey] == null) {
+            result = pretender.key != null || !hasNull;
+            hasNull = pretender.key == null && result;
         } else {
             if (pretender.key == null) {
                 result = !hasNull;
@@ -90,6 +82,7 @@ public class SimpleMap<K, V> implements Iterable {
         }
         controlCapacity();
         modControl = result ? modControl + 1 : modControl;
+        indexWhole = result ? indexWhole + 1 : indexWhole;
         return result;
     }
 
@@ -167,6 +160,7 @@ public class SimpleMap<K, V> implements Iterable {
             }
         }
         modControl = result ? modControl + 1 : modControl;
+        indexWhole = result ? indexWhole - 1 : indexWhole;
         return result;
     }
 
@@ -175,29 +169,10 @@ public class SimpleMap<K, V> implements Iterable {
         return new Iterator<Node<K, V>>() {
             private int position = -1;
             private int concModControl = modControl;
-            private Node<K, V>[] arrForIteration = getArray();
-
-            private Node<K, V>[] getArray() {
-                List<Node<K, V>> buffer = new ArrayList<>();
-                for (int i = 0; i < array.length; i++) {
-                    if (array[i] != null) {
-                        Node<K, V> current = array[i];
-                        while (current != null) {
-                            buffer.add(current);
-                            current = current.next;
-                        }
-                    }
-                }
-                Node<K, V>[] buffArr = (Node<K, V>[]) new Node[buffer.size()];
-                for (int i = 0; i < buffArr.length; i++) {
-                    buffArr[i] = buffer.get(i);
-                }
-                return buffArr;
-            }
 
             @Override
             public boolean hasNext() {
-                return position < arrForIteration.length - 1;
+                return position < indexWhole - 1;
             }
 
             @Override
@@ -208,7 +183,7 @@ public class SimpleMap<K, V> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return arrForIteration[++position];
+                return array[++position];
             }
         };
     }
