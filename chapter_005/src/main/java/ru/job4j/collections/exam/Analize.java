@@ -1,6 +1,8 @@
 package ru.job4j.collections.exam;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class Analize {
@@ -9,17 +11,21 @@ public class Analize {
         int added = 0;
         int deleted = 0;
         int changed = 0;
+        Map<Integer, User> prev = new HashMap<>();
+        Map<Integer, User> cur = new HashMap<>();
+        previous.forEach(x -> prev.put(x.id, x));
+        current.forEach(x -> cur.put(x.id, x));
+
         for (User user : previous) {
-            if (!current.contains(user)) {
+            if (!cur.containsKey(user.id)) {
                 deleted++;
             }
         }
         for (User user : current) {
-            int index = previous.indexOf(user);
-            if (index == -1) {
+            if (!prev.containsKey(user.id)) {
                 added++;
             } else {
-                if (!previous.get(index).getName().equals(user.getName())) {
+                if (!prev.get(user.id).getName().equals(user.getName())) {
                     changed++;
                 }
             }
