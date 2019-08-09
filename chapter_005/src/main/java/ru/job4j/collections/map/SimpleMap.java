@@ -19,12 +19,14 @@ public class SimpleMap<K, V> implements Iterable {
     public SimpleMap(int size) {
         defCapas = size % 16 > 0 ? (size / 16 + 1) * 16 : size;
         this.array = (Node<K, V>[]) new Node[defCapas];
+        this.indexWhole = 0;
     }
 
     private void controlCapacity() {
         if ((float) indexWhole / (float) array.length > load) {
             Node<K, V>[] buffer = array;
-            array = (Node<K, V>[]) new Node[defCapas * 2];
+            defCapas *= 2;
+            array = (Node<K, V>[]) new Node[defCapas];
             for (int i = 0; i != buffer.length; i++) {
                 this.insert(buffer[i].key, buffer[i].value);
             }
@@ -183,7 +185,28 @@ public class SimpleMap<K, V> implements Iterable {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return array[++position];
+                Node<K, V> result = null;
+                ++position;
+                int counter = -1;
+                for (int i = 0; i != indexWhole; i++) {
+                    if (array[i] != null) {
+                        Node<K, V> current = array[i];
+                        counter++;
+                        while (counter != position) {
+                            current = current.next;
+                            if (current != null) {
+                                counter++;
+                            } else {
+                                break;
+                            }
+                        }
+                        if (counter == position) {
+                            result = current;
+                            break;
+                        }
+                    }
+                }
+                return result;
             }
         };
     }
