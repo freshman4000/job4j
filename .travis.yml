@@ -1,5 +1,4 @@
 # используем язык java. Travis CI поддерживает другие языки тоже.
-os: windows
 language: java
 jdk:
  - openjdk11
