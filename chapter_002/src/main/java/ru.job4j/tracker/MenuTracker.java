@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Class MenuTracker that creates menu and suggests it to user.
@@ -16,15 +17,20 @@ public class MenuTracker {
      */
     private Tracker tracker;
     /**
+     * Functional interface for output.
+     */
+    private final Consumer<String> output;
+    /**
      * List of saved actions.
      */
     private List<UserAction> actions = new ArrayList<>();
     /**
      * Constructor.
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        this.output = output;
     }
     /**
      * Method return actions menu list size.
@@ -51,7 +57,7 @@ public class MenuTracker {
      * @param key key of action.
      */
     public void select(int key) {
-        this.actions.get(key).execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker, this.output);
     }
     /**
      * Shows menu.

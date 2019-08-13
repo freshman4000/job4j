@@ -25,13 +25,9 @@ public class SortUserTest {
         User1 us2 = new User1("Ivan", 18);
         User1 us3 = new User1("Antonio", 23);
         User1 us4 = new User1("Cj", 48);
-        ArrayList<User1> users = new ArrayList<>(Arrays.asList(us1, us2, us3, us4));
+        List<User1> users = List.of(us1, us2, us3, us4);
         Set<User1> result = new SortUser().sort(users);
-        List<User1> expected = new LinkedList<>();
-        expected.add(us2);
-        expected.add(us3);
-        expected.add(us1);
-        expected.add(us4);
+        List<User1> expected = List.of(us2, us3, us1, us4);
         Set<User1> expected1 = new LinkedHashSet<>(expected);
         Assert.assertThat(result, Is.is(expected1));
 
@@ -46,13 +42,9 @@ public class SortUserTest {
         User1 us2 = new User1("Ivan", 18);
         User1 us3 = new User1("Antonio", 23);
         User1 us4 = new User1("Cj", 48);
-        ArrayList<User1> users = new ArrayList<>(Arrays.asList(us1, us2, us3, us4));
+        List<User1> users = Arrays.asList(us1, us2, us3, us4);
         List<User1> result = new SortUser().sortNameLength(users);
-        List<User1> expected = new LinkedList<>();
-        expected.add(us4);
-        expected.add(us2);
-        expected.add(us1);
-        expected.add(us3);
+        List<User1> expected = List.of(us4, us2, us1, us3);
         Assert.assertThat(result, Is.is(expected));
     }
 
@@ -65,13 +57,9 @@ public class SortUserTest {
         User1 us2 = new User1("Ivan", 30);
         User1 us3 = new User1("Sergey", 20);
         User1 us4 = new User1("Ivan", 25);
-        ArrayList<User1> users = new ArrayList<>(Arrays.asList(us1, us2, us3, us4));
+        List<User1> users = Arrays.asList(us1, us2, us3, us4);
         List<User1> result = new SortUser().sortByAllFields(users);
-        List<User1> expected = new LinkedList<>();
-        expected.add(us4);
-        expected.add(us2);
-        expected.add(us3);
-        expected.add(us1);
+        List<User1> expected = List.of(us4, us2, us3, us1);
         Assert.assertThat(result, Is.is(expected));
     }
 }

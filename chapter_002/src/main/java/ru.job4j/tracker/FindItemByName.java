@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class that creates Item and adds it to database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -20,17 +23,17 @@ public class FindItemByName extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Show all items with given name --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Show all items with given name --------------");
         String name = input.ask("Type item name :");
         if (tracker.findByName(name).size() != 0) {
             for (Item items : tracker.findByName(name)) {
                 if (items != null) {
-                    System.out.println(items.toString());
+                    output.accept(items.toString());
                 }
             }
         } else {
-            System.out.println("--- List is empty. Try to add new item ---");
+            output.accept("--- List is empty. Try to add new item ---");
         }
     }
 }

@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class that deletes Item from database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -15,13 +18,13 @@ public class DeleteItem extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Item removal --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Item removal --------------");
         String id = input.ask("Type item id :");
         if (tracker.delete(id)) {
-            System.out.println("Item was deleted :");
+            output.accept("Item was deleted :");
         } else {
-            System.out.println("--- Item Id : " + id + " not found. Try different id ---");
+            output.accept("--- Item Id : " + id + " not found. Try different id ---");
         }
     }
 }

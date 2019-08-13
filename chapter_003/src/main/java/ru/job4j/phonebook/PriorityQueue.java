@@ -13,8 +13,8 @@ public class PriorityQueue {
      * @param task задача
      */
     public void put(Task task) {
-        int index = 0;
-        ListIterator<Task> li = tasks.listIterator();
+        var index = 0;
+        var li = tasks.listIterator();
         while (li.hasNext()) {
             if (li.next().getPriority() > task.getPriority()) {
                 index = li.previousIndex();

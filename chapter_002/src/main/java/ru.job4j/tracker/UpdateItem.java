@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.function.Consumer;
+
 /**
  * Class that creates Item and adds it to database.
  * @author Vit Efremov (freshman4000@gmail.com).
@@ -20,17 +23,17 @@ public class UpdateItem extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
-        System.out.println("------------ Item update --------------");
+    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+        output.accept("------------ Item update --------------");
         String id = input.ask("Type item id :");
         String name = input.ask("Update name :");
         String desc = input.ask("Update description :");
         Item item = new Item(name, desc);
         if (tracker.replace(id, item)) {
             item.setId(id);
-            System.out.println("------------ Item Id : " + item.getId() + "was updated -----------");
+            output.accept("------------ Item Id : " + item.getId() + "was updated -----------");
         } else {
-            System.out.println("--- Item Id : " + id + " not found. Try different id ---");
+            output.accept("--- Item Id : " + id + " not found. Try different id ---");
         }
     }
 }

@@ -13,8 +13,8 @@ public class Mortage {
      */
     public int year(int amount, int monthly, double percent) {
         int year = 0;
-        while(amount > 0) {
-            amount = (int)(amount + (amount * percent / 100) - monthly * 12);
+        while (amount > 0) {
+            amount = (int) (amount + (amount * percent / 100) - monthly * 12);
             year++;
         }
         return year;
