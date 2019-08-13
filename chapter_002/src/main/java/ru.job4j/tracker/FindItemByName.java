@@ -23,7 +23,7 @@ public class FindItemByName extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Show all items with given name --------------");
         String name = input.ask("Type item name :");
-        if (tracker.findByName(name).length != 0) {
+        if (tracker.findByName(name).size() != 0) {
             for (Item items : tracker.findByName(name)) {
                 if (items != null) {
                     System.out.println(items.toString());

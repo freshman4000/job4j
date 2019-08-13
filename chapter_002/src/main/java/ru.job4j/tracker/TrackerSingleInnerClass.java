@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class TrackerSingleInnerClass {
-    private TrackerSingleInnerClass(){}
-private static final class Holder{
+    private TrackerSingleInnerClass() { }
+private static final class Holder {
     private static final TrackerSingleInnerClass INSTANCE = new TrackerSingleInnerClass();
 }
 public static TrackerSingleInnerClass getInstance() {

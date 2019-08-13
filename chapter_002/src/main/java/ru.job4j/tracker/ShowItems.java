@@ -22,7 +22,7 @@ public class ShowItems extends BaseAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("------------ Showing all items --------------");
-        if (tracker.findAll().length != 0) {
+        if (tracker.findAll().size() != 0) {
             for (Item items : tracker.findAll()) {
                 System.out.println(items.toString());
             }

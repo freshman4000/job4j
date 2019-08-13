@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -11,18 +12,14 @@ public class Tracker {
     /**
      * Items array.
      */
-    private Item[] items = new Item[100];
-    /**
-    * Order number of new item.
-    */
-    private int position = 0;
+    private ArrayList<Item> items = new ArrayList<>();
     /**
      * Method adds new item to database.
      * @param item new item.
      */
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[position++] = item;
+        this.items.add(item);
         return item;
     }
     /**
@@ -36,16 +33,16 @@ public class Tracker {
     }
 
     /**
-     * Replaces item with given id in items[] by given item.
+     * Replaces item with given id in items by given item.
      * @param id of the item that needs to be replaces.
      * @param item - replacement.
      * @return if replacement took place.
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int index = 0; index < this.position; index++) {
-            if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                items[index] = item;
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
+                items.set(i, item);
                 result = true;
                 break;
             }
@@ -53,17 +50,15 @@ public class Tracker {
         return result;
     }
     /**
-     * Deletes item with given id from items[].
+     * Deletes item with given id from items.
      * @param id of the item that needs to be deleted.
      * @return if replacement took place.
      */
     public boolean delete(String id) {
         boolean result = false;
-        for (int index = 0; index < this.position; index++) {
-            if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                System.arraycopy(items, index + 1, items, index, items.length - 1 - index);
-                items[items.length - 1] = null;
-                position--;
+        for (Item item : this.items) {
+            if (item.getId().equals(id)) {
+                this.items.remove(item);
                 result = true;
                 break;
             }
@@ -72,26 +67,25 @@ public class Tracker {
     }
 
     /**
-     * Creates new array with all not null elements.
+     * Creates list of all not null elements.
      * @return array.
      */
-    public Item[] findAll() {
-        return Arrays.copyOf(this.items, this.position);
+    public ArrayList<Item> findAll() {
+        return this.items;
             }
     /**
      * Finds Items by name and puts it to array.
      * @param key - searched items name.
      * @return array of found objects type Item.
      */
-    public Item[] findByName(String key) {
-    Item[] result = new Item[this.position];
-    int count = 0;
-        for (int index = 0; index != this.position; index++) {
-        if (this.items[index].getName().equals(key)) {
-            result[count++] = this.items[index];
+    public ArrayList<Item> findByName(String key) {
+    ArrayList<Item> result = new ArrayList<>();
+        for (Item item : this.items) {
+        if (item.getName().equals(key)) {
+            result.add(item);
         }
     }
-        return count > 0 ? result : new Item[0];
+        return result;
 }
     /**
      * Finds Item by id.
@@ -100,14 +94,12 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item result = null;
-        if (this.position != 0) {
-            for (int index = 0; index != this.position; index++) {
-                if (this.items[index] != null && this.items[index].getId().equals(id)) {
-                    result = this.items[index];
+        for (Item item : this.items) {
+                if (item != null && item.getId().equals(id)) {
+                    result = item;
                     break;
                 }
             }
-        }
         return result;
     }
 }

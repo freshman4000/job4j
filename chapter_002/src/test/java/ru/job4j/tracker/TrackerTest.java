@@ -63,7 +63,7 @@ public class TrackerTest {
      * Testing search by not nulls.
      */
     @Test
-    public void whenFindAllThenReturnArrayNoNulls() {
+    public void whenFindAllThenReturnListNoNulls() {
         Tracker tracker = new Tracker();
         Item first = new Item("sameName", "testDescription", 123L);
         Item second = new Item("noTsameName", "testDescription2", 1234L);
@@ -72,16 +72,16 @@ public class TrackerTest {
         tracker.add(second);
         tracker.add(third);
         int expected = 3;
-        Assert.assertThat(tracker.findAll().length, Is.is(expected));
-        Assert.assertThat(tracker.findAll()[0], IsEqual.equalTo(first));
-        Assert.assertThat(tracker.findAll()[1], IsEqual.equalTo(second));
-        Assert.assertThat(tracker.findAll()[2], IsEqual.equalTo(third));
+        Assert.assertThat(tracker.findAll().size(), Is.is(expected));
+        Assert.assertThat(tracker.findAll().get(0), IsEqual.equalTo(first));
+        Assert.assertThat(tracker.findAll().get(1), IsEqual.equalTo(second));
+        Assert.assertThat(tracker.findAll().get(2), IsEqual.equalTo(third));
         }
     /**
      * Testing search by name.
      */
     @Test
-    public void whenFindByNameThenReturnArrayItem() {
+    public void whenFindByNameThenReturnListOfItems() {
         Tracker tracker = new Tracker();
         Item first = new Item("sameName", "testDescription", 123L);
         Item second = new Item("noTsameName", "testDescription2", 1234L);
@@ -90,8 +90,8 @@ public class TrackerTest {
         tracker.add(second);
         tracker.add(third);
         String searchName = "sameName";
-        Assert.assertThat(tracker.findByName(searchName)[0], IsEqual.equalTo(first));
-        Assert.assertThat(tracker.findByName(searchName)[1], IsEqual.equalTo(third));
+        Assert.assertThat(tracker.findByName(searchName).get(0), IsEqual.equalTo(first));
+        Assert.assertThat(tracker.findByName(searchName).get(1), IsEqual.equalTo(third));
     }
     /**
      * Testing search by id not null array.

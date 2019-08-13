@@ -21,5 +21,5 @@ public class Dentist extends Doctor {
      * Tooth filling.
      * @param pacient - pacient.
      */
-    public void fillTooth(Pacient pacient) {}
+    public void fillTooth(Pacient pacient) { }
 }

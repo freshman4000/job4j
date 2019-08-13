@@ -21,5 +21,5 @@ public class Surgeon extends Doctor {
      * Making surgery.
      * @param pacient - patient.
      */
-    public void makeSurgery(Pacient pacient) {}
+    public void makeSurgery(Pacient pacient) { }
 }
