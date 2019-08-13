@@ -98,7 +98,7 @@ public class Bank {
      * @return account.
      */
     public Account getActualAccount(User user, Account account) {
-        Optional <Account> acc = clients.entrySet().stream()
+        Optional<Account> acc = clients.entrySet().stream()
                 .filter(x -> x.getKey().equals(user))
                 .flatMap(x -> x.getValue().stream())
                 .filter(x -> x.equals(account))

@@ -1,13 +1,15 @@
-[![Build Status](https://travis-ci.org/freshman4000/job4j.svg?branch=chapter_003)](https://travis-ci.org/freshman4000/job4j)
-[![codecov](https://codecov.io/gh/freshman4000/job4j/branch/chapter_003/graph/badge.svg)](https://codecov.io/gh/freshman4000/job4j)
-# Репозиторий Виталия Ефремова
+[![Build Status](https://travis-ci.org/freshman4000/job4j.svg?branch=chapter_005)](https://travis-ci.org/freshman4000/job4j)
+[![codecov](https://codecov.io/gh/freshman4000/job4j/branch/chapter_005/graph/badge.svg)](https://codecov.io/gh/freshman4000/job4j)
+# Going to Java Junior
+**Java Intern Course. Started 06.26.2019 - Finished 07.26.2019** 
+ 
+ - 001 Java core. 
+ - 002 OOP.
+ - 003 Collections lite.
+ - 004 Lambda, Stream API.
+ 
+**Java Junior course. Started 07.26.2019 - Finished ?**
+ 
+ - 005 Collections Pro
+ - 006 IO
 
-Я прохожу обучение по курсу http://job4j.ru/ Планирую его пройти и найти работу к концу 2019 года
-
-Ниже находятся наиболее интересные проекты, которые я реализовал во время обучения.
-
-Коммит №2
-
-в курсе производилась работас ветками git.
-Ниже находятся наиболее интересные проекты, которые я реализовал во время обучения
-это ветка из задания 124176
