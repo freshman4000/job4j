@@ -3,18 +3,16 @@ package ru.job4j.tracker;
 import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @version $Id$
- * @since 0.1
- */
-public class Tracker {
+public enum TrackerSingleEnum {
+    INSTANCE;
+
     /**
      * Items array.
      */
     private Item[] items = new Item[100];
     /**
-    * Order number of new item.
-    */
+     * Order number of new item.
+     */
     private int position = 0;
     /**
      * Method adds new item to database.
@@ -77,22 +75,22 @@ public class Tracker {
      */
     public Item[] findAll() {
         return Arrays.copyOf(this.items, this.position);
-            }
+    }
     /**
      * Finds Items by name and puts it to array.
      * @param key - searched items name.
      * @return array of found objects type Item.
      */
     public Item[] findByName(String key) {
-    Item[] result = new Item[this.position];
-    int count = 0;
+        Item[] result = new Item[this.position];
+        int count = 0;
         for (int index = 0; index != this.position; index++) {
-        if (this.items[index].getName().equals(key)) {
-            result[count++] = this.items[index];
+            if (this.items[index].getName().equals(key)) {
+                result[count++] = this.items[index];
+            }
         }
-    }
         return count > 0 ? result : new Item[0];
-}
+    }
     /**
      * Finds Item by id.
      * @param id of searched item.
