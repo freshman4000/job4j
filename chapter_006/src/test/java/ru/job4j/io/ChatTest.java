@@ -10,6 +10,5 @@ import org.hamcrest.core.Is;
 public class ChatTest {
     @Test
     public void chatTest() {
-        Chat.start();
     }
 }
