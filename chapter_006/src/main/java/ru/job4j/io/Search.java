@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 class Search {
     public Search() {
-        System.setProperty("java.io.tmpdir", "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp");
+        System.setProperty("java.io.tmpdir", ".\\src\\main\\resources\\tmp");
     }
 
     public List<File> files(String parent, List<String> exts) {
