@@ -3,11 +3,13 @@ package ru.job4j.io;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Analizy {
     public void unavailable(String source, String target) {
-        try (BufferedReader br = new BufferedReader(new FileReader(source));
-             PrintWriter out = new PrintWriter(new FileOutputStream(new File(source).getParent() + "\\" + target))) {
+        List<String> result = new LinkedList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(source))) {
             boolean flag = false;
             StringBuilder sb = new StringBuilder("");
             while (br.ready()) {
@@ -20,7 +22,7 @@ public class Analizy {
                     }
                     if (!buff[0].equals("400") && !buff[0].equals("500") && flag) {
                         sb.append(";").append(buff[1]).append(System.lineSeparator());
-                        out.write(sb.toString());
+                        result.add(sb.toString());
                         sb.setLength(0);
                         flag = false;
                     }
@@ -28,13 +30,21 @@ public class Analizy {
                         Calendar cal = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                         sb.append(";").append(sdf.format(cal.getTime())).append(System.lineSeparator());
-                        System.out.println(sb);
-                        out.write(sb.toString());
+                        result.add(sb.toString());
                         sb.setLength(0);
                     }
                 }
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        write(result, source, target);
+    }
+
+    public void write(List<String> result, String source, String target) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(source).getParent() + "\\" + target))) {
+            result.forEach(out::write);
         } catch (IOException e) {
             e.printStackTrace();
         }
