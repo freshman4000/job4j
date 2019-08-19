@@ -12,9 +12,9 @@ public class AnalizyTest {
     @Test
     public void whenDownTimeThenWriteDownTime() {
         Analizy analizy = new Analizy();
-        analizy.unavailable(".\\src\\main\\resources\\server.log",
+        analizy.unavailable("src/main/resources/server.log",
                 "unavaliable.csv");
-        try (BufferedReader br = new BufferedReader(new FileReader(".\\src\\main\\resources\\unavaliable.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/main/resources/unavaliable.csv"))) {
             Assert.assertThat(br.readLine(), Is.is("10:58:01;10:59:01"));
             Assert.assertThat(br.readLine(), Is.is("11:01:02;11:02:02"));
         } catch (IOException e) {

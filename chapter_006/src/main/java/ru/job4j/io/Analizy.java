@@ -43,7 +43,7 @@ public class Analizy {
     }
 
     public void write(List<String> result, String source, String target) {
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(source).getParent() + "\\" + target))) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(new File(source).getParent() + "/" + target))) {
             result.forEach(out::write);
         } catch (IOException e) {
             e.printStackTrace();
