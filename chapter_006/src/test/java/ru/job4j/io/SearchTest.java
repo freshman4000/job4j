@@ -6,6 +6,7 @@ import org.hamcrest.core.Is;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class SearchTest {
         Search search = new Search();
         List<File> result = search.files(System.getProperty("java.io.tmpdir"), Arrays.asList("csv", "txt"));
         File path = new File(System.getProperty("java.io.tmpdir"));
-        List<File> expected = Arrays.asList(
+        List<File> expected = new LinkedList<>(Arrays.asList(
                 new File(path + "/CSVfile.csv"),
                 new File(path + "/TXTfile.txt"),
                 new File(path + "/depth1/CSVfile1.csv"),
@@ -25,7 +26,7 @@ public class SearchTest {
                 new File(path + "/depth11/CSVfile11.csv"),
                 new File(path + "/depth11/TXTfile11.txt"),
                 new File(path + "/depth11/depth21/CSVfile21.csv"),
-                new File(path + "/depth11/depth21/TXTfile21.txt"));
+                new File(path + "/depth11/depth21/TXTfile21.txt")));
         Assert.assertThat(result, Is.is(expected));
     }
 }

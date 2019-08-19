@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -17,7 +18,7 @@ public class ZipTest {
     @Test
     public void whenZippedThenEqualUnzipped() {
         List<String> result = new ArrayList<>();
-        List<String> expected = Arrays.asList(
+        List<String> expected = new LinkedList<>(Arrays.asList(
                 "src\\main\\resources\\tmp\\LOGfile.log",
                 "src\\main\\resources\\tmp\\TXTfile.txt",
                 "src\\main\\resources\\tmp\\depth1\\LOGfile1.log",
@@ -26,7 +27,7 @@ public class ZipTest {
                 "src\\main\\resources\\tmp\\depth11\\TXTfile11.txt",
                 "src\\main\\resources\\tmp\\depth11\\depth21\\LOGfile21.log",
                 "src\\main\\resources\\tmp\\depth11\\depth21\\TXTfile21.txt"
-        );
+        ));
         String[] args = {
                 "-d",
                 "src/main/resources/tmp",
