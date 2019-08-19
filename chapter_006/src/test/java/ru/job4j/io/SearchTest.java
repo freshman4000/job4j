@@ -6,6 +6,7 @@ import org.hamcrest.core.Is;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,6 +28,8 @@ public class SearchTest {
                 new File(path + "/depth11/TXTfile11.txt"),
                 new File(path + "/depth11/depth21/CSVfile21.csv"),
                 new File(path + "/depth11/depth21/TXTfile21.txt")));
+        Collections.sort(result);
+        Collections.sort(expected);
         Assert.assertThat(result, Is.is(expected));
     }
 }
