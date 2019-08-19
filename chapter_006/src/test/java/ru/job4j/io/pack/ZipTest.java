@@ -7,10 +7,7 @@ import org.hamcrest.core.Is;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -52,8 +49,8 @@ public class ZipTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        result.forEach(x -> System.out.println(x));
-//        expected.forEach(x -> System.out.println(x));
+     Collections.sort(result);
+       Collections.sort(expected);
         Assert.assertThat(expected, Is.is(result));
     }
 }
