@@ -18,14 +18,14 @@ public class SearchTest {
         List<File> result = search.files(System.getProperty("java.io.tmpdir"), Arrays.asList("csv", "txt"));
         File path = new File(System.getProperty("java.io.tmpdir"));
         List<File> expected = Arrays.asList(
-                new File(path + "\\CSVfile.csv"),
-                new File(path + "\\TXTfile.txt"),
-                new File(path + "\\depth1\\CSVfile1.csv"),
-                new File(path + "\\depth1\\TXTfile1.txt"),
-                new File(path + "\\depth11\\CSVfile11.csv"),
-                new File(path + "\\depth11\\TXTfile11.txt"),
-                new File(path + "\\depth11\\depth21\\CSVfile21.csv"),
-                new File(path + "\\depth11\\depth21\\TXTfile21.txt"));
+                new File(path + "/CSVfile.csv"),
+                new File(path + "/TXTfile.txt"),
+                new File(path + "/depth1/CSVfile1.csv"),
+                new File(path + "/depth1/TXTfile1.txt"),
+                new File(path + "/depth11/CSVfile11.csv"),
+                new File(path + "/depth11/TXTfile11.txt"),
+                new File(path + "/depth11/depth21/CSVfile21.csv"),
+                new File(path + "/depth11/depth21/TXTfile21.txt"));
         Assert.assertThat(result, Is.is(expected));
     }
 }
