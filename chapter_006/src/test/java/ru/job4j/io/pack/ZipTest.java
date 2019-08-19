@@ -17,16 +17,16 @@ import java.util.zip.ZipInputStream;
 public class ZipTest {
     @Test
     public void whenZippedThenEqualUnzipped() {
-        List<String> result = new ArrayList<>();
-        List<String> expected = new LinkedList<>(Arrays.asList(
-                "src\\main\\resources\\tmp\\LOGfile.log",
-                "src\\main\\resources\\tmp\\TXTfile.txt",
-                "src\\main\\resources\\tmp\\depth1\\LOGfile1.log",
-                "src\\main\\resources\\tmp\\depth1\\TXTfile1.txt",
-                "src\\main\\resources\\tmp\\depth11\\LOGfile11.log",
-                "src\\main\\resources\\tmp\\depth11\\TXTfile11.txt",
-                "src\\main\\resources\\tmp\\depth11\\depth21\\LOGfile21.log",
-                "src\\main\\resources\\tmp\\depth11\\depth21\\TXTfile21.txt"
+        List<File> result = new LinkedList<>();
+        List<File> expected = new LinkedList<>(Arrays.asList(
+                new File("src/main/resources/tmp/LOGfile.log"),
+                new File("src/main/resources/tmp/TXTfile.txt"),
+                new File("src/main/resources/tmp/depth1/LOGfile1.log"),
+                new File("src/main/resources/tmp/depth1/TXTfile1.txt"),
+                new File("src/main/resources/tmp/depth11/LOGfile11.log"),
+                new File("src/main/resources/tmp/depth11/TXTfile11.txt"),
+                new File("src/main/resources/tmp/depth11/depth21/LOGfile21.log"),
+                new File("src/main/resources/tmp/depth11/depth21/TXTfile21.txt")
         ));
         String[] args = {
                 "-d",
@@ -47,7 +47,7 @@ public class ZipTest {
                 if (zipEntry == null) {
                     break;
                 }
-                result.add(zipEntry.getName());
+                result.add(new File(zipEntry.getName()));
             }
         } catch (IOException e) {
             e.printStackTrace();
