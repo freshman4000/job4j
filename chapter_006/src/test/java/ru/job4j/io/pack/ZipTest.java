@@ -18,27 +18,27 @@ public class ZipTest {
     public void whenZippedThenEqualUnzipped() {
         List<String> result = new ArrayList<>();
         List<String> expected = Arrays.asList(
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\LOGfile.log",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\TXTfile.txt",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth1\\LOGfile1.log",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth1\\TXTfile1.txt",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth11\\LOGfile11.log",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth11\\TXTfile11.txt",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth11\\depth21\\LOGfile21.log",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp\\depth11\\depth21\\TXTfile21.txt"
+                "src\\main\\resources\\tmp\\LOGfile.log",
+                "src\\main\\resources\\tmp\\TXTfile.txt",
+                "src\\main\\resources\\tmp\\depth1\\LOGfile1.log",
+                "src\\main\\resources\\tmp\\depth1\\TXTfile1.txt",
+                "src\\main\\resources\\tmp\\depth11\\LOGfile11.log",
+                "src\\main\\resources\\tmp\\depth11\\TXTfile11.txt",
+                "src\\main\\resources\\tmp\\depth11\\depth21\\LOGfile21.log",
+                "src\\main\\resources\\tmp\\depth11\\depth21\\TXTfile21.txt"
         );
         String[] args = {
                 "-d",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp",
+                "src/main/resources/tmp",
                 "-e",
                 "*.csv",
                 "-o",
-                "C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp.zip"
+                "C:src/main/resources/tmp.zip"
         };
         Zip zip = new Zip();
         zip.pack(zip.seekBy(args[1], args[3]),
                 new File(args[5]));
-        File file = new File("C:\\projects\\job4j\\chapter_006\\src\\main\\resources\\tmp.zip");
+        File file = new File("src/main/resources/tmp.zip");
         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(file))) {
             ZipEntry zipEntry;
             while (true) {
@@ -51,6 +51,7 @@ public class ZipTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        result.forEach(x-> System.out.println(x));
         Assert.assertThat(expected, Is.is(result));
     }
 }
