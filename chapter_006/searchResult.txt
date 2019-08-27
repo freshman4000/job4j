@@ -1,0 +1,5 @@
+Following files were found during search: 
+C:\projects\job4j\chapter_006\src\main\resources\tmp\depth1\TXTfile1.txt
+C:\projects\job4j\chapter_006\src\main\resources\tmp\depth11\depth21\TXTfile21.txt
+C:\projects\job4j\chapter_006\src\main\resources\tmp\depth11\TXTfile11.txt
+C:\projects\job4j\chapter_006\src\main\resources\tmp\TXTfile.txt
