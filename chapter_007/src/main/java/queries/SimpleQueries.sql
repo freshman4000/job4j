@@ -9,7 +9,7 @@ WHERE name LIKE '%ice%';
 --3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
 SELECT * FROM product
 WHERE expiration_date
-BETWEEN '2019-09-01' AND '2019-09-30';
+BETWEEN current_date AND current_date + 30;
 --4. Написать запрос, который выводит самый дорогой продукт.
 SELECT * FROM product
 WHERE price =
