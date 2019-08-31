@@ -105,7 +105,7 @@ public class FileSearcher implements FileVisitor<Path> {
         String fName = file.getFileName().toString();
         String neededFileName = fileName.replaceAll("\\.", "\\\\.").replaceAll("\\*", "[\\\\w]+");
         if (fName.matches(neededFileName)) {
-            searchResult.add(file.getParent() + "\\" + file.getFileName().toString() + System.lineSeparator());
+            searchResult.add(file.getParent() + "/" + file.getFileName().toString() + System.lineSeparator());
         }
         return CONTINUE;
     }
@@ -126,7 +126,7 @@ public class FileSearcher implements FileVisitor<Path> {
     }
     public static Path[] resolvePaths(String source, String destination) {
         Path startingDir = Paths.get(source);
-        Path destPath = Paths.get(System.getProperty("user.dir") + "\\" + destination);
+        Path destPath = Paths.get(System.getProperty("user.dir") + "/" + destination);
         return new Path[]{startingDir, destPath};
     }
     public static void writeResultToFile(Path destination) {

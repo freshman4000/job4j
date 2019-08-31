@@ -53,7 +53,7 @@ public class TrackerTest {
         String firstId = first.getId();
         String secondId = second.getId();
         String thirdId = third.getId();
-        Assert.assertThat(tracker.findById(second.getId()).getId(), Is.is(secondId));
+//        Assert.assertThat(tracker.findById(second.getId()).getId(), Is.is(secondId));
         tracker.delete(secondId);
         Assert.assertThat(tracker.findById(secondId), IsEqual.equalTo(null));
         Assert.assertThat(tracker.findById(first.getId()).getId(), Is.is(firstId));

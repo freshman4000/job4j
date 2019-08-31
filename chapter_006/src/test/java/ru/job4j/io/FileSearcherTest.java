@@ -21,12 +21,12 @@ public class FileSearcherTest {
     @Test
     public void whenByMaskThenByMask() {
         String[] args = new String[]{"-d",
-                System.getProperty("user.dir") + "\\src\\main\\resources\\tmp",
+                System.getProperty("user.dir") + "/src/main/resources/tmp",
                 "-n",
                 "*.txt",
                 "-m",
                 "-o",
-                "\\searchResult.txt"};
+                "/searchResult.txt"};
         Path[] path = FileSearcher.resolvePaths(args[1], args[6]);
         FileSearcher fileVisitor = new FileSearcher(args[3], path[0]);
         try {
@@ -46,10 +46,11 @@ public class FileSearcherTest {
         }
         List<String> expected = new ArrayList<>(Arrays.asList(
                 "Following files were found during search:",
-                System.getProperty("user.dir") + "\\src\\main\\resources\\tmp\\depth1\\TXTfile1.txt",
-                System.getProperty("user.dir") + "\\src\\main\\resources\\tmp\\depth11\\depth21\\TXTfile21.txt",
-                System.getProperty("user.dir") + "\\src\\main\\resources\\tmp\\depth11\\TXTfile11.txt",
-                System.getProperty("user.dir") + "\\src\\main\\resources\\tmp\\TXTfile.txt"));
+                System.getProperty("user.dir") + "/src/main/resources/tmp/depth11/depth21/TXTfile21.txt",
+                System.getProperty("user.dir") + "/src/main/resources/tmp/depth11/TXTfile11.txt",
+                System.getProperty("user.dir") + "/src/main/resources/tmp/TXTfile.txt",
+                System.getProperty("user.dir") + "/src/main/resources/tmp/depth1/TXTfile1.txt"));
+
         Collections.sort(expected);
         Collections.sort(result);
         Assert.assertThat(expected, Is.is(result));
