@@ -23,7 +23,7 @@ public class UpdateItem extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+    public void execute(Input input, ITracker tracker, Consumer<String> output) {
         output.accept("------------ Item update --------------");
         String id = input.ask("Type item id :");
         String name = input.ask("Update name :");

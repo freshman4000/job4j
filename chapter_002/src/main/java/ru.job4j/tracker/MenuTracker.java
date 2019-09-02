@@ -15,7 +15,7 @@ public class MenuTracker {
     /**
      * Specifies tracker.
      */
-    private Tracker tracker;
+    private ITracker tracker;
     /**
      * Functional interface for output.
      */
@@ -27,7 +27,7 @@ public class MenuTracker {
     /**
      * Constructor.
      */
-    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
+    public MenuTracker(Input input, ITracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
         this.output = output;

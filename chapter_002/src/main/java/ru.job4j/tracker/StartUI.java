@@ -9,14 +9,14 @@ import java.util.function.Consumer;
  */
 public class StartUI {
     private Input input;
-    private final Tracker tracker;
+    private final ITracker tracker;
     private final Consumer<String> output;
     /**
      * Constructor.
      * @param tracker init database.
      * @param input interface of input.
      */
-    public StartUI(Tracker tracker, Input input, Consumer<String> output) {
+    public StartUI(ITracker tracker, Input input, Consumer<String> output) {
         this.tracker = tracker;
         this.input = input;
         this.output = output;
@@ -41,7 +41,7 @@ public class StartUI {
      * @param args - incoming array of args.
      */
     public static void main(String[] args) {
-        new StartUI(new Tracker(), new ValidateInput(new ConsoleInput()), (str) -> System.out.println(str)).init();
+        new StartUI(new Tracker(), new ValidateInput(new ConsoleInput()), System.out::println).init();
     }
 }
 

@@ -23,7 +23,7 @@ public class FindItemByName extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+    public void execute(Input input, ITracker tracker, Consumer<String> output) {
         output.accept("------------ Show all items with given name --------------");
         String name = input.ask("Type item name :");
         if (tracker.findByName(name).size() != 0) {

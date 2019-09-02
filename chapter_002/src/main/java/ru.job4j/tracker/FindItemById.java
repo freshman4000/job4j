@@ -23,7 +23,7 @@ public class FindItemById extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+    public void execute(Input input, ITracker tracker, Consumer<String> output) {
         output.accept("------------ Items search --------------");
         String id = input.ask("Type item id :");
         if (tracker.findById(id) != null) {

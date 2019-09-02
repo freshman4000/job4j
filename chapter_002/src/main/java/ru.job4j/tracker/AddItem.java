@@ -23,7 +23,7 @@ public class AddItem extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+    public void execute(Input input, ITracker tracker, Consumer<String> output) {
         output.accept("------------ Adding new item --------------");
         String name = input.ask("Please, provide item name :");
         String desc = input.ask("Please, provide item description :");

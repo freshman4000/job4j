@@ -23,7 +23,7 @@ public class ShowItems extends BaseAction {
      * @param tracker object.
      */
     @Override
-    public void execute(Input input, Tracker tracker, Consumer<String> output) {
+    public void execute(Input input, ITracker tracker, Consumer<String> output) {
         output.accept("------------ Showing all items --------------");
         if (tracker.findAll().size() != 0) {
             for (Item items : tracker.findAll()) {
