@@ -44,6 +44,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 while (br.ready()) {
                     st.executeUpdate(br.readLine());
                 }
+                st.close();
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }
@@ -98,6 +99,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 ResultSet rs1 = pst.executeQuery();
                 rs1.next();
                 state = rs1.getString("id");
+                pst.close();
                 rs.close();
                 rs1.close();
             } catch (Exception e) {
@@ -114,6 +116,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             result[0] = Integer.parseInt(state);
             result[1] = Integer.parseInt(idOfUser);
             result[2] = Integer.parseInt(category);
+            sc.close();
         }
         return result;
     }
@@ -126,8 +129,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     private LinkedList<String> getTableColumnNames(String tableName) {
         LinkedList<String> columnNames = new LinkedList<>();
-        try {
-            PreparedStatement pst = connection.prepareStatement("SELECT column_name FROM information_schema.columns WHERE table_name = ?");
+        try (PreparedStatement pst = connection.prepareStatement("SELECT column_name FROM information_schema.columns WHERE table_name = ?")) {
+
             pst.setString(1, tableName);
             ResultSet rs = pst.executeQuery();
 
@@ -148,8 +151,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     private ArrayList<String> getTableNames() {
         ArrayList<String> tableNames = new ArrayList<>();
-        try {
-            Statement st = connection.createStatement();
+        try (Statement st = connection.createStatement()) {
+
             ResultSet rs = st.executeQuery(
                     "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'");
             while (rs.next()) {
@@ -184,6 +187,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             String answer = sc.nextLine();
             result.add(answer);
         }
+        sc.close();
         return result;
     }
 
@@ -206,13 +210,12 @@ public class TrackerSQL implements ITracker, AutoCloseable {
         if (!columns.contains(column)) {
             throw new IllegalArgumentException("There is no column with such name");
         }
-        try {
-            Statement st = connection.createStatement();
-            ResultSet resultSet = st.executeQuery("SELECT " + column + " FROM " + tableName);
+        try (Statement st = connection.createStatement();
+             ResultSet resultSet = st.executeQuery("SELECT " + column + " FROM " + tableName)) {
+
             while (resultSet.next()) {
                 result.add(resultSet.getString(1));
             }
-            resultSet.close();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
@@ -235,9 +238,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             }
         }
         if (validated) {
-            try {
-                PreparedStatement pst = connection.prepareStatement(
-                        "INSERT INTO items (id_state, id_user, id_category, item_date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)");
+            try (PreparedStatement pst = connection.prepareStatement(
+                    "INSERT INTO items (id_state, id_user, id_category, item_date) VALUES (?, ?, ?, CURRENT_TIMESTAMP)")) {
+
                 pst.setInt(1, validation[0]);
                 pst.setInt(2, validation[1]);
                 pst.setInt(3, validation[2]);
@@ -247,6 +250,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 r1.next();
                 int currentId = r1.getInt(1);
                 item.setId(String.valueOf(currentId));
+                st.close();
                 r1.close();
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
@@ -360,6 +364,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 item.setId(rs.getString("id"));
                 item.setTime(rs.getTimestamp("item_date").getTime());
                 result.add(item);
+                idDesc.close();
+                rsd.close();
             }
             rs.close();
         } catch (SQLException e) {
@@ -414,7 +420,6 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             te.init();
             te.validateStructure();
             new StartUI(te, new ValidateInput(new ConsoleInput()), System.out::println).init();
-            te.findAll();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
