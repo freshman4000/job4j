@@ -3,13 +3,14 @@
     <xsl:output indent="yes"/>
     <xsl:template match="/">
         <entries>
-        <xsl:for-each select="entries/entry">
-            <entry>
-            <xsl:attribute name="href">
-                <xsl:value-of select="field" />
-            </xsl:attribute>
-            </entry>
-        </xsl:for-each>
+            <xsl:for-each select="entries/entry">
+                <entry>
+                    <xsl:attribute name="href">
+                        <xsl:value-of select="field"/>
+                    </xsl:attribute>
+                </entry>
+            </xsl:for-each>
         </entries>
     </xsl:template>
 </xsl-stylesheet>
+

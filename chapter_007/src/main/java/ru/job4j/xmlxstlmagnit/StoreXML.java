@@ -39,7 +39,6 @@ public class StoreXML {
         }
     }
 
-
     public void save(List<Entry> list) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Entries.class);

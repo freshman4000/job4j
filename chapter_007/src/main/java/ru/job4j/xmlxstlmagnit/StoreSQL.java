@@ -71,11 +71,14 @@ public class StoreSQL implements AutoCloseable {
             connection.setAutoCommit(false);
             for (int i = 1; i <= size; i++) {
                 pst.setInt(1, i);
-                pst.executeUpdate();
+                pst.addBatch();
             }
+            pst.executeBatch();
         } catch (Exception s) {
             LOG.error(s.getMessage(), s);
+
             try {
+                connection.rollback();
                 connection.setAutoCommit(true);
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
