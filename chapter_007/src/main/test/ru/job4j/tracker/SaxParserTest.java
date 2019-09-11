@@ -15,7 +15,7 @@ public class SaxParserTest {
 
             long startTime = System.currentTimeMillis();
             try (StoreSQL storeSQL = new StoreSQL(new Config())) {
-                storeSQL.generate(1000000);
+                storeSQL.generate(10000);
                 new StoreXML(new File("./db.xml")).save(storeSQL.load());
                 new ConvertXSLT().convert(new File("db.xml"), new File("xslRes.xml"), new File("../scheme.xsl"));
                 new SaxParser().parseDoc(new File("xslRes.xml"));
