@@ -14,6 +14,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     private Connection connection;
     private boolean hasStructure;
 
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+
     /**
      * This method initializes connection to database.
      *
@@ -105,18 +109,20 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Specify user ID from the following list :");
+//            Scanner sc = new Scanner(System.in);
+//            System.out.println("Specify user ID from the following list :");
             List<String> idsOfUsers = getSpecifiedFields("users", "id");
-            idsOfUsers.forEach(x -> System.out.print(x + " "));
-            String idOfUser = "not in list";
-            while (!idsOfUsers.contains(idOfUser)) {
-                idOfUser = sc.nextLine();
-            }
+//            idsOfUsers.forEach(x -> System.out.print(x + " "));
+//            String idOfUser = "not in list";
+//            while (!idsOfUsers.contains(idOfUser)) {
+//                idOfUser = sc.nextLine();
+//            }
+            Random rnd = new Random(System.currentTimeMillis());
+
             result[0] = Integer.parseInt(state);
-            result[1] = Integer.parseInt(idOfUser);
+            result[1] = rnd.nextInt(idsOfUsers.size());
             result[2] = Integer.parseInt(category);
-            sc.close();
+//            sc.close();
         }
         return result;
     }
@@ -412,16 +418,5 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             System.out.println("Id should have positive numeric value! Please make another query!");
         }
         return result;
-
-    }
-
-    public static void main(String[] args) {
-        try (TrackerSQL te = new TrackerSQL()) {
-            te.init();
-            te.validateStructure();
-            new StartUI(te, new ValidateInput(new ConsoleInput()), System.out::println).init();
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
     }
 }
