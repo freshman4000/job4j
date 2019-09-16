@@ -124,8 +124,8 @@ public class Controller implements AutoCloseable {
     private ArrayList<String> getDatabases() {
         ArrayList<String> dbNames = new ArrayList<>();
         if (this.connection != null) {
-            try (Statement statement = connection.createStatement()) {
-                ResultSet rs = statement.executeQuery("SELECT datname FROM pg_database");
+            try (Statement statement = connection.createStatement();
+                 ResultSet rs = statement.executeQuery("SELECT datname FROM pg_database")) {
                 while (rs.next()) {
                     dbNames.add(rs.getString(1));
                 }
@@ -143,14 +143,12 @@ public class Controller implements AutoCloseable {
      */
     private ArrayList<String> getTableNames() {
         ArrayList<String> tableNames = new ArrayList<>();
-        try (Statement st = connection.createStatement()) {
-
-            ResultSet rs = st.executeQuery(
-                    "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'");
+        try (Statement st = connection.createStatement();
+             ResultSet rs = st.executeQuery(
+                     "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_type = 'BASE TABLE'")) {
             while (rs.next()) {
                 tableNames.add(rs.getString(1));
             }
-            rs.close();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
@@ -164,17 +162,19 @@ public class Controller implements AutoCloseable {
      */
     private Set<String> getCurrentVacanciesFromDatabase() {
         Set<String> result = new HashSet<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT name FROM " + properties.getProperty("table"));
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT name FROM " + properties.getProperty("table"))) {
             while (resultSet.next()) {
                 result.add(resultSet.getString(1));
             }
-            resultSet = statement.executeQuery("SELECT MAX(date) FROM " + properties.getProperty("table"));
-            resultSet.next();
-            if (resultSet.getTimestamp(1) != null) {
-                lastDateParsed = resultSet.getTimestamp(1);
+            try (ResultSet resultSet1 = statement.executeQuery("SELECT MAX(date) FROM " + properties.getProperty("table"))) {
+                resultSet1.next();
+                if (resultSet1.getTimestamp(1) != null) {
+                    lastDateParsed = resultSet1.getTimestamp(1);
+                }
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
             }
-            resultSet.close();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }

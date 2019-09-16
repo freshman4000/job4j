@@ -12,6 +12,7 @@ import java.util.Properties;
 public class QuartzLauncher {
     public static final Logger LOG = LogManager.getLogger(QuartzLauncher.class.getName());
     public static void main(String[] args) {
+        QuartzJob.prop = args[0];
         BasicConfigurator.configure();
         Properties properties = new Properties();
         try (InputStream inputStream = QuartzLauncher.class.getClassLoader().getResourceAsStream(args[0])) {

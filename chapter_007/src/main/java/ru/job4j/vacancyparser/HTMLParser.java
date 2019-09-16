@@ -89,22 +89,23 @@ public class HTMLParser {
      * @return conversted date object.
      */
     public static Date dateConversion(String dateString) {
-        final Locale RU_LOCALE = new Locale("ru");
-        final DateFormatSymbols RU_SYMBOLS = new DateFormatSymbols(RU_LOCALE);
-        final String[] RU_MONTHS = {"янв", "фев", "мар", "апр", "май",
-                "июн", "июл", "авг", "сен", "окт", "ноя", "дек"};
-        RU_SYMBOLS.setMonths(RU_MONTHS);
+        Date result = new Date();
+        if (!dateString.trim().startsWith("сегодня")) {
+            final Locale RU_LOCALE = new Locale("ru");
+            final DateFormatSymbols RU_SYMBOLS = new DateFormatSymbols(RU_LOCALE);
+            final String[] RU_MONTHS = {"янв", "фев", "мар", "апр", "май",
+                    "июн", "июл", "авг", "сен", "окт", "ноя", "дек"};
+            RU_SYMBOLS.setMonths(RU_MONTHS);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("d MMM yy, hh:mm", RU_SYMBOLS);
-        Date date = null;
-        try {
-            date = sdf.parse(dateString.trim());
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            SimpleDateFormat sdf = new SimpleDateFormat("d MMM yy, hh:mm", RU_SYMBOLS);
+            try {
+                result = sdf.parse(dateString.trim());
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+            }
         }
-        return date;
+        return result;
     }
-
     /**
      * This method creates objects of vacancies and puts all of them to HashMap.
      */
