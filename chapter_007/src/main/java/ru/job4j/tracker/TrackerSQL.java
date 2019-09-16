@@ -120,7 +120,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             Random rnd = new Random(System.currentTimeMillis());
 
             result[0] = Integer.parseInt(state);
-            result[1] = rnd.nextInt(idsOfUsers.size());
+            result[1] = rnd.nextInt(idsOfUsers.size() - 1);
             result[2] = Integer.parseInt(category);
 //            sc.close();
         }
