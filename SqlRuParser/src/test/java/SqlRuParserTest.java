@@ -4,7 +4,7 @@ import org.hamcrest.core.Is;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ru.job4j.vacancyparser.Controller;
+import ru.job4j.vacancyparser.SqlRuController;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -12,13 +12,12 @@ import java.sql.DriverManager;
 import java.util.*;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
 
 public class SqlRuParserTest {
     private static final Logger LOG = LogManager.getLogger(SqlRuParserTest.class.getName());
 
     public Connection init() {
-        try (InputStream in = Controller.class.getClassLoader().getResourceAsStream("parser.properties")) {
+        try (InputStream in = SqlRuController.class.getClassLoader().getResourceAsStream("parser.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -39,14 +38,14 @@ public class SqlRuParserTest {
     @Test
     public void createProperties() {
         Properties expected = new Properties();
-        try (InputStream in = Controller.class.getClassLoader().getResourceAsStream("parser.properties")) {
+        try (InputStream in = SqlRuController.class.getClassLoader().getResourceAsStream("parser.properties")) {
             expected = new Properties();
             expected.load(in);
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
         Properties result = null;
-        try (Controller ctr = new Controller("parser.properties")) {
+        try (SqlRuController ctr = new SqlRuController("parser.properties")) {
             result = ctr.getProperties();
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
