@@ -105,7 +105,7 @@ public class InteractCalcUI implements CalcUI {
             try {
                 System.out.println(chosenMethod.invoke(calculator, (Object) values));
             } catch (InvocationTargetException e) {
-                System.out.println("Can't divide by zero!");
+                System.out.println("Can't perform action! Do correct input, plz");
             }
         } catch (NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();

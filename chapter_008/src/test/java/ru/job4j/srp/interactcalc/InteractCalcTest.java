@@ -93,4 +93,78 @@ public class InteractCalcTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Sin testing.
+     */
+    @Test
+    public void ifSine0Then0() {
+        Assert.assertThat(ic.sine(new double[]{0}), Is.is(0.0));
+    }
+
+    /**
+     * Sin testing - wrong number of arguments.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void ifArgsNum2ThenException() {
+        ic.sine(new double[]{0, 2});
+    }
+
+    /**
+     * Cosine testing.
+     */
+    @Test
+    public void ifCosine0Then1() {
+        Assert.assertThat(ic.cosine(new double[]{0}), Is.is(1.0));
+    }
+
+    /**
+     * Cosine testing - wrong number of arguments.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void ifCArgsNum2ThenException() {
+        ic.cosine(new double[]{0, 2});
+    }
+
+    /**
+     * Log10 testing.
+     */
+    @Test
+    public void ifLog10By100Then2() {
+        Assert.assertThat(ic.log10(new double[]{100}), Is.is(2.0));
+    }
+
+    /**
+     * Power testing curResOn == true.
+     */
+    @Test
+    public void ifPowerBy2Then4() {
+        ic.add(new double[]{1, 1});
+        Assert.assertThat(ic.power(new double[]{2}), Is.is(4.0));
+    }
+
+    /**
+     * Power testing curResOn == false.
+     */
+    @Test
+    public void if2PowerBy2Then4() {
+        Assert.assertThat(ic.power(new double[]{2, 2}), Is.is(4.0));
+    }
+
+    /**
+     * Power testing - wrong number of arguments, curRes - ON.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void ifLogArgsNum3ThenException() {
+        ic.power(new double[]{0, 2, 3});
+    }
+
+    /**
+     * Power testing - wrong number of arguments, curRes - OFF.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void ifLogArgsNum2ThenException() {
+        ic.add(new double[]{1, 1});
+        ic.power(new double[]{0, 2});
+    }
 }

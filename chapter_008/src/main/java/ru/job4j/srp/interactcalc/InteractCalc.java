@@ -117,4 +117,91 @@ public class InteractCalc implements Calculator {
     public void clear() {
         curResOn = false;
     }
+
+    /**
+     * This method powers all number by specified power. If current result exists - only one argument should be
+     * passed. If it doesn't - two arguments should be passed: first - number to power, and the second - is
+     * actual power.
+     *
+     * @param args arguments passed by user.
+     * @return result of powering.
+     */
+    @Override
+    public double power(double[] args) throws IllegalArgumentException {
+        double result;
+        if (curResOn) {
+            if (args.length > 1) {
+                throw new IllegalArgumentException();
+            }
+            result = Math.pow(currentResult, args[0]);
+
+        } else {
+            if (args.length > 2) {
+                throw new IllegalArgumentException();
+            }
+            result = Math.pow(args[0], args[1]);
+        }
+        curResOn = true;
+        currentResult = result;
+        return currentResult;
+    }
+
+    /**
+     * This method calculates sine of an angle.
+     * One argument should be passed: value of an angle.
+     *
+     * @param args arguments passed by user.
+     * @return result of calculation.
+     */
+    @Override
+    public double sine(double[] args) throws IllegalArgumentException {
+        double result;
+        if (args.length > 1) {
+            throw new IllegalArgumentException();
+        }
+        result = Math.sin(args[0]);
+
+        curResOn = true;
+        currentResult = result;
+        return currentResult;
+    }
+
+    /**
+     * This method calculates cosine of an angle.
+     * One argument should be passed: value of an angle.
+     *
+     * @param args arguments passed by user.
+     * @return result of calculation.
+     */
+    @Override
+    public double cosine(double[] args) throws IllegalArgumentException {
+        double result;
+        if (args.length > 1) {
+            throw new IllegalArgumentException();
+        }
+        result = Math.cos(args[0]);
+
+        curResOn = true;
+        currentResult = result;
+        return currentResult;
+    }
+
+    /**
+     * This method calculates log with base 10 of a number.
+     * One argument should be passed.
+     *
+     * @param args arguments passed by user.
+     * @return result of calculation.
+     */
+    @Override
+    public double log10(double[] args) throws IllegalArgumentException {
+        double result;
+        if (args.length > 1) {
+            throw new IllegalArgumentException();
+        }
+        result = Math.log10(args[0]);
+        curResOn = true;
+        currentResult = result;
+        return currentResult;
+    }
 }
