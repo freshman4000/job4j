@@ -25,7 +25,8 @@
         <module>chapter_006</module>
         <module>chapter_007</module>
 		<module>SqlRuParser</module>
-	</modules>
+        <module>chapter_008</module>
+    </modules>
 
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
