@@ -1,8 +1,5 @@
 package ru.job4j.srp.interactcalc;
 
-import ru.job4j.srp.CalcUI;
-import ru.job4j.srp.ValInput;
-
 /**
  * This class methods are responsible for user inputs validation.
  */

@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.srp.interactcalc;
 
 import java.lang.reflect.Method;
 import java.util.List;

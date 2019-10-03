@@ -1,9 +1,5 @@
 package ru.job4j.srp.interactcalc;
 
-import ru.job4j.srp.CalcUI;
-import ru.job4j.srp.Calculator;
-import ru.job4j.srp.ValInput;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;

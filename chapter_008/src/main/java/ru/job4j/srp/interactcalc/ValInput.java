@@ -1,4 +1,4 @@
-package ru.job4j.srp;
+package ru.job4j.srp.interactcalc;
 
 public interface ValInput {
     boolean valAction(CalcUI actions, String action);
