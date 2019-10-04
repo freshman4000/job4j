@@ -1,6 +1,6 @@
 package ru.job4j.lsp.products;
 
-import ru.job4j.lsp.validating.DateManager;
+import ru.job4j.lsp.utility.DateManager;
 
 import java.util.Date;
 import java.util.Objects;
@@ -9,6 +9,10 @@ import java.util.Objects;
  * Class that represents food at all forms.
  */
 public class Food {
+    /**
+     * Id of the product.
+     */
+    private int id;
     /**
      * Name of food.
      */
@@ -127,6 +131,20 @@ public class Food {
         this.discount = discount;
     }
 
+    /**
+     * id getter.
+     * @return id.
+     */
+    public int getId() {
+        return id;
+    }
+    /**
+     * id setter.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,7 +154,8 @@ public class Food {
             return false;
         }
         Food food = (Food) o;
-        return discount == food.discount
+        return id == food.id
+                && discount == food.discount
                 && name.equals(food.name)
                 && expireDate.equals(food.expireDate)
                 && createDate.equals(food.createDate)
@@ -145,11 +164,11 @@ public class Food {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, expireDate, createDate, price, discount);
+        return Objects.hash(id, name, expireDate, createDate, price, discount);
     }
 
     @Override
     public String toString() {
-        return "name = " + this.getName() + " price = " + this.getPrice() + " discount = " + this.getDiscount() + " create = " + this.getCreateDate() + " exp = " + this.getExpireDate() + System.lineSeparator();
+        return "id=" + id + " name = " + this.getName() + " price = " + this.getPrice() + " discount = " + this.getDiscount() + " create = " + this.getCreateDate() + " exp = " + this.getExpireDate() + System.lineSeparator();
     }
 }

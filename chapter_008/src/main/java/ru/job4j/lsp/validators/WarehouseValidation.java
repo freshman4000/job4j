@@ -1,7 +1,6 @@
-package ru.job4j.lsp.validating;
+package ru.job4j.lsp.validators;
 
 import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.Validation;
 
 import java.util.Date;
 

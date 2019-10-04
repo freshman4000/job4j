@@ -1,45 +1,56 @@
 package ru.job4j.lsp.storages;
 
-import ru.job4j.lsp.StorageStrategy;
 import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.validating.DiscountValidation;
-import ru.job4j.lsp.validating.ShopValidation;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
- * Class that represents shop database and its filling method(s).
+ * Class that represents shop storage place.
  */
-public class Shop implements StorageStrategy<Food> {
+public class Shop implements StoragePlace<Food> {
     /**
-     * List of items, currently stored in shop database.
+     * List of food positions, currently stored in shop.
      */
-    private List<Food> shopStorage = new ArrayList<>();
+    private List<Food> shopStorage;
     /**
-     * Discount value for items, that have ending shelf life.
+     * Storage capacity.
      */
-    private int discount = 10;
+    private int capacity;
+
+    public Shop(List<Food> shopStorage, int capacity) {
+        this.shopStorage = shopStorage;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
     /**
-     * This method gets current shop database.
-     * @return current shop database.
+     * This method gets the list of products from shop.
+     * @return list of products in storage.
      */
+    @Override
     public List<Food> getStorage() {
         return shopStorage;
     }
+
     /**
-     * Method that picks Food objects from whole database and adds them to shop database.
-     * @param products list of objects that needs to be splitted into groups.
+     * This method adds product to storage.
+     * @param item product object.
      */
     @Override
-    public void sortProducts(List<Food> products) {
-        for (Food item : products) {
-            if (new DiscountValidation().validateByCriteria(item)) {
-                item.setDiscount(this.discount);
-            }
-            if (new ShopValidation().validateByCriteria(item)) {
-                shopStorage.add(item);
-            }
-        }
+    public void addToStorage(Food item) {
+        item.setId(shopStorage.size());
+        shopStorage.add(item);
+    }
+    /**
+     * This method removes product from storage.
+     * @param id product object id.
+     */
+    @Override
+    public void removeFromStorage(int id) {
+    shopStorage.remove(id);
     }
 }
 

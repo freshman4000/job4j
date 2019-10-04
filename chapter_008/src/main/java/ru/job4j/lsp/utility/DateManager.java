@@ -1,4 +1,4 @@
-package ru.job4j.lsp.validating;
+package ru.job4j.lsp.utility;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

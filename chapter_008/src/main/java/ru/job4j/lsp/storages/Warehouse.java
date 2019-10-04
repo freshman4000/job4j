@@ -1,39 +1,60 @@
 package ru.job4j.lsp.storages;
 
-import ru.job4j.lsp.StorageStrategy;
 import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.validating.WarehouseValidation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that represents warehouse database and its filling method(s).
+ * Class that represents warehouse place.
  */
-public class Warehouse implements StorageStrategy<Food> {
+public class Warehouse implements StoragePlace<Food> {
     /**
-     * List of food items stored in current warehouse database.
+     * List of food positions, currently stored in warehouse.
      */
-    private List<Food> warehouseStorage = new ArrayList<>();
+    private List<Food> wareStorage;
+    /**
+     * Storage capacity.
+     */
+    private int capacity;
 
-    /**
-     * This method gets current warehouse database.
-     * @return current warehouse database.
-     */
-    public List<Food> getStorage() {
-        return warehouseStorage;
+    public Warehouse(List<Food> wareStorage, int capacity) {
+        this.wareStorage = wareStorage;
+        this.capacity = capacity;
+    }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
     }
 
     /**
-     * Method that picks Food objects from whole database and adds them to warehouse database.
-     * @param products list of objects that need to be splited into groups.
+     * This method gets the list of products from warehouse.
+     *
+     * @return list of products in storage.
      */
     @Override
-    public void sortProducts(List<Food> products) {
-        for (Food item : products) {
-            if (new WarehouseValidation().validateByCriteria(item)) {
-                warehouseStorage.add(item);
-            }
-        }
+    public List<Food> getStorage() {
+        return wareStorage;
+    }
+
+    /**
+     * This method adds product to storage.
+     *
+     * @param item product object.
+     */
+    @Override
+    public void addToStorage(Food item) {
+        item.setId(wareStorage.size());
+        wareStorage.add(item);
+    }
+
+    /**
+     * This method removes product from storage.
+     *
+     * @param id product object id.
+     */
+    @Override
+    public void removeFromStorage(int id) {
+        wareStorage.remove(id);
     }
 }

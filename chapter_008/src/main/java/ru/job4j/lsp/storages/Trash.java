@@ -1,37 +1,61 @@
 package ru.job4j.lsp.storages;
 
-import ru.job4j.lsp.StorageStrategy;
 import ru.job4j.lsp.products.Food;
-import ru.job4j.lsp.validating.TrashValidation;
 
-import java.util.ArrayList;
 import java.util.List;
+
 /**
- * Class that represents trash database and its filling method(s).
+ * Class that represents trash place.
  */
-public class Trash implements StorageStrategy<Food> {
+public class Trash implements StoragePlace<Food> {
     /**
-     * List of items stored in current trash database.
+     * List of food positions, currently stored in trash.
      */
-    private List<Food> trashStorage = new ArrayList<>();
+    private List<Food> trashStorage;
     /**
-     * This method gets current trash database.
-     * @return current trash database.
+     * Storage capacity.
      */
+    private int capacity;
+
+    public Trash(List<Food> shopStorage, int capacity) {
+        this.trashStorage = shopStorage;
+        this.capacity = capacity;
+    }
+
+    /**
+     * This method gets the list of products from trash.
+     *
+     * @return list of products in storage.
+     */
+    @Override
     public List<Food> getStorage() {
         return trashStorage;
     }
+
+    @Override
+    public int getCapacity() {
+        return capacity;
+    }
+
     /**
-     * Method that picks Food objects from whole database and adds them to Trash database.
-     * @param products list of objects that needs to be splited into groups.
+     * This method adds product to storage.
+     *
+     * @param item product object.
      */
     @Override
-    public void sortProducts(List<Food> products) {
-        for (Food item : products) {
-            if (new TrashValidation().validateByCriteria(item)) {
-                trashStorage.add(item);
-            }
-        }
+    public void addToStorage(Food item) {
+        item.setId(trashStorage.size());
+        trashStorage.add(item);
+    }
+
+    /**
+     * This method removes product from storage.
+     *
+     * @param id product object id.
+     */
+    @Override
+    public void removeFromStorage(int id) {
+        trashStorage.remove(id);
     }
 }
 
