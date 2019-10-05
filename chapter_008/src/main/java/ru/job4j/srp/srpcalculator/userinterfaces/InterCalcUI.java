@@ -38,6 +38,10 @@ public class InterCalcUI implements UI {
         lines.add("2 Subtract: ");
         lines.add("3 Multiply: ");
         lines.add("4 Divide: ");
+        lines.add("6 Sine: ");
+        lines.add("7 Cosine: ");
+        lines.add("8 Power: ");
+        lines.add("9 Log10: ");
         lines.add("5 Exit: ");
     }
 }

@@ -10,17 +10,18 @@ import ru.job4j.srp.srpcalculator.processors.ICNumbersInputProcessor;
 import ru.job4j.srp.srpcalculator.userinterfaces.InterCalcUI;
 import ru.job4j.srp.srpcalculator.validators.ICCommandInputValidator;
 import ru.job4j.srp.srpcalculator.validators.ICNumInputValidator;
+import ru.job4j.srp.srpcalculator.validators.ValidationExecutor;
 
 /**
  * This class is entrance point of program. It launches calculator.
  */
 public class ICUILauncher implements Launcher<double[]> {
+    private ValidationExecutor validationExecutor;
     @Override
     public void launch(UI ui,
                        Logic logic,
                        Input input,
-                       MessagePrinter messagePrinter,
-                       Validation... validators) {
+                       MessagePrinter messagePrinter) {
         while (true) {
             ui.initUI();
             messagePrinter.printMessage(new CommandChoiceMessage());
@@ -31,7 +32,7 @@ public class ICUILauncher implements Launcher<double[]> {
             if ("forcedExit".equals(command)) {
                 break;
             }
-            if (validators[1].validate(command)) {
+            if (new ValidationExecutor<>(new ICCommandInputValidator(), command).executeVal()) {
                 logic.executeLogic(command);
             } else {
                 messagePrinter.printMessage(new NoSuchCommandMessage());
@@ -44,9 +45,7 @@ public class ICUILauncher implements Launcher<double[]> {
                 new InterCalcUI(),
                 new ICLogic(new ICNumbersInputProcessor(new InputKeyboard()), new ICMessagePrinter(), new ICalculator()),
                 new InputKeyboard(),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
+                new ICMessagePrinter()
         );
     }
 }

@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.Assert;
 import org.hamcrest.core.Is;
 import ru.job4j.srp.srpcalculator.calculators.ICalculator;
+import ru.job4j.srp.srpcalculator.commands.*;
 import ru.job4j.srp.srpcalculator.inputs.TestInput;
 import ru.job4j.srp.srpcalculator.launchers.ICUILauncher;
 import ru.job4j.srp.srpcalculator.logics.ICLogic;
@@ -11,9 +12,7 @@ import ru.job4j.srp.srpcalculator.logs.State;
 import ru.job4j.srp.srpcalculator.messageprinters.ICMessagePrinter;
 import ru.job4j.srp.srpcalculator.processors.ICNumbersInputProcessor;
 import ru.job4j.srp.srpcalculator.userinterfaces.InterCalcUI;
-import ru.job4j.srp.srpcalculator.validators.ICCommandInputValidator;
-import ru.job4j.srp.srpcalculator.validators.ICNumInputValidator;
-import ru.job4j.srp.srpcalculator.validators.ICTwoOrMoreInputNumValidator;
+import ru.job4j.srp.srpcalculator.validators.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -40,15 +39,8 @@ public class SrpCalculatorTest {
     @Test
     public void whenTwoPlusTwoThenFour() {
         setBefore();
-        new ICUILauncher().launch(
-                new InterCalcUI(),
-                new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
-                new TestInput(new String[]{"1", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
-        );
-        Assert.assertThat(out.toString().substring(157, 160), Is.is("4.0"));
+        new AddCommand(new double[]{2, 2}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("4.0" + System.lineSeparator()));
         setAfter();
     }
 
@@ -58,16 +50,8 @@ public class SrpCalculatorTest {
     @Test
     public void whenTwoMinusTwoThenZero() {
         setBefore();
-        State.setReuseOn(false);
-        new ICUILauncher().launch(
-                new InterCalcUI(),
-                new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
-                new TestInput(new String[]{"2", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
-        );
-        Assert.assertThat(out.toString().substring(157, 160), Is.is("0.0"));
+        new SubtractCommand(new double[]{2, 2}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("0.0" + System.lineSeparator()));
         setAfter();
     }
 
@@ -77,16 +61,8 @@ public class SrpCalculatorTest {
     @Test
     public void whenTwoTimesTwoThenFour() {
         setBefore();
-        State.setReuseOn(false);
-        new ICUILauncher().launch(
-                new InterCalcUI(),
-                new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
-                new TestInput(new String[]{"3", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
-        );
-        Assert.assertThat(out.toString().substring(157, 160), Is.is("4.0"));
+        new MultiplyCommand(new double[]{2, 2}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("4.0" + System.lineSeparator()));
         setAfter();
     }
 
@@ -96,18 +72,50 @@ public class SrpCalculatorTest {
     @Test
     public void whenTwoDIvTwoThenOne() {
         setBefore();
-        new ICUILauncher().launch(
-                new InterCalcUI(),
-                new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
-                new TestInput(new String[]{"4", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
-        );
-        Assert.assertThat(out.toString().substring(157, 160), Is.is("1.0"));
+        new DivideCommand(new double[]{2, 2}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("1.0" + System.lineSeparator()));
         setAfter();
     }
-
+    /**
+     * Testing sine command.
+     */
+    @Test
+    public void whenSineZeroThenZero() {
+        setBefore();
+        new SineCommand(new double[]{0}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("0.0" + System.lineSeparator()));
+        setAfter();
+    }
+    /**
+     * Testing Cosine command.
+     */
+    @Test
+    public void whenCosineZeroThenOne() {
+        setBefore();
+        new CosCommand(new double[]{0}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("1.0" + System.lineSeparator()));
+        setAfter();
+    }
+    /**
+     * Testing power command.
+     */
+    @Test
+    public void whenTwoPowerThreeThenEight() {
+        setBefore();
+        new PowerCommand(new double[]{2, 3}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("8.0" + System.lineSeparator()));
+        setAfter();
+    }
+    /**
+     * Testing log10 command.
+     */
+    @Test
+    public void whenLog10Of100ThenTwo() {
+        setBefore();
+        new LogCommand(new double[]{100}).executeCommand();
+        Assert.assertThat(out.toString(), Is.is("2.0" + System.lineSeparator()));
+        setAfter();
+    }
     /**
      * Testing natural previous answer change.
      */
@@ -127,9 +135,7 @@ public class SrpCalculatorTest {
                 new InterCalcUI(),
                 new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
                 new TestInput(new String[]{"4", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
+                new ICMessagePrinter()
         );
         boolean result = State.isReuseOn();
         Assert.assertThat(result, Is.is(true));
@@ -146,9 +152,7 @@ public class SrpCalculatorTest {
                 new InterCalcUI(),
                 new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
                 new TestInput(new String[]{"4", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
+                new ICMessagePrinter()
         );
         boolean result = State.isReuseOn();
         Assert.assertThat(result, Is.is(true));
@@ -156,9 +160,7 @@ public class SrpCalculatorTest {
                 new InterCalcUI(),
                 new ICLogic(new ICNumbersInputProcessor(new TestInput(new String[]{"2 2"})), new ICMessagePrinter(), new ICalculator()),
                 new TestInput(new String[]{"0", "forcedExit"}),
-                new ICMessagePrinter(),
-                new ICNumInputValidator(),
-                new ICCommandInputValidator()
+                new ICMessagePrinter()
         );
         result = State.isReuseOn();
         Assert.assertThat(result, Is.is(false));
@@ -166,13 +168,42 @@ public class SrpCalculatorTest {
     }
 
     /**
-     * Testing two number validator.
+     * Testing two or more number validator.
      */
     @Test
     public void whenTwoNumThenTrue() {
         Assert.assertThat(new ICTwoOrMoreInputNumValidator().validate(new double[]{0.1, 3.0}), Is.is(true));
     }
-
+    /**
+     * Testing exact two numbers validator.
+     */
+    @Test
+    public void whenExactTwoNumThenTrue() {
+        Assert.assertThat(new ICTwoNumValidator().validate(new double[]{0.1, 3.0}), Is.is(true));
+    }
+    /**
+     * Testing exact two numbers validator.
+     */
+    @Test
+    public void whenMoreOrLessThenTwoNumThenFalse() {
+        Assert.assertThat(new ICTwoNumValidator().validate(new double[]{0.1}), Is.is(false));
+        Assert.assertThat(new ICTwoNumValidator().validate(new double[]{0.1, 2, 5}), Is.is(false));
+    }
+    /**
+     * Testing exact one number validator.
+     */
+    @Test
+    public void whenExactOneNumThenTrue() {
+        Assert.assertThat(new ICOneNumValidator().validate(new double[]{0.1}), Is.is(true));
+    }
+    /**
+     * Testing exact one number validator.
+     */
+    @Test
+    public void whenMoreOrLessThenOneNumThenFalse() {
+        Assert.assertThat(new ICOneNumValidator().validate(new double[]{}), Is.is(false));
+        Assert.assertThat(new ICOneNumValidator().validate(new double[]{0.1, 2}), Is.is(false));
+    }
     /**
      * Testing two number validator.
      */
