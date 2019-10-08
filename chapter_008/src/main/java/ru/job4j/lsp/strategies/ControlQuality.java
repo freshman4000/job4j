@@ -14,8 +14,9 @@ public class ControlQuality implements StorageStrategy {
 
     /**
      * Constructor,
-     * @param heap - products list, that needs to be separated to different storages, basing
-     * on quality.
+     *
+     * @param heap    - products list, that needs to be separated to different storages, basing
+     *                on quality.
      * @param storage storage that strategy uses.
      */
     public ControlQuality(List<Food> heap, List<StoragePlace<Food>> storage) {
@@ -30,7 +31,8 @@ public class ControlQuality implements StorageStrategy {
     public void sortProducts() {
         for (Food product : heap) {
             for (StoragePlace<Food> sp : storage) {
-            sp.add(product);}
+                sp.add(product);
+            }
         }
     }
 }
