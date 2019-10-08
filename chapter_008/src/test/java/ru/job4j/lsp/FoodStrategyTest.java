@@ -7,13 +7,9 @@ import ru.job4j.lsp.products.Bread;
 import ru.job4j.lsp.products.Chips;
 import ru.job4j.lsp.products.Food;
 import ru.job4j.lsp.products.Milk;
-import ru.job4j.lsp.storages.Shop;
-import ru.job4j.lsp.storages.StoragePlace;
-import ru.job4j.lsp.storages.Trash;
-import ru.job4j.lsp.storages.Warehouse;
+import ru.job4j.lsp.storages.*;
 import ru.job4j.lsp.strategies.ControlQuality;
 import ru.job4j.lsp.utility.DateManager;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.*;
@@ -22,9 +18,10 @@ import java.util.*;
  * Testing strategy.
  */
 public class FoodStrategyTest {
-    private StoragePlace<Food> shop = new Shop(new ArrayList<>(), 100);
-    private StoragePlace<Food> warehouse = new Warehouse(new ArrayList<>(), 100);
-    private StoragePlace<Food> trash = new Trash(new ArrayList<>(), 100);
+    private StoragePlace<Food> shop = new Shop(new ArrayList<>());
+    private StoragePlace<Food> warehouse = new WareHouse(new ArrayList<>());
+    private StoragePlace<Food> trash = new Trash(new ArrayList<>());
+
     private Food bread1 = new Bread("WheatDream",
             DateManager.convertDate(new Date(), 4),
             DateManager.convertDate(new Date(), 0),
@@ -34,7 +31,6 @@ public class FoodStrategyTest {
             DateManager.convertDate(new Date(), 2),
             DateManager.convertDate(new Date(), -2),
             90.0, 0);
-
     private Food chips1 = new Chips("Lays",
             DateManager.convertDate(new Date(), -1),
             DateManager.convertDate(new Date(), -180),
@@ -60,7 +56,7 @@ public class FoodStrategyTest {
         heap.add(milk1);
         heap.add(chips1);
         heap.add(chips2);
-        StrategyLauncher sl = new StrategyLauncher(new ControlQuality(heap, shop, warehouse, trash));
+        StrategyLauncher sl = new StrategyLauncher(new ControlQuality(heap, List.of(shop, warehouse, trash)));
         sl.launch();
     }
 
@@ -77,35 +73,35 @@ public class FoodStrategyTest {
         Assert.assertThat(result, Is.is(expected));
     }
 
-    /**
-     * Testing shop low capacity.
-     */
+//    /**
+//     * Testing shop low capacity.
+//     */
+//
+//    @Test
+//    public void whenOver75PercentCapacityThenMessage() {
+//        PrintStream stOut = System.out;
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(out));
+//        shop = new Shop(new ArrayList<>(), 2);
+//        intiDatabase();
+//        Assert.assertThat(out.toString(), Is.is("Attention! Low capacity!" + System.lineSeparator()));
+//        System.setOut(stOut);
+//    }
 
-    @Test
-    public void whenOver75PercentCapacityThenMessage() {
-        PrintStream stOut = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
-        shop = new Shop(new ArrayList<>(), 2);
-        intiDatabase();
-        Assert.assertThat(out.toString(), Is.is("Attention! Low capacity!" + System.lineSeparator()));
-        System.setOut(stOut);
-    }
-
-    /**
-     * Testing trash full message.
-     */
-
-    @Test
-    public void whenOver100PercentCapacityThenMessage() {
-        PrintStream stOut = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
-        trash = new Trash(new ArrayList<>(), 0);
-        intiDatabase();
-        Assert.assertThat(out.toString(), Is.is("Trash is full!" + System.lineSeparator()));
-        System.setOut(stOut);
-    }
+//    /**
+//     * Testing trash full message.
+//     */
+//
+//    @Test
+//    public void whenOver100PercentCapacityThenMessage() {
+//        PrintStream stOut = System.out;
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        System.setOut(new PrintStream(out));
+//        trash = new Trash(new ArrayList<>(), 0);
+//        intiDatabase();
+//        Assert.assertThat(out.toString(), Is.is("Trash is full!" + System.lineSeparator()));
+//        System.setOut(stOut);
+//    }
 
     /**
      * Testing discount.
