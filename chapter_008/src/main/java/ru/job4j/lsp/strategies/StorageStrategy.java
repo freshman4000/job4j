@@ -5,7 +5,7 @@ package ru.job4j.lsp.strategies;
  */
 public interface StorageStrategy {
     /**
-     * Logic method that splits objects between storages.
+     * WinnerLogic method that splits objects between storages.
      */
     void sortProducts();
 }

@@ -34,6 +34,7 @@ public class Food {
      */
     private int discount;
 
+
     /**
      * Class constructor.
      *
@@ -133,11 +134,13 @@ public class Food {
 
     /**
      * id getter.
+     *
      * @return id.
      */
     public int getId() {
         return id;
     }
+
     /**
      * id setter.
      */
