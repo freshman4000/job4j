@@ -3,9 +3,9 @@ package ru.job4j.isp.actions;
 /**
  * Bulk action class.
  */
-public class Action121 implements Action {
+public class DoNothingAction implements Action {
     @Override
     public void doAction() {
-        System.out.println("Action on Task 1.2.1");
+        System.out.println("This is not leaf menu item");
     }
 }

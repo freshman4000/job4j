@@ -1,57 +1,28 @@
 package ru.job4j.isp;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 import org.hamcrest.core.Is;
 import ru.job4j.isp.inputs.BulkInput;
+import ru.job4j.isp.menus.Menu;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 /**
  * Testing menu.
  */
 public class MenuTest {
 
-    private Menu menu = new Menu(new ArrayList<>());
+    private Menu menu = new Menu();
 
-    @Before
-    public void initMenu() {
-        MenuItem item1 = new MenuItem("1 Task", null, new ArrayList<>());
-        MenuItem item11 = new MenuItem("1.1 Task", null, new ArrayList<>());
-        MenuItem item12 = new MenuItem("1.2 Task", null, new ArrayList<>());
-        item1.addChild(item11, item12);
-        item11.addParent(item1);
-        item12.addParent(item1);
-        MenuItem item111 = new MenuItem("1.1.1 Task", null, new ArrayList<>());
-        MenuItem item112 = new MenuItem("1.1.2 Task", null, new ArrayList<>());
-        item11.addChild(item111, item112);
-        item111.addParent(item11);
-        item112.addParent(item11);
-        MenuItem item121 = new MenuItem("1.2.1 Task", null, new ArrayList<>());
-        MenuItem item122 = new MenuItem("1.2.2 Task", null, new ArrayList<>());
-        item12.addChild(item121, item122);
-        item121.addParent(item12);
-        item122.addParent(item12);
-        MenuItem item2 = new MenuItem("2 Task", null, new ArrayList<>());
-        MenuItem item21 = new MenuItem("2.1 Task", null, new ArrayList<>());
-        MenuItem item22 = new MenuItem("2.2 Task", null, new ArrayList<>());
-        MenuItem item23 = new MenuItem("2.3 Task", null, new ArrayList<>());
-        item2.addChild(item21, item22, item23);
-        item21.addParent(item2);
-        item22.addParent(item2);
-        item23.addParent(item2);
-        menu.add(item1);
-        menu.add(item2);
-    }
 
     @Test
     public void when2TasksFirstWith2LvsSecWith1LvlThenAllSeparatedInGroups() {
         PrintStream stdOut = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
+        menu.init();
         menu.show();
         String expected =
                 "1 Task" + System.lineSeparator()
@@ -75,6 +46,7 @@ public class MenuTest {
         PrintStream stdOut = System.out;
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
+        menu.init();
         new StartUI(menu, new BulkInput(new String[]{"2.3", "exit"})).start();
         String expected = "Choose action or type \"exit\":" + System.lineSeparator()
                 + "1 Task" + System.lineSeparator()
@@ -88,7 +60,7 @@ public class MenuTest {
                 + "----2.1 Task" + System.lineSeparator()
                 + "----2.2 Task" + System.lineSeparator()
                 + "----2.3 Task" + System.lineSeparator()
-                + "Action on Task 2.3" + System.lineSeparator();
+                + "Action on Task 2.3" + System.lineSeparator() + System.lineSeparator();
 
         Assert.assertThat(out.toString(), Is.is(expected));
         System.setOut(stdOut);

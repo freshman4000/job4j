@@ -1,53 +1,60 @@
 package ru.job4j.isp;
 
-import ru.job4j.isp.actions.*;
 import ru.job4j.isp.inputs.Input;
 import ru.job4j.isp.inputs.UserInput;
+import ru.job4j.isp.menus.IMenu;
+import ru.job4j.isp.menus.Menu;
+import ru.job4j.isp.menus.MenuItem;
 
-import java.util.ArrayList;
-
+/**This class is responsible for starting user interface.
+ */
 public class StartUI {
-    private Menu menu;
+    private IMenu menu;
     private Input input;
 
-    public StartUI(Menu menu, Input input) {
+    /**
+     * Constructor.
+     * @param menu menu object passed to constructor.
+     * @param input particular input.
+     */
+    public StartUI(IMenu menu, Input input) {
         this.menu = menu;
         this.input = input;
     }
 
+    /**
+     * Method that starts user interface and communicates with user, asking him(her) to input
+     * the action number from displayed list. After user makes his(her) choice, this method
+     * seeks in list of menu items, if name of command is in list. If it is, it does action
+     * associated with this menu item.
+     */
     public void start() {
         System.out.println("Choose action or type \"exit\":");
         menu.show();
         while (true) {
+            boolean hasAnswer = false;
             String answer = input.getInput();
             if ("exit".equals(answer)) {
                 break;
             }
-            switch (answer) {
-                case "2.1":
-                    new ActionMaker(new Action21()).makeAction();
+            for (MenuItem item : menu.getMenuList()) {
+                if (answer.equals(item.getName().split(" ")[0])) {
+                    item.doAction();
+                    hasAnswer = true;
                     break;
-                case "2.2":
-                    new ActionMaker(new Action22()).makeAction();
-                    break;
-                case "2.3":
-                    new ActionMaker(new Action23()).makeAction();
-                    break;
-                case "1.1.1":
-                    new ActionMaker(new Action111()).makeAction();
-                    break;
-                case "1.1.2":
-                    new ActionMaker(new Action112()).makeAction();
-                    break;
-                case "1.2.1":
-                    new ActionMaker(new Action121()).makeAction();
-                    break;
-                case "1.2.2":
-                    new ActionMaker(new Action122()).makeAction();
-                    break;
-                default:
-                    System.out.println("no such action");
+                }
             }
+            System.out.println(hasAnswer ? "" : "No such command");
         }
+    }
+
+    /**
+     * Application entrance point. It starts application.
+     * @param args
+     */
+    public static void main(String[] args) {
+        Menu menu = new Menu();
+        menu.init();
+        new StartUI(menu, new UserInput()).start();
     }
 }
