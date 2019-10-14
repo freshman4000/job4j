@@ -13,12 +13,11 @@ public class StringGenerator implements Generator<String> {
 
     private String string;
     private Map<String, String> keys;
-    private Pattern pattern;
+    private final Pattern pattern = Pattern.compile("(\\$\\{[^${}]*}\\$)");
 
-    public StringGenerator(String string, Map<String, String> keys, Pattern pattern) {
+    public StringGenerator(String string, Map<String, String> keys) {
         this.keys = keys;
         this.string = string;
-        this.pattern = pattern;
     }
 
     /**

@@ -19,8 +19,7 @@ public class GeneratorTest {
     public void whenStringWithPatternKeysThenGetStringWithSubstitutedPatternsByKeyValues() {
         Map<String, String> map = new HashMap<>();
         map.put("name", "Petr");
-        Pattern pattern = Pattern.compile("(\\$\\{[^${}]*}\\$)");
-        Generator<String> generator = new StringGenerator("Hi, my name is ${name}$", map, pattern);
+        Generator<String> generator = new StringGenerator("Hi, my name is ${name}$", map);
         String result = "";
         try {
             result = generator.generate();
@@ -37,8 +36,7 @@ public class GeneratorTest {
     public void whenStringWithPatternKeysThenGetStringWithSubstitutedPatternsByKeyValues2() {
         Map<String, String> map = new HashMap<>();
         map.put("sos", "Aaaa");
-        Pattern pattern = Pattern.compile("(\\$\\{[^${}]*}\\$)");
-        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map, pattern);
+        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map);
         String result = "";
         try {
             result = generator.generate();
@@ -55,8 +53,7 @@ public class GeneratorTest {
     public void whenKeysNotPresentThenException() throws Exception {
         Map<String, String> map = new HashMap<>();
         map.put("sod", "Aaaa");
-        Pattern pattern = Pattern.compile("(\\$\\{[^${}]*}\\$)");
-        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map, pattern);
+        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map);
         String result = "";
         result = generator.generate();
     }
@@ -69,8 +66,7 @@ public class GeneratorTest {
         Map<String, String> map = new HashMap<>();
         map.put("sos", "Aaaa");
         map.put("name", "Petr");
-        Pattern pattern = Pattern.compile("(\\$\\{[^${}]*}\\$)");
-        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map, pattern);
+        Generator<String> generator = new StringGenerator("Help, ${sos}$, ${sos}$, ${sos}$", map);
         String result = "";
         result = generator.generate();
     }
