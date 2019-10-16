@@ -35,4 +35,14 @@ public class ControlQuality implements StorageStrategy {
             }
         }
     }
+
+    @Override
+    public void setHeap(List newHeap) {
+    this.heap = newHeap;
+    }
+
+    @Override
+    public List<StoragePlace<Food>> getStorageList() {
+    return storage;
+    }
 }

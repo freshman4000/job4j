@@ -7,6 +7,7 @@ import ru.job4j.lsp.products.*;
 import ru.job4j.lsp.storages.*;
 import ru.job4j.lsp.strategies.ControlQuality;
 import ru.job4j.lsp.strategies.ControlQualityV2;
+import ru.job4j.lsp.strategies.ControlQualityV3;
 import ru.job4j.lsp.utility.DateManager;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -78,6 +79,13 @@ public class FoodStrategyTest {
     };
     private List<FoodV2> heap = new ArrayList<>();
 
+    ControlQualityV3 sl = new ControlQualityV3(heap, List.of(
+            shopV2,
+            wareHouseV2,
+            wareHouseAdd,
+            wareHouseFridge,
+            trashV2,
+            repFacility));
 
     public void intiDatabase() {
         heap.add(carrot1);
@@ -87,14 +95,8 @@ public class FoodStrategyTest {
         heap.add(milk1V2);
         heap.add(chips1V2);
         heap.add(chips2V2);
-        StrategyLauncher sl = new StrategyLauncher(new ControlQualityV2(heap, List.of(
-                shopV2,
-                wareHouseV2,
-                wareHouseAdd,
-                wareHouseFridge,
-                trashV2,
-                repFacility)));
-        sl.launch();
+
+        sl.sortProducts();
     }
 
     /**
@@ -163,4 +165,24 @@ public class FoodStrategyTest {
         List<FoodV2> result = repFacility.getStorage();
         Assert.assertThat(result.get(0), Is.is(bread3V2));
     }
+    /**
+     * Testing resorting method.
+     */
+    @Test
+    public void whenDateExpiredThenResPuts1MoreBreadInRepFac() {
+        intiDatabase();
+        List<FoodV2> expected = new ArrayList<>(Arrays.asList(bread3V2));
+        List<FoodV2> result = repFacility.getStorage();
+        Assert.assertThat(result, Is.is(expected));
+        String prod = DateManager.convertDate(new Date(), -5);
+        String exp = DateManager.convertDate(new Date(), -1);
+        milk1V2.setCreateDate(DateManager.convertDate(prod));
+        milk1V2.setExpireDate(DateManager.convertDate(exp));
+        sl.resort();
+        expected = new ArrayList<>(Arrays.asList(bread3V2, milk1V2));
+        result.sort(cmp);
+        expected.sort(cmp);
+        Assert.assertThat(result, Is.is(expected));
+    }
+
 }

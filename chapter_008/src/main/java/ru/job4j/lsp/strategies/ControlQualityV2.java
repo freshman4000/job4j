@@ -1,6 +1,7 @@
 package ru.job4j.lsp.strategies;
 
 import ru.job4j.lsp.products.FoodV2;
+import ru.job4j.lsp.storages.StoragePlace;
 import ru.job4j.lsp.storages.StoragePlaceV2;
 
 import java.util.List;
@@ -31,5 +32,14 @@ public class ControlQualityV2 implements StorageStrategy {
                 sp.add(product);
             }
         }
+    }
+    @Override
+    public void setHeap(List newHeap) {
+        this.heap = newHeap;
+    }
+
+    @Override
+    public List<StoragePlaceV2> getStorageList() {
+        return storage;
     }
 }
