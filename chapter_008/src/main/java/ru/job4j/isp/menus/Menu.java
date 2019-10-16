@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * This class is responsible for one particular type of menu.
  */
-public class Menu extends IMenu {
+public class Menu implements IMenu {
     /**
      * List of root menu items.
      */

@@ -1,6 +1,5 @@
 package ru.job4j.isp.menus;
 
-import ru.job4j.isp.Show;
 import ru.job4j.isp.utility.SpacesMaker;
 import ru.job4j.isp.actions.Action;
 
