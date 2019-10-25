@@ -26,6 +26,7 @@
         <module>chapter_007</module>
 		<module>SqlRuParser</module>
         <module>chapter_008</module>
+        <module>seabattle</module>
     </modules>
 
 	<dependencies>
